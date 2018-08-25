@@ -55,7 +55,6 @@
                                         <td>{{ $user->lastname }}</td>
                                         <td>{{ $user->lrn }}</td>                                        
                                         <td>{{ $user->grade_level }}</td>
-                                        <td>{{ $user->position }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
