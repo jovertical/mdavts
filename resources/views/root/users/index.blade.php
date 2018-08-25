@@ -33,8 +33,6 @@
                                     <th>Last Name</th>
                                     <th>Learner's Reference Number</th>
                                     <th>Grade Level</th>
-                                    <th>Created by</th>
-                                    <th>Updated by</th>
                                 </tr>
                             </thead>
 
@@ -58,8 +56,6 @@
                                         <td>{{ $user->lrn }}</td>                                        
                                         <td>{{ $user->grade_level }}</td>
                                         <td>{{ $user->position }}</td>
-                                        <td>{{ optional($user->creator)->full_name }}</td>
-                                        <td>{{ optional($user->updater)->full_name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -77,7 +73,7 @@
 @endsection
 
 @section('modals')
-    @component('root.components.modal_confirmation')
+    @component('root.components.modals.confirmation')
         <p class="text-center">
             You are deleting a resource.
 

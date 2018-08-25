@@ -11,10 +11,9 @@ use App\Http\Controllers\Controller;
 class UsersController extends Controller
 {
    
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('type', '!=', 'admin')->get();
-
+        $users = User::where('type', 'user')->get();
         
         return view('root.users.index', compact('users'));
     }
@@ -46,12 +45,12 @@ class UsersController extends Controller
         return redirect()->route('root.users.index');
     }
 
-    public function edit() 
+    public function edit(Request $request, User $user) 
     {
-       return view('root.candidates.edit');
+       return view('root.users.edit', compact('user'));
     }
 
-    public function update()
+    public function update(Request $request, User $user)
     {
         $request->validate([
             'firstname' => 'required',

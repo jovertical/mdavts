@@ -34,7 +34,7 @@
                             name="first_name" 
                             id="first_name" 
                             class="form-control form-control-line" 
-                            value="{{ old('first_name') ?? $candidate->first_name}}" 
+                            value="{{ old('first_name') ?? $candidates->first_name}}" 
                             placeholder="Enter First Name">
                              
                             @if ($errors->has('first_name'))
@@ -54,7 +54,7 @@
                             name="middle_name" 
                             id="middle_name" 
                             class="form-control form-control-line" 
-                            value="{{ old('middle_name') ?? $candidate->middle_name }}"
+                            value="{{ old('middle_name') ?? $candidates->middle_name }}"
                             placeholder="Enter Middle Name"> 
                             
                             @if ($errors->has('middle_name'))
@@ -74,7 +74,7 @@
                             name="last_name" 
                             id="last_name" 
                             class="form-control form-control-line" 
-                            value="{{ old('last_name') ?? $candidate->last_name }}"
+                            value="{{ old('last_name') ?? $candidates->last_name }}"
                             placeholder="Enter Last Name"> 
                             
                             @if ($errors->has('last_name'))
@@ -94,7 +94,7 @@
                             name="position" 
                             id="position" 
                             class="form-control form-control-line" 
-                            value="{{ old('position') ?? $candidate->position }}" 
+                            value="{{ old('position') ?? $candidates->position }}" 
                             placeholder="Enter position">                            
                             
                             @if ($errors->has('position'))
@@ -114,7 +114,7 @@
                             name="party_list" 
                             id="party_list" 
                             class="form-control form-control-line" 
-                            value="{{ old('party_list') ?? $candidate->party_list}}"
+                            value="{{ old('party_list') ?? $candidates->party_list}}"
                             placeholder="Party List"> 
                             
                             @if ($errors->has('party_list'))
@@ -134,7 +134,7 @@
                         name="grade_level" 
                         id="grade_level" 
                         class="form-control form-control-line" 
-                        value="{{ old('grade_level') ?? $candidate->grade_level }}"
+                        value="{{ old('grade_level') ?? $candidates->grade_level }}"
                             placeholder="Grade Level"> @if ($errors->has('grade_level'))
                         <span class="text-danger">
                                     {{ $errors->first('grade_level') }}
@@ -147,7 +147,7 @@
 
                     <!-- Submit -->
                     <div class="form-group">
-                        <button type="submit" class="btn btn-info">
+                        <button type="submit" class="btn btn-info">z
                                 <i class="fa fa-plus"></i> Update
                             </button>
 
