@@ -40,11 +40,16 @@ Users @endslot
                         <div class="col-md">
                             <label for="Middle_Name">Middle Name</label>
 
-                            <input type="text" name="middlename" id="middlename" class="form-control form-control-line" value="{{ old('middlename') }}"
-                                placeholder="Enter Middle Name"> @if ($errors->has('middlename'))
-                            <span class="text-danger">
-                                {{ $errors->first('middlename') }}
-                            </span>
+                            <input type="text" 
+                            name="middlename" 
+                            id="middlename" 
+                            class="form-control form-control-line" 
+                            value="{{ old('middlename') }}"
+                            placeholder="Enter Middle Name"> 
+                            @if ($errors->has('middlename'))
+                                <span class="text-danger">
+                                    {{ $errors->first('middlename') }}
+                                </span>
                             @endif
                         </div>
                         <!--/.Middle Name -->

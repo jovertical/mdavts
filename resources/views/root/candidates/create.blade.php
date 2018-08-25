@@ -7,7 +7,7 @@
         @endslot
 
         <li class="breadcrumb-item">
-            <a href="{{ route('root.elections.index') }}">Candidates</a>
+            <a href="{{ route('root.candidates.index') }}">Candidates</a>
         </li>
 
         <li class="breadcrumb-item active">
@@ -162,7 +162,7 @@
                         <br/>
 
                         <!-- Submit -->
-                        <div class="form-group">
+                        <div class="form-group">z
                             <button type="submit" class="btn btn-info">
                                 <i class="fa fa-plus"></i> Create
                             </button>
