@@ -60,6 +60,23 @@
                         </li>
                     </ul>
                 </li>
+
+                 <li>
+                    <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-account-multiple"></i>
+                        <span class="hide-menu">School</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a href="{{ route('root.grades.index') }}">Grade</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('root.users.index') }}">Section   </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

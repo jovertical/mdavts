@@ -56,5 +56,7 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         });
 
         Route::resource('positions', 'PositionsController');
+        Route::resource('grades', 'GradesController');
+        Route::resource('section','SectionController');
     });
 });
