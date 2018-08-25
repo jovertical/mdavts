@@ -1,0 +1,153 @@
+<?php
+
+namespace App\Http\Controllers\Root;
+
+use App\Services\{ImageUploader, Notify};
+use App\Notifications\{AccountVerification};
+use App\{User};
+use DB;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class AdminsController extends Controller
+{
+    public function index()
+    {
+        $admins = User::where('type', 'admin')->get();
+
+        return view('root.admins.index', compact('admins'));
+    }
+
+    public function create()
+    {
+        return view('root.admins.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'birthdate' => 'required|date',
+            'gender' => 'required',
+            'email' => 'required|email|unique:users,deleted_at,null',
+        ]);
+
+        $admin = new User;
+
+        $admin->type = 'admin';
+        $admin->username = create_username($request->post('firstname'));
+
+        $admin->firstname = $request->input('firstname');
+        $admin->middlename = $request->input('middlename');
+        $admin->lastname = $request->input('lastname');
+        $admin->birthdate = $request->input('birthdate');
+        $admin->gender = $request->input('gender');
+        $admin->address = $request->input('address');
+        $admin->email = $request->input('email');
+        $admin->contact_number = $request->input('contact_number');
+
+        if ($request->hasFile('image')) {
+            $upload = ImageUploader::upload(
+                $request->file('image'), 'admins/'.$admin->uuid_text
+            );
+
+            if (count($upload)) {
+                $admin->path = $upload['path'];
+                $admin->directory = $upload['directory'];
+                $admin->filename = $upload['filename'];
+            }
+        }
+
+        if ($admin->save()) {
+            $token = create_token();
+
+            // store account verification.
+            $this->storeAccountVerification($admin, $token);
+
+            // send account verification email.
+            $admin->notify(
+                new AccountVerification(route('root.auth.verify.check', $token))
+            );
+
+            Notify::success('Admin created.', 'Success!');
+
+            return redirect()->route('root.admins.index');
+        }
+
+        Notify::warning('Cannot create admin.', 'Warning!');
+
+        return redirect()->route('root.admins.index');
+    }
+
+    public function edit(Request $request, User $admin)
+    {
+        return view('root.admins.edit', compact('admin'));
+    }
+
+    public function update(Request $request, User $admin)
+    {
+         $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'birthdate' => 'required|date',
+            'gender' => 'required',
+            'email' => "required|email|unique:users,email,{$admin->uuid},uuid",
+        ]);
+
+        $admin->firstname = $request->input('firstname');
+        $admin->middlename = $request->input('middlename');
+        $admin->lastname = $request->input('lastname');
+        $admin->birthdate = $request->input('birthdate');
+        $admin->gender = $request->input('gender');
+        $admin->address = $request->input('address');
+        $admin->email = $request->input('email');
+        $admin->contact_number = $request->input('contact_number');
+
+        if ($request->hasFile('image')) {
+            $upload = ImageUploader::upload(
+                $request->file('image'), 'admins/'.$admin->uuid_text
+            );
+
+            if (count($upload)) {
+                $admin->path = $upload['path'];
+                $admin->directory = $upload['directory'];
+                $admin->filename = $upload['filename'];
+            }
+        }
+
+        if ($admin->update()) {
+            Notify::success('Admin updated.', 'Success!');
+
+            return redirect()->route('root.admins.index');
+        }
+
+        Notify::warning('Cannot update admin.', 'Failed');
+
+        return redirect()->route('root.admins.index');
+    }
+
+    public function destroy(Request $request, User $admin)
+    {
+        if ($admin->delete()) {
+            Notify::success('Admin deleted.', 'Success!');
+
+            return redirect()->route('root.admins.index');
+        }
+
+        Notify::warning('Cannot delete admin account.', 'Warning!');
+
+        return redirect()->route('root.admins.index');
+    }
+
+    protected function storeAccountVerification(User $admin, $token)
+    {
+        DB::table('account_verifications')->where('email', $admin->email)->delete();
+
+        return DB::table('account_verifications')->insert([
+            'email' => $admin->email,
+            'token' => $token,
+            'created_at' => now()
+        ]);
+    }
+}
