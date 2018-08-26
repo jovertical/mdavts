@@ -97,7 +97,7 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="card">
                                     <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($user) }}" alt="">
-                                    <div class="card-body text-center">
+                                    <div class="card-body candidate">
                                         <h4 class="card-title">
                                             {{ $user->full_name_formal }}
                                         </h4>
@@ -114,18 +114,20 @@
                                             </span>
                                         </p>
 
-                                        <a
-                                            href="#"
-                                            class="btn btn-success link-nominate"
-                                            data-toggle="modal"
-                                            data-target="#modal-nominate"
-                                            data-user-uuid={{ $user->uuid_text }}
-                                            data-user-name="{{ $user->full_name_formal }}"
-                                            data-user-grade="{{ $user->grade_level }}"
-                                            data-user-section="{{ $user->section }}"
-                                        >
-                                            Nominate
-                                        </a>
+                                        <div class="candidate-footer">
+                                            <a
+                                                href="#"
+                                                class="btn btn-success link-nominate"
+                                                data-toggle="modal"
+                                                data-target="#modal-nominate"
+                                                data-user-uuid={{ $user->uuid_text }}
+                                                data-user-name="{{ $user->full_name_formal }}"
+                                                data-user-grade="{{ $user->grade_level }}"
+                                                data-user-section="{{ $user->section }}"
+                                            >
+                                                Nominate
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -179,6 +181,23 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('styles')
+    <style>
+        .candidate {
+            text-align: center;
+            min-height: 200px;
+        }
+
+        .candidate-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+        }
+    </style>
 @endsection
 
 @section('scripts')

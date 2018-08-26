@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-md-8 col-sm-10">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-center">
@@ -34,16 +34,18 @@
                                             </span>
                                         </p>
 
-                                        <form method="POST" action="">
-                                            @csrf
+                                        <div class="candidate-footer">
+                                            <form method="POST" action="">
+                                                @csrf
 
-                                            <input type="hidden" name="user_uuid" value="{{ $candidate->user->uuid_text }}">
-                                            <input type="hidden" name="position_uuid" value="{{ $position->uuid_text }}">
+                                                <input type="hidden" name="user_uuid" value="{{ $candidate->user->uuid_text }}">
+                                                <input type="hidden" name="position_uuid" value="{{ $position->uuid_text }}">
 
-                                            <button type="submit" class="btn btn-success">
-                                                Vote
-                                            </button>
-                                        </form>
+                                                <button type="submit" class="btn btn-success">
+                                                    Vote
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +94,15 @@
     <style>
         .candidate {
             text-align: center;
-            min-height: 175px;
+            min-height: 200px;
+        }
+
+        .candidate-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
         }
 
         .selected-candidate {

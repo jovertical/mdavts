@@ -23,7 +23,6 @@
     </head>
 
     <body>
-
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
@@ -33,7 +32,7 @@
         </div>
 
         <section id="wrapper">
-            <div class="login-register" style="background-image:url(/root/assets/images/background/MDA-Login.jpg); position:relative;">
+            <div class="login-register" style="background-color: #E0F2F1; position: relative;">
                 <div class="container-fluid">
                     @yield ('content')
                 </div>
