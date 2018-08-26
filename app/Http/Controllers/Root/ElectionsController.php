@@ -22,8 +22,8 @@ class ElectionsController extends Controller
         return view('root.elections.create');
     }
 
-   public function store(Request $request)
-   {
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'start_date' => 'required|date|after:today|before:end_date',
@@ -35,6 +35,15 @@ class ElectionsController extends Controller
         unset($election->files);
 
         if ($election->save()) {
+            // Store control numbers for each user with this election as reference.
+            User::where('type', 'user')->get()->each(function($user) use ($election) {
+                DB::table('election_control_numbers')->insert([
+                    'election_uuid' => $election->uuid,
+                    'user_uuid' => $user->uuid,
+                    'number' => mt_rand(100000, 999999)
+                ]);
+            });
+
             Notify::success('Election created.', 'Success!');
 
             return redirect()->route('root.elections.index');
@@ -52,7 +61,6 @@ class ElectionsController extends Controller
 
     public function update(Request $request, Election $election)
     {
-
         $request->validate([
             'name' => 'required',
             'start_date' => 'required|date|after:today|before:end_date',

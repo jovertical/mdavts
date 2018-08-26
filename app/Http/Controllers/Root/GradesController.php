@@ -28,36 +28,36 @@ class GradesController extends Controller
     {
          $request->validate([
              'level' => 'required',
-             'description' => 'required'   
+             'description' => 'required'
          ]);
- 
+
          $grades->fill($request->all());
- 
+
          if ($grades->save()) {
              Notify::success('Grades created.', 'Success!');
- 
+
              return redirect()->route('root.grades.index');
          }
- 
+
          Notify::warning('Failed to create a grades.', 'Warning!');
- 
+
          return redirect()->route('root.grades.index');
      }
 
-   
+
         public function destroy(Request $request, Grades $grade)
         {
             if ($grade->delete()) {
                 Notify::success('Year Level deleted.', 'Success!');
-    
+
                 return redirect()->route('root.grades.index');
             }
-    
+
             Notify::warning('Cannot delete Year Level.', 'Warning!');
-    
+
             return redirect()->route('root.grades.index');
         }
-     
+
         public function edit(Request $request, Grades $grade)
         {
             return view('root.grades.edit', compact('grade'));

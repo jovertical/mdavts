@@ -24,7 +24,6 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(1);
             $table->boolean('verified')->default(0);
 
-            $table->string('voters_number')->nullable();
             $table->string('lrn')->nullable();
             $table->integer('grade_level')->nullable();
             $table->string('section')->nullable();

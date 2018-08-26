@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Root;
 
 use Notify;
-use Hash;
-use App\User;
+use DB, Hash;
+use App\{User, Election};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
-   
+
     public function index(Request $request)
     {
         $users = User::where('type', 'user')->get();
-        
+
         return view('root.users.index', compact('users'));
     }
 
@@ -45,7 +45,7 @@ class UsersController extends Controller
         return redirect()->route('root.users.index');
     }
 
-    public function edit(Request $request, User $user) 
+    public function edit(Request $request, User $user)
     {
        return view('root.users.edit', compact('user'));
     }
@@ -83,5 +83,20 @@ class UsersController extends Controller
         Notify::warning('Cannot delete user.', 'Warning!');
 
         return redirect()->route('root.users.index');
+    }
+
+    public function showControlNumbers(User $user)
+    {
+        $control_numbers = DB::table('election_control_numbers as ecn')
+            ->where('user_uuid', $user->uuid)
+            ->get();
+
+        $control_numbers->each(function($number) use ($control_numbers) {
+            $number->election = Election::find($number->election_uuid)->first();
+        });
+
+        return view('root.users.control_numbers', compact(
+            ['user', 'control_numbers']
+        ));
     }
 }
