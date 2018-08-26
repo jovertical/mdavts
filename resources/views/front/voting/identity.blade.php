@@ -2,6 +2,21 @@
 
 @section('content')
     <div class="login-box">
+        <!-- Message -->
+        @if ($message = Session::get('message'))
+            @component('root.components.alert')
+                @slot('type')
+                    {{ $message['type'] }}
+                @endslot
+
+                @slot('title')
+                    {{ $message['title'] }}
+                @endslot
+
+                {{ $message['content'] }}
+            @endcomponent
+        @endif
+
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="{{ route('front.voting.identity') }}" class="form-horizontal form-material" id="loginform">

@@ -33,9 +33,10 @@
         </div>
 
         <section id="wrapper">
-            <div class="login-register" style="background-image:url(/root/assets/images/background/MDA-Login.jpg); position: relative;">
-
-                @yield ('content')
+            <div class="login-register" style="background-image:url(/root/assets/images/background/MDA-Login.jpg); position:relative;">
+                <div class="container-fluid">
+                    @yield ('content')
+                </div>
             </div>
         </section>
 

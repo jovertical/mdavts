@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use DB;
-use App\{Election, Position, User};
+use App\{Election, Position, Candidate, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,6 +39,24 @@ class VotesController extends Controller
     public function showVoteForm(Request $request, Election $election, User $user)
     {
         $pi = $request->input('pi') ?? 0;
+
+        if ($election->positions->count() < 1) {
+            $errors[] = 'Election needs at least one position.';
+        }
+
+        if ($election->candidates->count() < 1)  {
+            $errors[] = 'Election needs at least one candidate.';
+        }
+
+        if (count($errors ?? [])) {
+            session()->flash('message', [
+                'type' => 'danger',
+                'title' => 'Error!',
+                'content' => $errors[0]
+            ]);
+
+            return back();
+        }
 
         // increment position level.
         if ($request->has('next')) {
@@ -83,6 +101,23 @@ class VotesController extends Controller
 
     public function store(Request $request, Election $election, User $user)
     {
-        dd($user);
+        $user_uuids = array_values(session()->get('voting.selected'));
+
+        foreach ($user_uuids as $uuid) {
+            $candidate = Candidate::where(
+                'user_uuid', User::encodeUuid($uuid)
+            )->first();
+
+            $candidate->vote_count++;
+            $candidate->update();
+        }
+
+        return redirect()->route('front.voting.results', [$election, $user]);
+    }
+
+    public function showResultsPage(
+        Request $request, Election $election, User $user
+    ) {
+        return view('front.voting.results', compact(['election', 'user']));
     }
 }
