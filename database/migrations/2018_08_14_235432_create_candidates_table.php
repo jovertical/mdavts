@@ -18,6 +18,7 @@ class CreateCandidatesTable extends Migration
             $table->uuid('user_uuid');
             $table->uuid('election_uuid');
             $table->uuid('position_uuid');
+            $table->integer('vote_count')->nullable();
 
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();

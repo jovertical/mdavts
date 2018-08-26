@@ -11,6 +11,9 @@ class VotesController extends Controller
 {
     public function showIdentityForm()
     {
+        // linisin ang naiwang sakit.
+        session()->forget('voting');
+
         return view('front.voting.identity');
     }
 
@@ -76,5 +79,10 @@ class VotesController extends Controller
         session(["voting.selected.{$puuid}" => $u_uuid]);
 
         return back();
+    }
+
+    public function store(Request $request, Election $election, User $user)
+    {
+        dd($user);
     }
 }

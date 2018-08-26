@@ -53,7 +53,7 @@
 
                     <div class="row">
                         <div class="col-md">
-                            <!-- Submit -->
+                            <!-- Links -->
                             <div class="form-group">
                                 <a
                                     href="?pi={{ Request::input('pi') }}&back"
@@ -62,14 +62,24 @@
                                     Back
                                 </a>
 
-                                <a
-                                    href="?pi={{ Request::input('pi') }}&next"
-                                    class="btn btn-success float-right {{  Request::input('pi') >= ($election->positions->count() - 1) ? 'disabled' : '' }}"
-                                >
-                                    Next
-                                </a>
+                                @if (Request::input('pi') < ($election->positions->count() - 1))
+                                    <a
+                                        href="?pi={{ Request::input('pi') }}&next"
+                                        class="btn btn-success float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
+                                    >
+                                        Next
+                                    </a>
+                                @else
+                                    <form method="POST" action="{{ route('front.voting.store', [$election, $user]) }}">
+                                        @csrf
+
+                                        <button type="submit" class="btn btn-success float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
+                                            Submit
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
-                            <!--/. Submit -->
+                            <!--/. Links -->
                         </div>
                     </div>
                 </div>

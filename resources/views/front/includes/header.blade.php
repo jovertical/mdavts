@@ -50,7 +50,8 @@
 
 
                 <li class="nav-item hidden-sm-down">
-                    <a href="{{ route('front.voting.identity') }}" class="nav-link text-muted waves-effect waves-dark">
+                    <a href="#" class="nav-link text-muted waves-effect waves-dark"
+                            onclick="window.open('{{ route('front.voting.identity') }}')">
                         Voting System
                     </a>
                 </li>
