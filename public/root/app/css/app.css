@@ -1,4 +1,8 @@
-.navbar {
-    background-color: maroon!important;
-    border: 1px solid red!important;
+.btn.btn-success {
+    background-color: #00796B;
+    border-color: #B2DFDB;
+}
+
+.bg-success {
+    background-color: #00796B!important;
 }

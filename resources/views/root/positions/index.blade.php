@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>Actions</th>
                                     <th>Name</th>
+                                    <th>Level</th>
                                     <th>Elections</th>
                                 </tr>
                             </thead>
@@ -53,6 +54,7 @@
                                             </a>
                                         </td>
                                         <td>{{ $position->name }}</td>
+                                        <td>{{ $position->level }}</td>
                                         <td>{{ optional($position->elections)->count() ?? 0 }}</td>
                                     </tr>
                                 @endforeach

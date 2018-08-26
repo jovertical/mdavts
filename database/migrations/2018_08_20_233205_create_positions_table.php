@@ -17,6 +17,7 @@ class CreatePositionsTable extends Migration
             $table->uuid('uuid');
             $table->string('name');
             $table->text('description')->nullable();
+            $table->integer('level');
 
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();

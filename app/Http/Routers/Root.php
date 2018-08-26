@@ -42,6 +42,8 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::resource('elections', 'ElectionsController');
         Route::resource('candidates', 'CandidatesController');
         Route::resource('users', 'UsersController');
+        Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')
+            ->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
             Route::name('positions.')->group(function() {

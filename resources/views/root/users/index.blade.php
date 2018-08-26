@@ -45,6 +45,10 @@
                                                 <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
                                             </a>
 
+                                            <a href="{{ route('root.users.control-numbers', $user) }}" class="link-show-control-numbers" data-toggle="tooltip" data-original-title="Control Numbers">
+                                                <i class="fas fa-key text-inverse m-r-10"></i>
+                                            </a>
+
                                             <a href="#" data-action="{{ route('root.users.destroy', $user) }}" class="link-destroy-user"
                                                 data-toggle="tooltip" data-original-title="Delete">
                                                 <i class="fas fa-window-close text-danger"></i>
@@ -53,7 +57,7 @@
                                         <td>{{ $user->firstname }}</td>
                                         <td>{{ $user->middlename }}</td>
                                         <td>{{ $user->lastname }}</td>
-                                        <td>{{ $user->lrn }}</td>                                        
+                                        <td>{{ $user->lrn }}</td>
                                         <td>{{ $user->grade_level }}</td>
                                     </tr>
                                 @endforeach
