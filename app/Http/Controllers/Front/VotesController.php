@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use DB;
-use App\{Election, Position, Candidate, User};
+use App\{User, Election, Position, Candidate};
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,6 +28,24 @@ class VotesController extends Controller
         $control_number = DB::table('election_control_numbers')
             ->where('number', $request->input('control_number'))
             ->first();
+
+        if ($control_number->used) {
+            $errors[] = 'The provided control number is already used.';
+        }
+
+        if (count($errors ?? [])) {
+            session()->flash('message', [
+                'type' => 'danger',
+                'title' => 'Error!',
+                'content' => 'The system cannot process your request. Please try again.'
+            ]);
+
+            throw ValidationException::withMessages([
+                'control_number' => $errors[0]
+            ]);
+
+            return back();
+        }
 
         $election = Election::find($control_number->election_uuid ?? null);
         $user = User::find($control_number->user_uuid ?? null);
@@ -103,14 +122,23 @@ class VotesController extends Controller
     {
         $user_uuids = array_values(session()->get('voting.selected'));
 
+        // Add Candidate Vote for each candidate (of course).
         foreach ($user_uuids as $uuid) {
             $candidate = Candidate::where(
                 'user_uuid', User::encodeUuid($uuid)
             )->first();
 
-            $candidate->vote_count++;
-            $candidate->update();
+            DB::table('candidate_votes')->insert([
+                'candidate_uuid' => $candidate->uuid,
+                'user_uuid' => $user->uuid
+            ]);
         }
+
+        // Set control number of user as used, for this election.
+        DB::table('election_control_numbers')
+            ->where('election_uuid', $election->uuid)
+            ->where('user_uuid', $user->uuid)
+            ->update(['used' => 1]);
 
         return redirect()->route('front.voting.results', [$election, $user]);
     }
@@ -118,6 +146,14 @@ class VotesController extends Controller
     public function showResultsPage(
         Request $request, Election $election, User $user
     ) {
-        return view('front.voting.results', compact(['election', 'user']));
+        $uuids = DB::table('candidate_votes')
+            ->where('user_uuid', $user->uuid)
+            ->pluck('candidate_uuid');
+
+        $candidates = Candidate::whereIn('uuid', $uuids)->orderBy('level')->get();
+
+        return view('front.voting.results', compact(
+            ['election', 'user', 'candidates']
+        ));
     }
 }

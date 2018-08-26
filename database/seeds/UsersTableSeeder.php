@@ -18,17 +18,5 @@ class UsersTableSeeder extends Seeder
             'verified' => 1,
             'type' => 'admin',
         ]);
-
-        \App\User::create([
-            'verified' => 1,
-            'type' => 'user',
-
-            'lrn' => '2014-00345-SM-0',
-            'grade_level' => 5,
-            'section' => 'Kind',
-
-            'firstname' => 'John',
-            'lastname' => 'Doe',
-        ]);
     }
 }

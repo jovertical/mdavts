@@ -63,7 +63,7 @@
 
                  <li>
                     <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-account-multiple"></i>
+                        <i class="mdi mdi-school"></i>
                         <span class="hide-menu">School</span>
                     </a>
 

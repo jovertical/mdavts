@@ -21,10 +21,10 @@
                             </thead>
 
                             <tbody>
-                                @foreach(range(1, 5) as $fuck)
+                                @foreach($candidates as $candidate)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $candidate->position->name }}</td>
+                                        <td>{{ $candidate->user->full_name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
