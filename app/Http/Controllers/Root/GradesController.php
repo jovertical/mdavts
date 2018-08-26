@@ -63,7 +63,7 @@ class GradesController extends Controller
             return view('root.grades.edit', compact('grade'));
         }
 
-        public function update(Request $request, Election $election)
+        public function update(Request $request, Grades $grade)
     {
 
         $request->validate([

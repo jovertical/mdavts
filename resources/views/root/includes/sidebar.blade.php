@@ -73,7 +73,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('root.users.index') }}">Section   </a>
+                            <a href="{{ route('root.sections.index') }}">Section   </a>
                         </li>
                     </ul>
                 </li>
