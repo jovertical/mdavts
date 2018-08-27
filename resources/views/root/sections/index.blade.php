@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Sections</h4>
                     <h6 class="card-subtitle">
-                        This is the list of Sections.
+                        This is the list of Sections
                     </h6>
 
                     <div class="table-responsive m-t-40">
