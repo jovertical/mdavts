@@ -35,8 +35,8 @@
                 <div class="d-flex mt-5">
                     <!-- Links -->
                     <div class="form-group">
-                        <a href="{{ route('front.voting.identity') }}" class="btn btn-secondary float-left">
-                            <i class="fa fa-redo"></i> Vote Again
+                        <a href="{{ route('front.voting.identity') }}" class="btn btn-secondary btn-loading float-left">
+                            <i class="fas fa-redo"></i> Vote Again
                         </a>
                     </div>
                     <!--/. Links -->

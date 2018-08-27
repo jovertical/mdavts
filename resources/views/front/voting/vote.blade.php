@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title text-center">
-                    Voting: {{ $position->name }}
+                    {{ $position->name }}
                 </h4>
 
                 <div class="mb-4"></div>
@@ -40,8 +40,8 @@
                                             <input type="hidden" name="user_uuid" value="{{ $candidate->user->uuid_text }}">
                                             <input type="hidden" name="position_uuid" value="{{ $position->uuid_text }}">
 
-                                            <button type="submit" class="btn btn-success">
-                                                Vote
+                                            <button type="submit" class="btn btn-success btn-loading">
+                                                <i class="fas fa-thumbs-up"></i> Vote
                                             </button>
                                         </form>
                                     </div>
@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <a
                                 href="?pi={{ Request::input('pi') }}&back"
-                                class="btn btn-secondary float-left {{ Request::input('pi') == 0 ? 'disabled' : '' }}"
+                                class="btn btn-secondary btn-loading float-left {{ Request::input('pi') == 0 ? 'disabled' : '' }}"
                             >
                                 Back
                             </a>
@@ -66,7 +66,7 @@
                             @if (Request::input('pi') < ($election->positions->count() - 1))
                                 <a
                                     href="?pi={{ Request::input('pi') }}&next"
-                                    class="btn btn-success float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
+                                    class="btn btn-success btn-loading float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
                                 >
                                     Next
                                 </a>
@@ -74,7 +74,7 @@
                                 <form method="POST" action="{{ route('front.voting.store', [$election, $user]) }}">
                                     @csrf
 
-                                    <button type="submit" class="btn btn-success float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
+                                    <button type="submit" class="btn btn-success btn-loading float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
                                         Submit
                                     </button>
                                 </form>
