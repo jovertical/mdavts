@@ -29,10 +29,13 @@
                 justify-content: center;
                 align-items: center;
                 background-color: #80CBC4;
+                background-size: 100%;
+                background-repeat: repeat;
             }
 
             .main-content {
                 margin: 0;
+                padding: 0;
             }
 
             @media only screen and (min-width: 992px) {

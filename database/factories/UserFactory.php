@@ -27,6 +27,9 @@ $factory->define(App\User::class, function (Faker $faker) {
         'birthdate' => $faker->date,
         'gender' => $faker->randomElements(['male', 'female'])[0],
         'address' => $faker->address,
-        'contact_number' => $faker->phoneNumber
+        'contact_number' => $faker->phoneNumber,
+
+        'grade_level' => mt_rand(0, 12),
+        'section' => ucwords($faker->word)
     ];
 });

@@ -6,6 +6,10 @@ class Notify
 {
     public static function notification()
     {
+        if (! session()->has('notification')) {
+            return;
+        }
+
         return '
             <script>
                 $.toast({
