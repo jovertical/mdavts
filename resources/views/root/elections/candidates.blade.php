@@ -90,49 +90,61 @@
                             <!--/. Submit -->
                         </div>
                     </form>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-body">
                     <div class="row">
-                        @foreach ($users as $user)
-                            <!-- user -->
-                            <div class="col-lg-3 col-md-6">
-                                <div class="card">
-                                    <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($user) }}" alt="">
-                                    <div class="card-body candidate">
-                                        <h4 class="card-title">
-                                            {{ $user->full_name_formal }}
-                                        </h4>
+                        @unless(count($users))
+                            <div class="col-md p-5 text-center">
+                                <span class="font-weight-normal">
+                                    No results yet, Try searching for a name.
+                                </span>
+                            </div>
+                        @else
+                            @foreach ($users as $user)
+                                <!-- user -->
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($user) }}" alt="">
+                                        <div class="card-body candidate">
+                                            <h4 class="card-title">
+                                                {{ $user->full_name_formal }}
+                                            </h4>
 
-                                        <p class="card-text">
-                                            <span class="font-weight-normal">
-                                                {{ $user->grade_level.' - '.$user->section }}
-                                            </span>
-                                        </p>
+                                            <p class="card-text">
+                                                <span class="font-weight-normal">
+                                                    {{ $user->grade_level.' - '.$user->section }}
+                                                </span>
+                                            </p>
 
-                                        <p class="card-text">
-                                            <span class="font-weight-bold">
-                                                {{ $user->lrn }}
-                                            </span>
-                                        </p>
+                                            <p class="card-text">
+                                                <span class="font-weight-bold">
+                                                    {{ $user->lrn }}
+                                                </span>
+                                            </p>
 
-                                        <div class="candidate-footer">
-                                            <a
-                                                href="#"
-                                                class="btn btn-success link-nominate"
-                                                data-toggle="modal"
-                                                data-target="#modal-nominate"
-                                                data-user-uuid={{ $user->uuid_text }}
-                                                data-user-name="{{ $user->full_name_formal }}"
-                                                data-user-grade="{{ $user->grade_level }}"
-                                                data-user-section="{{ $user->section }}"
-                                            >
-                                                Nominate
-                                            </a>
+                                            <div class="candidate-footer">
+                                                <a
+                                                    href="#"
+                                                    class="btn btn-success link-nominate"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-nominate"
+                                                    data-user-uuid={{ $user->uuid_text }}
+                                                    data-user-name="{{ $user->full_name_formal }}"
+                                                    data-user-grade="{{ $user->grade_level }}"
+                                                    data-user-section="{{ $user->section }}"
+                                                >
+                                                    Nominate
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--/. user -->
-                        @endforeach
+                                <!--/. user -->
+                            @endforeach
+                        @endunless
                     </div>
                 </div>
             </div>
