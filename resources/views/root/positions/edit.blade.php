@@ -47,6 +47,27 @@
                         </div>
                         <!--/. Name -->
 
+                        <!-- Level -->
+                        <div class="form-group">
+                            <label for="name">Level</label>
+
+                            <input
+                                type="number"
+                                name="level"
+                                id="level"
+                                class="form-control form-control-line"
+                                value="{{ old('level') ?? $position->level }}"
+                                placeholder="Enter level"
+                            >
+
+                            @if ($errors->has('level'))
+                                <span class="text-danger">
+                                    {{ $errors->first('level') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Level -->
+
                         <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
@@ -70,11 +91,11 @@
 
                         <!-- Submit -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">
-                                <i class="fa fa-plus"></i> Create
+                            <button type="submit" class="btn btn-info btn-loading">
+                                <i class="fas fa-edit"></i> Update
                             </button>
 
-                            <a href="{{ route('root.positions.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('root.positions.index') }}" class="btn btn-secondary btn-loading">
                                 Cancel
                             </a>
                         </div>

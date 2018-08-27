@@ -34,39 +34,43 @@
                     </h6>
 
                     <div class="table-responsive m-t-40">
-                        <table id="table-control-numbers" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Actions</th>
-                                    <th>Election</th>
-                                    <th>Number</th>
-                                    <th>Valid</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($control_numbers as $number)
+                        <div>
+                            <table id="table-control-numbers" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-nowrap">
-                                            <a href="#" class="link-print-control-number" data-toggle="tooltip" data-original-title="Print Control Number">
-                                                <i class="fas fa-print text-inverse m-r-10"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('root.elections.edit', $number->election) }}">
-                                                {{ $number->election->name }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="font-weight-bold">
-                                                {{ $number->number }}
-                                            </span>
-                                        </td>
-                                        <td>Yes</td>
+                                        <th>Actions</th>
+                                        <th>Election</th>
+                                        <th>Number</th>
+                                        <th>Used</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($control_numbers as $number)
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <a href="#" class="link-print-control-number" data-toggle="tooltip" data-original-title="Print Control Number">
+                                                    <i class="fas fa-print text-inverse m-r-10"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('root.elections.edit', $number->election) }}">
+                                                    {{ $number->election->name }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    {{ $number->number }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {{ $number->used ? 'YES' : 'NO' }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

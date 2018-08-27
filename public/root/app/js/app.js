@@ -23,3 +23,18 @@ var closeFullscreen = function () {
         document.msExitFullscreen();
     }
 }
+
+// Loading animation in buttons.
+$('.btn-loading').on('click', function(event) {
+    var el = $(this);
+    var icon = '<i class="fas fa-spinner fa-spin"></i>';
+
+    // disable all other buttons, links.
+    $('button, a').addClass('disabled');
+
+    if (el.has('i')) {
+        el.children('i').remove();
+    }
+
+    $(el).prepend(icon);
+});

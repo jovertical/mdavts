@@ -12,8 +12,8 @@
 
         @slot('action')
             <form method="GET" action="{{ route('root.admins.create') }}">
-                <button type="submit" class="btn btn-info float-right">
-                    <i class="fa fa-plus"></i> Create
+                <button type="submit" class="btn btn-info btn-loading float-right">
+                    <i class="fas fa-plus"></i> Create
                 </button>
             </form>
         @endslot
@@ -51,11 +51,6 @@
                                                     data-toggle="tooltip" data-original-title="Edit">
                                                     <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
                                                 </a>
-
-                                                <a href="#" data-action="{{ route('root.admins.destroy', $admin) }}" class="link-destroy-admin"
-                                                    data-toggle="tooltip" data-original-title="Delete">
-                                                    <i class="fas fa-window-close text-danger"></i>
-                                                </a>
                                             </td>
                                             <td>
                                                 <div class="d-flex">
@@ -83,23 +78,6 @@
             </div>
         </div>
     </div>
-
-    <form method="POST" action="" id="form-destroy-admin" style="display: none;">
-        @csrf
-        @method('DELETE')
-    </form>
-@endsection
-
-@section('modals')
-    @component('root.components.modals.confirmation')
-        <p class="text-center">
-            You are deleting a resource.
-
-            <br />
-
-            Warning: you cannot undo this action!
-        </p>
-    @endcomponent
 @endsection
 
 @section('scripts')
@@ -108,18 +86,6 @@
     <script>
         $('#table-admins').DataTable({
             "bLengthChange" : false,
-        });
-
-        $('.link-destroy-admin').on('click', function(event) {
-            var action = $(this).data('action');
-            var form = $('#form-destroy-admin');
-            var modal = $("#modal-confirmation");
-
-            form.attr({action: action});
-
-            modal.modal().on('click', '#btn-modal-confirm', function() {
-                form.submit();
-            });
         });
     </script>
 @endsection

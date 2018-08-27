@@ -59,11 +59,11 @@
 
                         <!-- Submit -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">
-                                <i class="fa fa-check"></i> Pick &nbsp;&nbsp;
+                            <button type="submit" class="btn btn-info btn-loading">
+                                <i class="fas fa-check"></i> Set &nbsp;&nbsp;
                             </button>
 
-                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">
                                 Cancel
                             </a>
                         </div>

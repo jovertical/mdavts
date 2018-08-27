@@ -82,7 +82,7 @@
                             <!-- Submit -->
                             <div class="col-md">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-info">
+                                    <button type="submit" class="btn btn-info btn-loading">
                                         <i class="fa fa-search"></i> Search
                                     </button>
                                 </div>
@@ -136,7 +136,7 @@
                                                     data-user-grade="{{ $user->grade_level }}"
                                                     data-user-section="{{ $user->section }}"
                                                 >
-                                                    Nominate
+                                                    <i class="fas fa-ribbon"></i> Nominate
                                                 </a>
                                             </div>
                                         </div>
@@ -186,7 +186,9 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" id="btn-modal-nominate" class="btn btn-info waves-effect">Nominate</button>
+                        <button type="submit" id="btn-modal-nominate" class="btn btn-info btn-loading waves-effect">
+                            <i class="fas fa-ribbon"></i> Nominate
+                        </button>
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>

@@ -129,15 +129,7 @@ class AdminsController extends Controller
 
     public function destroy(Request $request, User $admin)
     {
-        if ($admin->delete()) {
-            Notify::success('Admin deleted.', 'Success!');
-
-            return redirect()->route('root.admins.index');
-        }
-
-        Notify::warning('Cannot delete admin account.', 'Warning!');
-
-        return redirect()->route('root.admins.index');
+        // wag burahin, sayang ang memories XD
     }
 
     protected function storeAccountVerification(User $admin, $token)

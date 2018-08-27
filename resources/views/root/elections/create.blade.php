@@ -119,11 +119,11 @@
 
                         <!-- Submit -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">
-                                <i class="fa fa-plus"></i> Create
+                            <button type="submit" class="btn btn-info btn-loading">
+                                <i class="fas fa-plus"></i> Create
                             </button>
 
-                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">
                                 Cancel
                             </a>
                         </div>

@@ -37,7 +37,7 @@
                                         name="firstname"
                                         id="firstname"
                                         class="form-control form-control-line"
-                                        value="{{ $admin->firstname }}"
+                                        value="{{ old('firstname') ?? $admin->firstname }}"
                                         placeholder="Enter First Name"
                                     >
 
@@ -58,7 +58,7 @@
                                         name="middlename"
                                         id="middlename"
                                         class="form-control form-control-line"
-                                        value="{{ $admin->middlename }}"
+                                        value="{{ old('middlename') ?? $admin->middlename }}"
                                         placeholder="Enter Middle Name"
                                     >
 
@@ -79,7 +79,7 @@
                                         name="lastname"
                                         id="lastname"
                                         class="form-control form-control-line"
-                                        value="{{ $admin->lastname }}"
+                                        value="{{ old('lastname') ?? $admin->lastname }}"
                                         placeholder="Enter Last Name"
                                     >
 
@@ -102,7 +102,7 @@
                                 name="birthdate"
                                 id="birthdate"
                                 class="form-control form-control-line"
-                                value="{{ $admin->birthdate }}"
+                                value="{{ old('birthdate') ?? $admin->birthdate }}"
                                 placeholder="Enter Birth Date"
                             >
 
@@ -120,8 +120,8 @@
 
                             <select name="gender" id="gender" class="form-control">
                                 <option selected disabled>Please select a gender</option>
-                                <option value="male" {{ $admin->gender == 'male' ? 'selected' : '' }}>Male</option>
-                                <option value="female" {{ $admin->gender == 'female' ? 'selected' : '' }}>Female</option>
+                                <option value="male" {{  old('gender') ?? $admin->gender == 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{  old('gender') ?? $admin->gender == 'female' ? 'selected' : '' }}>Female</option>
                             </select>
 
                             @if ($errors->has('gender'))
@@ -141,7 +141,7 @@
                                 name="address"
                                 id="address"
                                 class="form-control form-control-line"
-                                value="{{ $admin->address }}"
+                                value="{{ old('address') ?? $admin->address }}"
                                 placeholder="Enter Address"
                             >
 
@@ -202,7 +202,7 @@
                                 <div class="form-control" data-trigger="fileinput">
                                     <i class="glyphicon glyphicon-file fileinput-exists"></i>
                                     <span class="fileinput-filename">
-                                        {{ $admin->filename }}
+                                        {{ old('filename') ?? $admin->filename }}
                                     </span>
                                 </div>
 
@@ -220,11 +220,11 @@
 
                         <!-- Submit -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">
-                                <i class="fa fa-edit"></i> Update
+                            <button type="submit" class="btn btn-info btn-loading">
+                                <i class="fas fa-edit"></i> Update
                             </button>
 
-                            <a href="{{ route('root.admins.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('root.admins.index') }}" class="btn btn-secondary btn-loading">
                                 Cancel
                             </a>
                         </div>

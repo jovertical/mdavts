@@ -88,7 +88,7 @@ class UsersController extends Controller
     public function showControlNumbers(User $user)
     {
         $control_numbers = DB::table('election_control_numbers as ecn')
-            ->where('user_uuid', $user->uuid)
+            ->where('voter_uuid', $user->uuid)
             ->get();
 
         $control_numbers->each(function($number) use ($control_numbers) {

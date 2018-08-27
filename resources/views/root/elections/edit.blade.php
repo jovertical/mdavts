@@ -115,11 +115,11 @@
                         <br/>
                         <!-- Submit -->
                         <div class="col-md">
-                            <button type="submit" class="btn btn-info">
-                                <i class="fa fa-edit"></i> Update
+                            <button type="submit" class="btn btn-info btn-loading">
+                                <i class="fas fa-edit"></i> Update
                             </button>
 
-                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">
                                 Cancel
                             </a>
                         </div>

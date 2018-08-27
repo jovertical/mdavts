@@ -104,21 +104,7 @@
         <!-- ============================================================== -->
         <script src="/root/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
-        <script>
-            $('.btn-loading').on('click', function(event) {
-                var el = $(this);
-                var icon = '<i class="fas fa-spinner fa-spin"></i>';
-
-                // disable all other buttons, links.
-                $('button, a').addClass('disabled');
-
-                if (el.has('i')) {
-                    el.children('i').remove();
-                }
-
-                $(el).prepend(icon);
-            });
-        </script>
+        <script src="/root/app/js/app.js"></script>
 
         @yield('scripts')
     </body>
