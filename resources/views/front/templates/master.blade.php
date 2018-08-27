@@ -19,6 +19,43 @@
 
         <link href="/root/app/css/app.css" id="theme" rel="stylesheet">
 
+        <style>
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #80CBC4;
+            }
+
+            .main-content {
+                margin: 0;
+            }
+
+            @media only screen and (min-width: 992px) {
+                .wrapper-large {
+                    width: 600px;
+                }
+
+                .wrapper-small {
+                    width: 300px;
+                }
+            }
+
+            @media only screen and (min-width: 1200px) {
+                .wrapper-large {
+                    width: 800px;
+                }
+
+                .wrapper-small {
+                    width: 400px;
+                }
+            }
+        </style>
+
         @yield('styles')
     </head>
 
@@ -28,14 +65,13 @@
         <!-- ============================================================== -->
         <div class="preloader">
             <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+            </svg>
         </div>
 
-        <section id="wrapper">
-            <div class="login-register" style="background-color: #E0F2F1; position: relative;">
-                <div class="container-fluid">
-                    @yield ('content')
-                </div>
+        <section>
+            <div class="main-content">
+                @yield('content')
             </div>
         </section>
 

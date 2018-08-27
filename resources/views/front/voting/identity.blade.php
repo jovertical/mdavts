@@ -1,7 +1,7 @@
 @extends('front.templates.master')
 
 @section('content')
-    <div class="login-box">
+    <div class="wrapper-small">
         <!-- Message -->
         @if ($message = Session::get('message'))
             @component('root.components.alert')
