@@ -162,7 +162,6 @@ return [
 
         // Custom Service Providers
         Intervention\Image\ImageServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
@@ -214,7 +213,6 @@ return [
 
         // Custom Service Provider's aliases
         'Carbon' => Carbon\Carbon::class,
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Notify' => App\Services\Notify::class,
         'Str' => Illuminate\Support\Str::class,
