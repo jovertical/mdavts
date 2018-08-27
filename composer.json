@@ -13,8 +13,7 @@
         "laravel/tinker": "^1.0",
         "moontoast/math": "^1.1",
         "spatie/laravel-binary-uuid": "^1.2",
-        "valorin/pwned-validator": "^1.0",
-        "yajra/laravel-datatables": "^1.0"
+        "valorin/pwned-validator": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
