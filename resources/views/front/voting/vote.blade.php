@@ -10,12 +10,15 @@
 
                 <div class="mb-4"></div>
 
-                <div class="row justify-content-center">
+                <div class="row justify-content-center zoom-gallery">
                     @foreach ($candidates as $candidate)
                         <!-- user -->
                         <div class="col-lg-3 col-md-6">
                             <div class="card">
-                                <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($candidate->user) }}" alt="">
+                                <a href="{{ avatar_thumbnail_path($candidate->user) }}" title="{{ $candidate->user->full_name }}">
+                                    <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($candidate->user) }}">
+                                </a>
+
                                 <div class="card-body candidate {{ session()->get("voting.selected.{$position->uuid_text}") == $candidate->user->uuid_text ? 'selected-candidate' : '' }}">
                                     <h4 class="card-title">
                                         {{ $candidate->user->full_name_formal }}
@@ -89,6 +92,8 @@
 @endsection
 
 @section('styles')
+    <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+
     <style>
         .candidate {
             text-align: center;
@@ -103,6 +108,14 @@
             padding: 20px;
         }
 
+        .position-indicator {
+            list-style-type: none;
+        }
+
+        .position-indicator li {
+            display: inline;
+        }
+
         .selected-candidate {
             background-color: #00796B!important;
         }
@@ -115,4 +128,9 @@
             display: none!important;
         }
     </style>
+@endsection
+
+@section('scripts')
+    <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
+    <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
 @endsection
