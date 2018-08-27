@@ -53,37 +53,38 @@
             @yield('modals')
         </div>
 
-        <!-- All Jquery -->
-        <!-- ============================================================== -->
         <script src="/root/assets/plugins/jquery/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
         <script src="/root/assets/plugins/popper/popper.min.js"></script>
         <script src="/root/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <!-- slimscrollbar scrollbar JavaScript -->
         <script src="/root/material/js/jquery.slimscroll.js"></script>
-        <!--Wave Effects -->
         <script src="/root/material/js/waves.js"></script>
-        <!--Menu sidebar -->
         <script src="/root/material/js/sidebarmenu.js"></script>
-        <!--stickey kit -->
         <script src="/root/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
         <script src="/root/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
-        <!--Custom JavaScript -->
         <script src="/root/material/js/custom.min.js"></script>
 
-        <!-- ============================================================== -->
-        <!-- This page plugins -->
-        <!-- ============================================================== -->
-        <!--c3 JavaScript -->
         <script src="/root/assets/plugins/d3/d3.min.js"></script>
         <script src="/root/assets/plugins/c3-master/c3.min.js"></script>
-
-        <!-- ============================================================== -->
-        <!-- Style switcher -->
-        <!-- ============================================================== -->
         <script src="/root/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-
         <script src="/root/assets/plugins/toast-master/js/jquery.toast.js"></script>
+        <script src="/root/assets/plugins/toast-master/js/jquery.toast.js"></script>
+
+        <script src="/root/app/js/app.js"></script>
+
+        <script>
+            $('.fullscreen-toggler').on('click', function (event) {
+                var el = $(this);
+                if (! el.data('toggled')) {
+                    el.data('toggled', true);
+
+                    openFullscreen(document.documentElement);
+                } else {
+                    el.data('toggled', false);
+
+                    closeFullscreen();
+                }
+            });
+        </script>
 
         {!! Notify::notification() !!}
 

@@ -36,13 +36,18 @@
             <ul class="navbar-nav mr-auto mt-md-0">
                 <!-- This is  -->
                 <li class="nav-item">
-                    <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
+                    <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="#">
                         <i class="mdi mdi-menu"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">
+                    <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="#">
                         <i class="ti-menu"></i>
+                    </a>
+                </li>
+                <li class="nav-item hidden-sm-down">
+                    <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark fullscreen-toggler" href="#" data-toggled="false">
+                        <i class="mdi mdi-fullscreen"></i>
                     </a>
                 </li>
             </ul>
