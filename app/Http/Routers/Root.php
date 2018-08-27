@@ -42,8 +42,7 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::resource('elections', 'ElectionsController');
         Route::resource('candidates', 'CandidatesController');
         Route::resource('users', 'UsersController');
-        Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')
-            ->name('users.control-numbers');
+        Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
             Route::name('positions.')->group(function() {
@@ -55,6 +54,8 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
                 Route::get('candidates', 'ElectionsController@nominee')->name('set');
                 Route::post('candidates', 'ElectionsController@nominate')->name('nominate');
             });
+
+            Route::get('tally', 'ElectionsController@tally')->name('tally');
         });
 
         Route::resource('positions', 'PositionsController');

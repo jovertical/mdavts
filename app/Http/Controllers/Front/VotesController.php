@@ -10,6 +10,10 @@ use App\Http\Controllers\Controller;
 
 class VotesController extends Controller
 {
+    /**
+     * Show identity page
+     * @return \Illuminate\View\View
+     */
     public function showIdentityForm()
     {
         // linisin ang naiwang sakit.
@@ -18,6 +22,11 @@ class VotesController extends Controller
         return view('front.voting.identity');
     }
 
+    /**
+     * Identify the voter
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Routing\Redirector
+     */
     public function identify(Request $request)
     {
         $request->validate([
@@ -48,13 +57,20 @@ class VotesController extends Controller
         }
 
         $election = Election::find($control_number->election_uuid ?? null);
-        $user = User::find($control_number->user_uuid ?? null);
+        $user = User::find($control_number->voter_uuid ?? null);
 
         return redirect()->route('front.voting.vote', compact(
             ['election', 'user']
         ));
     }
 
+    /**
+     * Show vote page
+     * @param Illuminate\Http\Request
+     * @param App\Election
+     * @param App\User The voter
+     * @return \Illuminate\View\View/Illuminate\Routing\Redirector
+     */
     public function showVoteForm(Request $request, Election $election, User $user)
     {
         $pi = $request->input('pi') ?? 0;
@@ -107,6 +123,13 @@ class VotesController extends Controller
         ));
     }
 
+    /**
+     * Select a candidate
+     * @param Illuminate\Http\Request
+     * @param App\Election
+     * @param App\User The voter
+     * @return \Illuminate\Routing\Redirector
+     */
     public function vote(
         Request $request, Election $election, User $user
     ) {
@@ -118,39 +141,51 @@ class VotesController extends Controller
         return back();
     }
 
+    /**
+     * Store Election Vote
+     * @param Illuminate\Http\Request
+     * @param App\Election
+     * @param App\User The voter
+     * @return \Illuminate\Routing\Redirector
+     */
     public function store(Request $request, Election $election, User $user)
     {
-        $user_uuids = array_values(session()->get('voting.selected'));
+        $candidates = session()->get('voting.selected');
 
-        // Add Candidate Vote for each candidate (of course).
-        foreach ($user_uuids as $uuid) {
-            $candidate = Candidate::where(
-                'user_uuid', User::encodeUuid($uuid)
-            )->first();
-
-            DB::table('candidate_votes')->insert([
-                'candidate_uuid' => $candidate->uuid,
-                'user_uuid' => $user->uuid
+        // Store vote (of course).
+        foreach ($candidates as $position => $candidate) {
+            DB::table('election_votes')->insert([
+                'election_uuid' => $election->uuid,
+                'position_uuid' => Position::encodeUuid($position),
+                'candidate_uuid' => Candidate::encodeUuid($candidate),
+                'voter_uuid' => $user->uuid
             ]);
         }
 
         // Set control number of user as used, for this election.
         DB::table('election_control_numbers')
             ->where('election_uuid', $election->uuid)
-            ->where('user_uuid', $user->uuid)
+            ->where('voter_uuid', $user->uuid)
             ->update(['used' => 1]);
 
         return redirect()->route('front.voting.results', [$election, $user]);
     }
 
+    /**
+     * Show results page
+     * @param Illuminate\Http\Request
+     * @param App\Election
+     * @param App\User The voter
+     * @return \Illuminate\View\View
+     */
     public function showResultsPage(
         Request $request, Election $election, User $user
     ) {
-        $uuids = DB::table('candidate_votes')
-            ->where('user_uuid', $user->uuid)
+        $uuids = DB::table('election_votes')
+            ->where('voter_uuid', $user->uuid)
             ->pluck('candidate_uuid');
 
-        $candidates = Candidate::whereIn('uuid', $uuids)->orderBy('level')->get();
+        $candidates = Candidate::whereIn('user_uuid', $uuids)->get();
 
         return view('front.voting.results', compact(
             ['election', 'user', 'candidates']

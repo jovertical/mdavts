@@ -28,51 +28,68 @@
                         This is the list of elections.
                     </h6>
 
-                    <table id="table-elections" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Actions</th>
-                                <th width="20%">Name</th>
-                                <th width="15%">Start Date</th>
-                                <th width="15%">End Date</th>
-                                <th>Positions</th>
-                                <th>Candidates</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach($elections as $election)
+                    <div class="table-responsive m-t-40">
+                        <table id="table-elections" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
                                 <tr>
-                                    <td class="text-nowrap">
-                                        <a href="{{ route('root.elections.edit', $election) }}" class="link-edit-election"
-                                            data-toggle="tooltip" data-original-title="Edit">
-                                            <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
-                                        </a>
-
-                                        <a href="{{ route('root.elections.positions.set', $election) }}" class="link-set-positions"
-                                            data-toggle="tooltip" data-original-title="Positions">
-                                            <i class="fas fa-tag text-inverse m-r-10"></i>
-                                        </a>
-
-                                        <a href="{{ route('root.elections.candidates.set', $election) }}" class="link-set-candidates"
-                                            data-toggle="tooltip" data-original-title="Candidates">
-                                            <i class="fas fa-users text-inverse m-r-10"></i>
-                                        </a>
-
-                                        <a href="#" data-action="{{ route('root.elections.destroy', $election) }}" class="link-destroy-admin"
-                                            data-toggle="tooltip" data-original-title="Delete">
-                                            <i class="fas fa-window-close text-danger"></i>
-                                        </a>
-                                    </td>
-                                    <td>{{ $election->name }}</td>
-                                    <td>{{ $election->start_date }}</td>
-                                    <td>{{ $election->end_date }}</td>
-                                    <td>{{ optional($election->positions)->count() ?? 0 }}</td>
-                                    <td>{{ optional($election->candidates)->count() ?? 0 }}</td>
+                                    <th>Actions</th>
+                                    <th width="20%">Name</th>
+                                    <th width="15%">Start Date</th>
+                                    <th width="15%">End Date</th>
+                                    <th>Positions</th>
+                                    <th>Candidates</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+
+                            <tbody>
+                                @foreach($elections as $election)
+                                    <tr>
+                                        <td class="text-nowrap">
+                                            <a
+                                                href="{{ route('root.elections.edit', $election) }}"
+                                                class="link-edit-election"
+                                                data-toggle="tooltip"
+                                                data-original-title="Edit"
+                                            >
+                                                <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                            </a>
+
+                                            <a
+                                                href="{{ route('root.elections.positions.set', $election) }}"
+                                                class="link-set-positions"
+                                                data-toggle="tooltip"
+                                                data-original-title="Positions"
+                                            >
+                                                <i class="fas fa-tag text-inverse m-r-10"></i>
+                                            </a>
+
+                                            <a
+                                                href="{{ route('root.elections.candidates.set', $election) }}"
+                                                class="link-set-candidates"
+                                                data-toggle="tooltip"
+                                                data-original-title="Candidates"
+                                            >
+                                                <i class="fas fa-users text-inverse m-r-10"></i>
+                                            </a>
+
+                                            <a
+                                                href="{{ route('root.elections.tally', $election) }}" class="link-show-tally"
+                                                data-toggle="tooltip"
+                                                data-original-title="Tally"
+                                            >
+                                                <i class="fas fa-archive text-inverse"></i>
+                                            </a>
+                                        </td>
+                                        <td>{{ $election->name }}</td>
+                                        <td>{{ $election->start_date }}</td>
+                                        <td>{{ $election->end_date }}</td>
+                                        <td>{{ optional($election->positions)->count() ?? 0 }}</td>
+                                        <td>{{ optional($election->candidates)->count() ?? 0 }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -113,7 +113,7 @@
             color: #fff!important;
         }
 
-        .selected-candidate > form > .btn {
+        .selected-candidate > .candidate-footer {
             display: none!important;
         }
     </style>

@@ -15,7 +15,7 @@ class CreateElectionControlNumbers extends Migration
     {
         Schema::create('election_control_numbers', function (Blueprint $table) {
             $table->uuid('election_uuid')->index();
-            $table->uuid('user_uuid')->index();
+            $table->uuid('voter_uuid')->index();
             $table->string('number');
             $table->boolean('used')->default(0);
         });
