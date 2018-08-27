@@ -29,53 +29,55 @@
                     </h6>
 
                     <div class="table-responsive m-t-40">
-                        <table id="table-admins" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Actions</th>
-                                    <th>Name</th>
-                                    <th>Birthdate</th>
-                                    <th>Gender</th>
-                                    <th>Address</th>
-                                    <th>Email</th>
-                                    <th>Contact</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($admins as $admin)
+                        <div>
+                            <table id="table-admins" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-nowrap">
-                                            <a href="{{ route('root.admins.edit', $admin) }}" class="link-edit-admin"
-                                                data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
-                                            </a>
-
-                                            <a href="#" data-action="{{ route('root.admins.destroy', $admin) }}" class="link-destroy-admin"
-                                                data-toggle="tooltip" data-original-title="Delete">
-                                                <i class="fas fa-window-close text-danger"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <span class="w-25">
-                                                    <img src="{{ avatar_thumbnail_path($admin) }}" alt="" class="profile-pic w-50 img-fluid rounded-circle"/>
-                                                </span>
-
-                                                <span class="w-75 font-weight-normal">
-                                                    {{ $admin->full_name }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>{{ $admin->birthdate }}</td>
-                                        <td>{{ ucfirst($admin->gender) }}</td>
-                                        <td>{{ str_limit($admin->address, 15) }}</td>
-                                        <td>{{ $admin->email }}</td>
-                                        <td>{{ $admin->contact_number }}</td>
+                                        <th>Actions</th>
+                                        <th>Name</th>
+                                        <th>Birthdate</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($admins as $admin)
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <a href="{{ route('root.admins.edit', $admin) }}" class="link-edit-admin"
+                                                    data-toggle="tooltip" data-original-title="Edit">
+                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                </a>
+
+                                                <a href="#" data-action="{{ route('root.admins.destroy', $admin) }}" class="link-destroy-admin"
+                                                    data-toggle="tooltip" data-original-title="Delete">
+                                                    <i class="fas fa-window-close text-danger"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <span class="w-25">
+                                                        <img src="{{ avatar_thumbnail_path($admin) }}" alt="" class="profile-pic w-50 img-fluid rounded-circle"/>
+                                                    </span>
+
+                                                    <span class="w-75 font-weight-normal">
+                                                        {{ $admin->full_name }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>{{ $admin->birthdate }}</td>
+                                            <td>{{ ucfirst($admin->gender) }}</td>
+                                            <td>{{ str_limit($admin->address, 15) }}</td>
+                                            <td>{{ $admin->email }}</td>
+                                            <td>{{ $admin->contact_number }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

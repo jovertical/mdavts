@@ -10,7 +10,7 @@ Route::namespace('Front')->name('front.')->group(function () {
             Route::get('{election}/{user}/vote', 'VotesController@showVoteForm')->name('vote');
             Route::post('{election}/{user}/vote', 'VotesController@vote');
             Route::post('{election}/{user}', 'VotesController@store')->name('store');
-            Route::get('{election}/{user}/results', 'VotesController@showResultsPage')->name('results');
+            Route::get('{election}/{user}/review', 'VotesController@showReviewPage')->name('review');
         });
     });
 });

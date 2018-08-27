@@ -24,45 +24,47 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive m-t-40">
-                        <table id="table-users" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Actions</th>
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
-                                    <th>Learner's Reference Number</th>
-                                    <th>Grade Level</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($users as $user)
+                        <div>
+                            <table id="table-users" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-nowrap">
-                                            <a href="{{ route('root.users.edit', $user) }}" class="link-edit-user"
-                                                data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
-                                            </a>
-
-                                            <a href="{{ route('root.users.control-numbers', $user) }}" class="link-show-control-numbers" data-toggle="tooltip" data-original-title="Control Numbers">
-                                                <i class="fas fa-key text-inverse m-r-10"></i>
-                                            </a>
-
-                                            <a href="#" data-action="{{ route('root.users.destroy', $user) }}" class="link-destroy-user"
-                                                data-toggle="tooltip" data-original-title="Delete">
-                                                <i class="fas fa-window-close text-danger"></i>
-                                            </a>
-                                        </td>
-                                        <td>{{ $user->firstname }}</td>
-                                        <td>{{ $user->middlename }}</td>
-                                        <td>{{ $user->lastname }}</td>
-                                        <td>{{ $user->lrn }}</td>
-                                        <td>{{ $user->grade_level }}</td>
+                                        <th>Actions</th>
+                                        <th>First Name</th>
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Learner's Reference Number</th>
+                                        <th>Grade Level</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($users as $user)
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <a href="{{ route('root.users.edit', $user) }}" class="link-edit-user"
+                                                    data-toggle="tooltip" data-original-title="Edit">
+                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                </a>
+
+                                                <a href="{{ route('root.users.control-numbers', $user) }}" class="link-show-control-numbers" data-toggle="tooltip" data-original-title="Control Numbers">
+                                                    <i class="fas fa-key text-inverse m-r-10"></i>
+                                                </a>
+
+                                                <a href="#" data-action="{{ route('root.users.destroy', $user) }}" class="link-destroy-user"
+                                                    data-toggle="tooltip" data-original-title="Delete">
+                                                    <i class="fas fa-window-close text-danger"></i>
+                                                </a>
+                                            </td>
+                                            <td>{{ $user->firstname }}</td>
+                                            <td>{{ $user->middlename }}</td>
+                                            <td>{{ $user->lastname }}</td>
+                                            <td>{{ $user->lrn }}</td>
+                                            <td>{{ $user->grade_level }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

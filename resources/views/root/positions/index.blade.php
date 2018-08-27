@@ -29,37 +29,39 @@
                     </h6>
 
                     <div class="table-responsive m-t-40">
-                        <table id="table-positions" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Actions</th>
-                                    <th>Name</th>
-                                    <th>Level</th>
-                                    <th>Elections</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($positions as $position)
+                        <div>
+                            <table id="table-positions" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-nowrap">
-                                            <a href="{{ route('root.positions.edit', $position) }}" class="link-edit-position"
-                                                data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
-                                            </a>
-
-                                            <a href="#" data-action="{{ route('root.positions.destroy', $position) }}" class="link-destroy-position"
-                                                data-toggle="tooltip" data-original-title="Delete">
-                                                <i class="fas fa-window-close text-danger"></i>
-                                            </a>
-                                        </td>
-                                        <td>{{ $position->name }}</td>
-                                        <td>{{ $position->level }}</td>
-                                        <td>{{ optional($position->elections)->count() ?? 0 }}</td>
+                                        <th>Actions</th>
+                                        <th>Name</th>
+                                        <th>Level</th>
+                                        <th>Elections</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($positions as $position)
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <a href="{{ route('root.positions.edit', $position) }}" class="link-edit-position"
+                                                    data-toggle="tooltip" data-original-title="Edit">
+                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                </a>
+
+                                                <a href="#" data-action="{{ route('root.positions.destroy', $position) }}" class="link-destroy-position"
+                                                    data-toggle="tooltip" data-original-title="Delete">
+                                                    <i class="fas fa-window-close text-danger"></i>
+                                                </a>
+                                            </td>
+                                            <td>{{ $position->name }}</td>
+                                            <td>{{ $position->level }}</td>
+                                            <td>{{ optional($position->elections)->count() ?? 0 }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

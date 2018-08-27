@@ -168,26 +168,30 @@ class VotesController extends Controller
             ->where('voter_uuid', $user->uuid)
             ->update(['used' => 1]);
 
-        return redirect()->route('front.voting.results', [$election, $user]);
+        return redirect()->route('front.voting.review', [$election, $user]);
     }
 
     /**
-     * Show results page
+     * Show review page
      * @param Illuminate\Http\Request
      * @param App\Election
      * @param App\User The voter
      * @return \Illuminate\View\View
      */
-    public function showResultsPage(
+    public function showReviewPage(
         Request $request, Election $election, User $user
     ) {
         $uuids = DB::table('election_votes')
             ->where('voter_uuid', $user->uuid)
             ->pluck('candidate_uuid');
 
-        $candidates = Candidate::whereIn('user_uuid', $uuids)->get();
+        $candidates = Candidate::whereIn('user_uuid', $uuids)
+            ->leftJoin('positions as p', 'p.uuid', '=', 'candidates.position_uuid')
+            ->orderBy('level')
+            ->select(['user_uuid', 'election_uuid', 'position_uuid'])
+            ->get();
 
-        return view('front.voting.results', compact(
+        return view('front.voting.review', compact(
             ['election', 'user', 'candidates']
         ));
     }

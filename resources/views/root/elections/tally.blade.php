@@ -87,23 +87,25 @@
 
                     <div class="card-body collapse show">
                         <div class="table-responsive m-t-40">
-                            <table id="table-tally" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>Candidate</th>
-                                        <th>Vote Count</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    @foreach(collect($stats['votes'])->sortByDesc('votes') as $vote)
+                            <div>
+                                <table id="table-tally" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $vote->user->full_name }}</td>
-                                            <td>{{ $vote->votes }}</td>
+                                            <th>Candidate</th>
+                                            <th>Vote Count</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach(collect($stats['votes'])->sortByDesc('votes') as $vote)
+                                            <tr>
+                                                <td>{{ $vote->user->full_name }}</td>
+                                                <td>{{ $vote->votes }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

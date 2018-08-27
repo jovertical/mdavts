@@ -29,39 +29,41 @@
                     </h6>
 
                     <div class="table-responsive m-t-40">
-                        <table id="table-grades" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Actions</th>
-                                    <th>Year Level</th>
-                                    <th>Section</th>
-                                    <th>Description</th>
-                                   
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($section as $sections)
+                        <div>
+                            <table id="table-grades" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-nowrap">
-                                            <a href="{{ route('root.sections.edit', $sections) }}" class="link-edit-"sections
-                                                data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
-                                            </a>
+                                        <th>Actions</th>
+                                        <th>Year Level</th>
+                                        <th>Section</th>
+                                        <th>Description</th>
 
-                                            <a href="#" data-action="{{ route('root.sections.destroy', $sections) }}" class="link-destroy-grade"
-                                                data-toggle="tooltip" data-original-title="Delete">
-                                                <i class="fas fa-window-close text-danger"></i>
-                                            </a>
-                                        </td>
-                                        
-                                        <td>{{ $sections->year_level }}</th>
-                                        <td>{{ $sections->name }}</td>
-                                        <td>{{ $sections->description}}</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach($section as $sections)
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <a href="{{ route('root.sections.edit', $sections) }}" class="link-edit-"sections
+                                                    data-toggle="tooltip" data-original-title="Edit">
+                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                </a>
+
+                                                <a href="#" data-action="{{ route('root.sections.destroy', $sections) }}" class="link-destroy-grade"
+                                                    data-toggle="tooltip" data-original-title="Delete">
+                                                    <i class="fas fa-window-close text-danger"></i>
+                                                </a>
+                                            </td>
+
+                                            <td>{{ $sections->year_level }}</th>
+                                            <td>{{ $sections->name }}</td>
+                                            <td>{{ $sections->description}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
