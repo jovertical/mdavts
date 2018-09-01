@@ -38,6 +38,18 @@ class VotesController extends Controller
             ->where('number', $request->input('control_number'))
             ->first();
 
+        $election = Election::find($control_number->election_uuid);
+
+        $now = now()->format('Y-m-d');
+
+        if ($now < $election->start_date) {
+            $errors[] = 'Election is not yet started.';
+        }
+
+        if ($now > $election->end_date) {
+            $errors[] = 'Election is over.';
+        }
+
         if ($control_number->used) {
             $errors[] = 'The provided control number is already used.';
         }
@@ -111,7 +123,14 @@ class VotesController extends Controller
             ));
         }
 
-        $position = $election->positions[$pi];
+        // filter to skip voting for positions without candidate.
+        $positions = $election->positions->filter(function($p) use ($election) {
+            $p_uuids = $election->candidates->pluck('position_uuid')->all();
+
+            return in_array($p->uuid, $p_uuids);
+        });
+
+        $position = $positions[$pi];
 
         $candidates = $election->candidates->filter(
             function($candidate) use ($position) {
@@ -119,7 +138,7 @@ class VotesController extends Controller
             });
 
         return view('front.voting.vote', compact(
-            ['election', 'position', 'user', 'candidates']
+            ['election', 'positions', 'position', 'user', 'candidates']
         ));
     }
 

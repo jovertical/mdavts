@@ -20,19 +20,13 @@
                                 </a>
 
                                 <div class="card-body candidate {{ session()->get("voting.selected.{$position->uuid_text}") == $candidate->user->uuid_text ? 'selected-candidate' : '' }}">
-                                    <h4 class="card-title">
-                                        {{ $candidate->user->full_name_formal }}
+                                    <h4 class="card-title c-name">
+                                        {{ str_limit($candidate->user->full_name_formal, 25) }}
                                     </h4>
 
-                                    <p class="card-text">
+                                    <p class="card-text c-detail">
                                         <span class="font-weight-normal">
                                             {{ $candidate->user->grade_level.' - '.$user->section }}
-                                        </span>
-                                    </p>
-
-                                    <p class="card-text">
-                                        <span class="font-weight-bold">
-                                            {{ $candidate->user->lrn }}
                                         </span>
                                     </p>
 
@@ -66,7 +60,7 @@
                                 Back
                             </a>
 
-                            @if (Request::input('pi') < ($election->positions->count() - 1))
+                            @if (Request::input('pi') < ($positions->count() - 1))
                                 <a
                                     href="?pi={{ Request::input('pi') }}&next"
                                     class="btn btn-success btn-loading float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
@@ -98,6 +92,14 @@
         .candidate {
             text-align: center;
             min-height: 200px;
+        }
+
+        .candidate .c-name {
+            min-height: 75px;
+        }
+
+        .candidate .c-detail {
+            min-height: 25px;
         }
 
         .candidate-footer {
