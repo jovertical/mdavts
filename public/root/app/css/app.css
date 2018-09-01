@@ -6,3 +6,8 @@
 .bg-success {
     background-color: #00796B!important;
 }
+
+/* Magnific Popup image's title */
+.mfp-title {
+    text-align: center!important;
+}

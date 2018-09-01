@@ -87,12 +87,22 @@ class VotesController extends Controller
     {
         $pi = $request->input('pi') ?? 0;
 
+        // hanapin ang may ari.
+        $control_number = DB::table('election_control_numbers')
+            ->where('election_uuid', $election->uuid)
+            ->where('voter_uuid', $user->uuid)
+            ->first();
+
         if ($election->positions->count() < 1) {
             $errors[] = 'Election needs at least one position.';
         }
 
         if ($election->candidates->count() < 1)  {
             $errors[] = 'Election needs at least one candidate.';
+        }
+
+        if ($control_number->used) {
+            $errors[] = 'The provided control number is already used.';
         }
 
         if (count($errors ?? [])) {
@@ -102,7 +112,7 @@ class VotesController extends Controller
                 'content' => $errors[0]
             ]);
 
-            return back();
+            return redirect()->route('front.voting.identity');
         }
 
         // increment position level.
@@ -186,6 +196,9 @@ class VotesController extends Controller
             ->where('election_uuid', $election->uuid)
             ->where('voter_uuid', $user->uuid)
             ->update(['used' => 1]);
+
+        // Remove voting data from session. (kalimutan na)
+        session()->forget('voting');
 
         return redirect()->route('front.voting.review', [$election, $user]);
     }

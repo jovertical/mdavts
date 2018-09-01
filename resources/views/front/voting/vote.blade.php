@@ -14,17 +14,17 @@
                     @foreach ($candidates as $candidate)
                         <!-- user -->
                         <div class="col-lg-3 col-md-6">
-                            <div class="card">
-                                <a href="{{ avatar_thumbnail_path($candidate->user) }}" title="{{ $candidate->user->full_name }}">
-                                    <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($candidate->user) }}">
+                            <div class="card candidate">
+                                <a class="candidate-image-link" href="{{ avatar_thumbnail_path($candidate->user) }}" title="{{ $candidate->user->full_name }}">
+                                    <img class="card-img-top img-responsive candidate-image" src="{{ avatar_thumbnail_path($candidate->user) }}">
                                 </a>
 
-                                <div class="card-body candidate {{ session()->get("voting.selected.{$position->uuid_text}") == $candidate->user->uuid_text ? 'selected-candidate' : '' }}">
-                                    <h4 class="card-title c-name">
+                                <div class="card-body candidate-content {{ session()->get("voting.selected.{$position->uuid_text}") == $candidate->user->uuid_text ? 'selected-candidate' : '' }}">
+                                    <h4 class="card-title candidate-name">
                                         {{ str_limit($candidate->user->full_name_formal, 25) }}
                                     </h4>
 
-                                    <p class="card-text c-detail">
+                                    <p class="card-text candidate-detail">
                                         <span class="font-weight-normal">
                                             {{ $candidate->user->grade_level.' - '.$user->section }}
                                         </span>
@@ -89,16 +89,16 @@
     <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 
     <style>
-        .candidate {
+        .candidate-content {
             text-align: center;
             min-height: 200px;
         }
 
-        .candidate .c-name {
+        .candidate-content .candidate-name {
             min-height: 75px;
         }
 
-        .candidate .c-detail {
+        .candidate-content .candidate-detail {
             min-height: 25px;
         }
 
@@ -135,4 +135,20 @@
 @section('scripts')
     <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
     <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
+
+    <script>
+        $('.candidate-image').magnificPopup({
+            type: 'image',
+            zoom: {
+                enabled: true,
+                duration: 500,
+                easing: 'ease-in-out',
+                opener: function(openerElement) {
+                    return ! openerElement.is('img')
+                        ? openerElement.find('img')
+                        : openerElement;
+                }
+            }
+        });
+    </script>
 @endsection
