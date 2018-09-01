@@ -24,7 +24,7 @@
                                 @foreach($candidates as $candidate)
                                     <tr>
                                         <td>{{ $candidate->position->name }}</td>
-                                        <td>{{ $candidate->user->full_name }}</td>
+                                        <td>{{ str_limit($candidate->user->full_name_formal, 25) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

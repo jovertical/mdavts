@@ -37,7 +37,7 @@
                                             <input type="hidden" name="user_uuid" value="{{ $candidate->user->uuid_text }}">
                                             <input type="hidden" name="position_uuid" value="{{ $position->uuid_text }}">
 
-                                            <button type="submit" class="btn btn-success btn-loading">
+                                            <button type="submit" class="btn btn-brand btn-loading">
                                                 <i class="fas fa-thumbs-up"></i> Vote
                                             </button>
                                         </form>
@@ -119,7 +119,7 @@
         }
 
         .selected-candidate {
-            background-color: #00796B!important;
+            background-color: #4E342E!important;
         }
 
         .selected-candidate > .card-title, .selected-candidate > .card-text {
