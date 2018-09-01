@@ -28,8 +28,6 @@ class AdminsController extends Controller
         $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'birthdate' => 'required|date',
-            'gender' => 'required',
             'email' => 'required|email|unique:users,deleted_at,null',
         ]);
 

@@ -24,10 +24,6 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(1);
             $table->boolean('verified')->default(0);
 
-            $table->string('lrn')->nullable();
-            $table->integer('grade_level')->nullable();
-            $table->string('section')->nullable();
-
             $table->string('firstname')->nullable();
             $table->string('middlename')->nullable();
             $table->string('lastname')->nullable();
@@ -35,6 +31,10 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['male', 'female', ''])->nullable();
             $table->text('address')->nullable();
             $table->string('contact_number')->nullable();
+
+            $table->string('lrn')->nullable();
+            $table->integer('grade_level')->nullable();
+            $table->string('section')->nullable();
 
             $table->text('path')->nullable();
             $table->text('directory')->nullable();

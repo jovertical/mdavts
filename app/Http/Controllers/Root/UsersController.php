@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Root;
 
-use Notify;
 use DB, Hash;
+use App\Services\{ImageUploader, Notify};
 use App\{User, Election};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,14 +25,38 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
         ]);
 
         $user = new User;
-        $user->fill($request->all());
+        $user->type = 'user';
         $user->username = create_username($request->post('firstname'));
+
+        $user->firstname = $request->input('firstname');
+        $user->middlename = $request->input('middlename');
+        $user->lastname = $request->input('lastname');
+        $user->birthdate = $request->input('birthdate');
+        $user->gender = $request->input('gender');
+        $user->address = $request->input('address');
+        $user->contact_number = $request->input('contact_number');
+
+        $user->lrn = $request->input('lrn');
+        $user->grade_level = $request->input('grade_level');
+        $user->section = $request->input('section');
+
+        if ($request->hasFile('image')) {
+            $upload = ImageUploader::upload(
+                $request->file('image'), 'users/'.$user->uuid_text
+            );
+
+            if (count($upload)) {
+                $user->path = $upload['path'];
+                $user->directory = $upload['directory'];
+                $user->filename = $upload['filename'];
+            }
+        }
 
         if ($user->save()) {
             Notify::success('User created.', 'Success!');

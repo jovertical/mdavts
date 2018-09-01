@@ -12,7 +12,7 @@
 
         @slot('action')
             <form method="GET" action="{{ route('root.users.create') }}">
-                <button type="submit" class="btn btn-info float-right">
+                <button type="submit" class="btn btn-info btn-loading float-right">
                     <i class="fa fa-plus"></i> Create
                 </button>
             </form>
@@ -29,11 +29,9 @@
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
-                                        <th>Learner's Reference Number</th>
+                                        <th>User</th>
                                         <th>Grade Level</th>
+                                        <th>Section</th>
                                     </tr>
                                 </thead>
 
@@ -55,11 +53,18 @@
                                                     <i class="fas fa-window-close text-danger"></i>
                                                 </a>
                                             </td>
-                                            <td>{{ $user->firstname }}</td>
-                                            <td>{{ $user->middlename }}</td>
-                                            <td>{{ $user->lastname }}</td>
-                                            <td>{{ $user->lrn }}</td>
+                                            <td>
+                                                <div>
+                                                    <span class="mr-2">
+                                                        <img src="{{ avatar_thumbnail_path($user) }}" alt="" class="profile-pic img-fluid rounded-circle" style="width: 30px!important;"/>
+                                                    </span>
+                                                    <span class="font-weight-normal">
+                                                        {{ str_limit($user->full_name_formal, 25) }}
+                                                    </span>
+                                                </div>
+                                            </td>
                                             <td>{{ $user->grade_level }}</td>
+                                            <td>{{ $user->section }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
