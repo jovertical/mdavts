@@ -60,7 +60,7 @@
                             <!-- Submit -->
                             <div class="col-md">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-info">
+                                    <button type="submit" class="btn btn-info btn-loading">
                                         <i class="fa fa-search"></i> Filter
                                     </button>
                                 </div>

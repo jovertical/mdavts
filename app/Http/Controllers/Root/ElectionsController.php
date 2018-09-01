@@ -240,11 +240,11 @@ class ElectionsController extends Controller
                 $vote->user = User::find($vote->user);
 
                 return $vote;
-            });
+            })
+            ->sortBy('position.level')
+            ->values();
 
-        $archives = [];
-
-        foreach ($election_votes->sortBy('level') as $vote) {
+        foreach ($election_votes as $vote) {
             $archives[$vote->position->uuid]['votes'][] = $vote;
             $archives[$vote->position->uuid]['position'] = $vote->position;
         }

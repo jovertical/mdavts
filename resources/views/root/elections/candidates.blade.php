@@ -99,7 +99,8 @@
                         @unless(count($users))
                             <div class="col-md p-5 text-center">
                                 <span class="font-weight-normal">
-                                    No results yet, Try searching for a name.
+                                    No results found,
+                                    {{ empty(Request::input()) ? "Try searching for the student's name." : 'Try refining your search parameters.' }}
                                 </span>
                             </div>
                         @else
