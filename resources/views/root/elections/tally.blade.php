@@ -60,7 +60,7 @@
                             <!-- Submit -->
                             <div class="col-md">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-info">
+                                    <button type="submit" class="btn btn-info btn-loading">
                                         <i class="fa fa-search"></i> Filter
                                     </button>
                                 </div>
@@ -99,7 +99,7 @@
                                     <tbody>
                                         @foreach(collect($stats['votes'])->sortByDesc('votes') as $vote)
                                             <tr>
-                                                <td>{{ $vote->user->full_name }}</td>
+                                                <td>{{ str_limit($vote->user->full_name_formal, 25) }}</td>
                                                 <td>{{ $vote->votes }}</td>
                                             </tr>
                                         @endforeach

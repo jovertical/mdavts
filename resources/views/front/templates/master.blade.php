@@ -28,7 +28,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #80CBC4;
+                background-image: linear-gradient(to bottom right, #FF9800, #FFE082);
                 background-size: 100%;
                 background-repeat: repeat;
             }
@@ -76,6 +76,8 @@
             <div class="main-content">
                 @yield('content')
             </div>
+
+            @yield('modals')
         </section>
 
         <!-- All Jquery -->

@@ -34,7 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
-                                        <th>Name</th>
+                                        <th>Admin</th>
                                         <th>Birthdate</th>
                                         <th>Gender</th>
                                         <th>Address</th>
@@ -53,13 +53,12 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <div class="d-flex">
-                                                    <span class="w-25">
-                                                        <img src="{{ avatar_thumbnail_path($admin) }}" alt="" class="profile-pic w-50 img-fluid rounded-circle"/>
+                                                <div>
+                                                    <span class="mr-2">
+                                                        <img src="{{ avatar_thumbnail_path($admin) }}" alt="" class="profile-pic img-fluid rounded-circle" style="width: 30px!important;"/>
                                                     </span>
-
-                                                    <span class="w-75 font-weight-normal">
-                                                        {{ $admin->full_name }}
+                                                    <span class="font-weight-normal">
+                                                        {{ str_limit($admin->full_name_formal, 25) }}
                                                     </span>
                                                 </div>
                                             </td>

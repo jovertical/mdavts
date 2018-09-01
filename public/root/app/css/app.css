@@ -3,6 +3,21 @@
     border-color: #B2DFDB;
 }
 
+.btn.btn-brand {
+    background-color: #4E342E;
+    border-color: #D7CCC8;
+    color: #fff;
+}
+
 .bg-success {
     background-color: #00796B!important;
+}
+
+.bg-brand {
+    background-color: #4E342E!important;
+}
+
+/* Magnific Popup image's title */
+.mfp-title {
+    text-align: center!important;
 }

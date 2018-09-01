@@ -39,14 +39,14 @@
                     <div class="d-flex no-block align-items-center">
                         <div class="ml-auto">
                             <a href="#" class="text-muted">
-                                <i class="fa fa-lock m-r-5"></i> Lost your control number?
+                                <i class="fa fa-lock m-r-5"></i> Lost control number?
                             </a>
                         </div>
                     </div>
 
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-success btn-loading btn-lg btn-block text-uppercase waves-effect waves-light">
+                            <button type="submit" class="btn btn-brand btn-loading btn-lg btn-block text-uppercase waves-effect waves-light">
                                 Vote
                             </button>
                         </div>
