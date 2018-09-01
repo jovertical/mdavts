@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components.breadcrumbs')
         @slot('page_title')
-            Create an admin
+            Create grade level
         @endslot
 
         <li class="breadcrumb-item">
