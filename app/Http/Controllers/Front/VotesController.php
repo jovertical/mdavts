@@ -138,7 +138,7 @@ class VotesController extends Controller
             $p_uuids = $election->candidates->pluck('position_uuid')->all();
 
             return in_array($p->uuid, $p_uuids);
-        });
+        })->values();
 
         $position = $positions[$pi];
 

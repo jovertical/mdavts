@@ -29,7 +29,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'address' => $faker->address,
         'contact_number' => $faker->phoneNumber,
 
-        'grade_level' => mt_rand(0, 12),
+        'grade_level' => mt_rand(1, 12),
         'section' => ucwords($faker->word)
     ];
 });

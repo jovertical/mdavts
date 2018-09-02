@@ -2,7 +2,7 @@
 
 Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
     Route::namespace('Auth')->name('auth.')->group(function() {
-        Route::middleware('guest')->group(function () {
+        Route::middleware('guest', 'throttle:60,1')->group(function () {
             Route::get('signin', 'SessionsController@showSigninForm')->name('signin');
             Route::post('signin', 'SessionsController@signin');
 
@@ -28,7 +28,7 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::any('signout', 'SessionsController@signout')->middleware('auth')->name('signout');
     });
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware('auth', 'throttle:60,1')->group(function () {
         Route::prefix('account')->name('account.')->group(function() {
             Route::get('profile', 'AccountController@profile')->name('profile');
             Route::get('password', 'AccountController@password')->name('password');

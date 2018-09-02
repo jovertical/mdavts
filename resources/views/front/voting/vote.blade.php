@@ -16,7 +16,7 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="card candidate">
                                 <a class="candidate-image-link" href="{{ avatar_thumbnail_path($candidate->user) }}" title="{{ $candidate->user->full_name }}">
-                                    <img class="card-img-top img-responsive candidate-image" src="{{ avatar_thumbnail_path($candidate->user) }}">
+                                    <img class="card-img-top img-responsive magnifiable candidate-image" src="{{ avatar_thumbnail_path($candidate->user) }}">
                                 </a>
 
                                 <div class="card-body candidate-content {{ session()->get("voting.selected.{$position->uuid_text}") == $candidate->user->uuid_text ? 'selected-candidate' : '' }}">
@@ -86,8 +86,6 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
-
     <style>
         .candidate-content {
             text-align: center;
@@ -130,25 +128,4 @@
             display: none!important;
         }
     </style>
-@endsection
-
-@section('scripts')
-    <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
-    <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
-
-    <script>
-        $('.candidate-image').magnificPopup({
-            type: 'image',
-            zoom: {
-                enabled: true,
-                duration: 500,
-                easing: 'ease-in-out',
-                opener: function(openerElement) {
-                    return ! openerElement.is('img')
-                        ? openerElement.find('img')
-                        : openerElement;
-                }
-            }
-        });
-    </script>
 @endsection

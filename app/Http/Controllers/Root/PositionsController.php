@@ -24,11 +24,13 @@ class PositionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'level' => 'required'
         ]);
 
         $position = new Position;
         $position->name = $request->input('name');
+        $position->level = $request->input('level');
         $position->description = $request->input('description');
 
         if ($position->save()) {

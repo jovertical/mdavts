@@ -27,11 +27,7 @@ var closeFullscreen = function () {
 // Loading animation in buttons.
 $('.btn-loading').on('click', function(event) {
     var el = $(this);
-    var buttons = $('button, a');
     var icon = '<i class="fas fa-spinner fa-spin"></i>';
-
-    // disable all other buttons, links.
-    buttons.addClass('disabled');
 
     // remove previous icon.
     if (el.has('i')) {
@@ -40,4 +36,23 @@ $('.btn-loading').on('click', function(event) {
 
     // prepend loading icon.
     $(el).prepend(icon);
+});
+
+$('form').on('submit', function (event) {
+    $(this).find('button[type=submit]').attr({disabled: 1});
+});
+
+// Put it to apply magnification (what a word!) on images
+$('.magnifiable').magnificPopup({
+    type: 'image',
+    zoom: {
+        enabled: true,
+        duration: 500,
+        easing: 'ease-in-out',
+        opener: function(openerElement) {
+            return ! openerElement.is('img')
+                ? openerElement.find('img')
+                : openerElement;
+        }
+    }
 });

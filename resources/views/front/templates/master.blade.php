@@ -17,6 +17,8 @@
         <!-- You can change the theme colors from here -->
         <link href="/root/material/css/colors/blue.css" id="theme" rel="stylesheet">
 
+        <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+
         <link href="/root/app/css/app.css" id="theme" rel="stylesheet">
 
         <style>
@@ -108,6 +110,9 @@
         <!-- Style switcher -->
         <!-- ============================================================== -->
         <script src="/root/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+        <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
+        <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
 
         <script src="/root/app/js/app.js"></script>
 

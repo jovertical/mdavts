@@ -20,9 +20,11 @@
         <!-- toast CSS -->
         <link href="/root/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
 
-        @yield('styles')
+        <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 
         <link href="/root/app/css/app.css">
+
+        @yield('styles')
     </head>
 
     <body class="fix-header fix-sidebar card-no-border">
@@ -68,6 +70,9 @@
         <script src="/root/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
         <script src="/root/assets/plugins/toast-master/js/jquery.toast.js"></script>
         <script src="/root/assets/plugins/toast-master/js/jquery.toast.js"></script>
+
+        <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
+        <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
 
         <script src="/root/app/js/app.js"></script>
 

@@ -95,7 +95,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row zoom-gallery">
                         @unless(count($users))
                             <div class="col-md p-5 text-center">
                                 <span class="font-weight-normal">
@@ -107,22 +107,19 @@
                             @foreach ($users as $user)
                                 <!-- user -->
                                 <div class="col-lg-3 col-md-6">
-                                    <div class="card">
-                                        <img class="card-img-top img-responsive" src="{{ avatar_thumbnail_path($user) }}" alt="">
-                                        <div class="card-body candidate">
-                                            <h4 class="card-title">
+                                    <div class="card candidate">
+                                        <a class="candidate-image-link" href="{{ avatar_thumbnail_path($user) }}" title="{{ $user->full_name }}">
+                                            <img class="card-img-top img-responsive magnifiable candidate-image" src="{{ avatar_thumbnail_path($user) }}" alt="">
+                                        </a>
+
+                                        <div class="card-body candidate-content">
+                                            <h4 class="card-title candidate-name">
                                                 {{ $user->full_name_formal }}
                                             </h4>
 
-                                            <p class="card-text">
+                                            <p class="card-text candidate-detail">
                                                 <span class="font-weight-normal">
                                                     {{ $user->grade_level.' - '.$user->section }}
-                                                </span>
-                                            </p>
-
-                                            <p class="card-text">
-                                                <span class="font-weight-bold">
-                                                    {{ $user->lrn }}
                                                 </span>
                                             </p>
 
@@ -200,9 +197,17 @@
 
 @section('styles')
     <style>
-        .candidate {
+        .candidate-content {
             text-align: center;
             min-height: 200px;
+        }
+
+        .candidate-content .candidate-name {
+            /* min-height: 75px; */
+        }
+
+        .candidate-content .candidate-detail {
+            /* min-height: 25px; */
         }
 
         .candidate-footer {

@@ -45,6 +45,26 @@
                             @endif
                         </div>
                         <!--/. Name -->
+                        <!-- Name -->
+                        <div class="form-group">
+                                <label for="name">Level</label>
+
+                                <input
+                                    type="text"
+                                    name="level"
+                                    id="level"
+                                    class="form-control form-control-line"
+                                    value="{{ old('level') }}"
+                                    placeholder="Enter level"
+                                >
+
+                                @if ($errors->has('level'))
+                                    <span class="text-danger">
+                                        {{ $errors->first('level') }}
+                                    </span>
+                                @endif
+                            </div>
+                            <!--/. Name -->
 
                         <!-- Description -->
                         <div class="form-group">
