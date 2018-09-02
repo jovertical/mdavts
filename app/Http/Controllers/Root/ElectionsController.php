@@ -2,8 +2,21 @@
 
 namespace App\Http\Controllers\Root;
 
-use Notify;
+/**
+ * Application
+ */
+use App\Services\{Notify};
 use App\{User, Election, Position, Candidate};
+
+
+/**
+ * Third-party
+ */
+use PDF;
+
+/**
+ * Laravel
+ */
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +24,7 @@ use App\Http\Controllers\Controller;
 class ElectionsController extends Controller
 {
     /**
-     * Show index page
+     * Show index page.
      * @return \Illuminate\View\View
      */
     public function index()
@@ -22,7 +35,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Show resource creation page
+     * Show resource creation page.
      * @return \Illuminate\View\View
      */
     public function create()
@@ -31,7 +44,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Store resource
+     * Store resource.
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Routing\Redirector
      */
@@ -59,7 +72,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Show resource edit page
+     * Show resource edit page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      */
@@ -69,7 +82,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Update resource
+     * Update resource.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      */
@@ -100,7 +113,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Show Set Control Numbers page
+     * Show Set Control Numbers page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
@@ -123,7 +136,7 @@ class ElectionsController extends Controller
      }
 
      /**
-      * Store Control Numbers
+      * Store Control Numbers.
       * @param \Illuminate\Http\Request
       * @param \App\Election
       * @return \Illuminate\Http\RedirectResponse
@@ -147,11 +160,13 @@ class ElectionsController extends Controller
              }
          });
 
+        Notify::success('Control Number(s) stored.');
+
          return back();
      }
 
     /**
-     * Show Set Election Positions page
+     * Show Set Election Positions page.
      * @param \App\Election
      * @return \Illuminate\View\View
      */
@@ -173,7 +188,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Store Election Positions
+     * Store Election Positions.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\Http\RedirectResponse
@@ -193,13 +208,13 @@ class ElectionsController extends Controller
             ]);
         }
 
-        Notify::success('Election Positions updated.');
+        Notify::success('Election Positions stored.');
 
         return back();
     }
 
     /**
-     * Show Set Candidate Page
+     * Show Set Candidate Page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
@@ -232,7 +247,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Nominate
+     * Nominate.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\Http\RedirectResponse
@@ -262,7 +277,7 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Show Tally page
+     * Show Tally page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
@@ -300,13 +315,95 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Generate Tally
+     * Generate Results.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function generateTally(Request $request, Election $election)
+    public function generateResults(Request $request, Election $election)
     {
-        $archives = collect([]);
+        $file_name = $request->input('file_name');
+        $file_type = $request->input('file_type');
+        $heading = "{$election->name} Results";
+
+        try {
+            $archives = $this->getArchives($election);
+
+            switch (strtolower($file_type)) {
+                case 'pdf':
+                    return $this->exportResultsAsPdf(
+                        $archives, $file_name, $heading
+                    );
+                break;
+
+                case 'excel':
+
+                break;
+
+                case 'csv':
+
+                break;
+            }
+
+            throw new Exception('Error generating results');
+        } catch (Exception $e) {
+            Notify::error($e->getMessage(), 'Error!');
+        }
+
+        return back();
+    }
+
+    /**
+     * Produce a data set for result generation.
+     * @param \App\Election
+     * @return array
+     */
+    protected function getArchives(Election $election)
+    {
+        // position, candidate, votes.
+        return DB::table('election_votes')
+            ->select(
+                'position_uuid as position',
+                'candidate_uuid as candidate',
+                DB::raw('COUNT(*) as votes')
+            )
+            ->where('election_uuid', $election->uuid)
+            ->groupBy('candidate')
+            ->get()
+            ->sortByDesc('votes')
+            ->unique('position')
+            ->map(function ($value, $key) {
+                $position = Position::find($value->position);
+                $value->position = $position->name;
+                $value->level = $position->level;
+                $value->candidate = User::find($value->candidate)->full_name_formal;
+
+                return $value;
+            })
+            ->sortBy('level')
+            ->each(function ($item, $key) {
+                unset($item->level);
+
+                return $item;
+            })
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Export Results as PDF
+     * @param array
+     * @return PDF
+     */
+    protected function exportResultsAsPdf(
+        array $archives, string $file_name, string $heading
+    ) {
+        $pdf = PDF::loadView('root.elections.results.pdf', compact(
+                ['archives', 'heading']
+            ))
+            ->setPaper('a4', 'landscape')
+            ->setOptions(['dpi' => 150]);
+
+        return $pdf->download($file_name.'.pdf');
     }
 }

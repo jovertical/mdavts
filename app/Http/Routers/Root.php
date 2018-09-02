@@ -60,10 +60,8 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
                 Route::post('candidates', 'ElectionsController@storeCandidate');
             });
 
-            Route::name('tally.')->group(function() {
-                Route::get('tally', 'ElectionsController@showTally')->name('show');
-                Route::post('tally', 'ElectionsController@generateTally')->name('generate');
-            });
+            Route::get('tally', 'ElectionsController@showTally')->name('tally.show');
+            Route::post('results', 'ElectionsController@generateResults')->name('results.generate');
         });
 
         Route::resource('positions', 'PositionsController');

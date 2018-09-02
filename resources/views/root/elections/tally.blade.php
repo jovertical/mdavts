@@ -27,7 +27,6 @@
                 class="btn btn-info float-right"
                 data-toggle="modal"
                 data-target="#modal-generate"
-                {{ Request::input('position') != null ? 'disabled' : '' }}
                 {{ now()->format('Y-m-d') < $election->end_date ? 'disabled' : '' }}
             >
                 <i class="fas fa-balance-scale"></i> Generate
@@ -132,7 +131,7 @@
     <div id="modal-generate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" class="form-material">
+                <form method="POST" action="{{ route('root.elections.results.generate', $election) }}" class="form-material">
                     @csrf
 
                     <div class="modal-header">
@@ -143,6 +142,21 @@
                     </div>
 
                     <div class="modal-body">
+                        <!-- File Name -->
+                        <div class="form-group">
+                            <label for="file_name">File Name</label>
+
+                            <input
+                                type="text"
+                                name="file_name"
+                                id="file_name"
+                                class="form-control form-control-line"
+                                value="{{ "{$election->name}-Results--".now()->format('Y-m-d') }}"
+                                placeholder="Enter File Name"
+                            >
+                        </div>
+                        <!--/. File Name -->
+
                         <!-- File Type -->
                         <div class="form-group">
                             <label for="file_type">File Type</label>

@@ -27,7 +27,7 @@ var closeFullscreen = function () {
 // Loading animation in buttons.
 $('.btn-loading').on('click', function(event) {
     var el = $(this);
-    var icon = '<i class="fas fa-spinner fa-spin"></i>';
+    var icon = '<i class="fas fa-spinner fa-spin mr-1"></i>';
 
     // remove previous icon.
     if (el.has('i')) {

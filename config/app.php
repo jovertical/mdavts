@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Custom Service Providers
+        Barryvdh\DomPDF\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ],
 
@@ -215,6 +216,7 @@ return [
         'Carbon' => Carbon\Carbon::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Notify' => App\Services\Notify::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Str' => Illuminate\Support\Str::class,
     ],
 
