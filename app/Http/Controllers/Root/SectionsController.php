@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Root;
 
 use App\Services\Notify;
-use App\{Sections};
+use App\{Section};
+use App\{Grade};
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,29 +13,35 @@ class SectionsController extends Controller
 {
     public function index()
     {
-        $section = Sections::get();
+        $sections = Section::get();
 
-        return view('root.sections.index', compact('section'));
+        return view('root.sections.index', compact('sections'));
     }
 
     public function create()
     {
-        $section = Sections::get();
+        $sections = Section::get();
 
-        return view('root.sections.create', compact('section'));
+        $grades = Grade::get();
+
+        return view('root.sections.create', compact(['sections', 'grades']));
     }
 
-    public function store(Request $request, Sections $section)
+    public function store(Request $request, Section $sections)
     {
+
+       
          $request->validate([
-             'year_level' => 'required',
+            'grade' => 'required',
              'name' => 'required',
              'description' => 'required'   
          ]);
  
-         $section->fill($request->all());
- 
-         if ($section->save()) {
+         $sections->fill($request->all());
+
+         if ($sections->save()) {
+
+           
              Notify::success('Section created.', 'Success!');
  
              return redirect()->route('root.sections.index');
@@ -46,9 +53,9 @@ class SectionsController extends Controller
      }
 
    
-        public function destroy(Request $request, Sections $section)
+        public function destroy(Request $request, Section $sections)
         {
-            if ($section->delete()) {
+            if ($sections->delete()) {
                 Notify::success('Section deleted.', 'Success!');
     
                 return redirect()->route('root.sections.index');
@@ -59,12 +66,12 @@ class SectionsController extends Controller
             return redirect()->route('root.sections.index');
         }
      
-        public function edit(Request $request, Sections $section)
+        public function edit(Request $request, Section $sections)
         {
             return view('root.sections.edit', compact('section'));
         }
 
-        public function update(Request $request, Sections $section)
+        public function update(Request $request, Section $sections)
     {
 
         $request->validate([
@@ -73,8 +80,8 @@ class SectionsController extends Controller
             'description' => 'optional',
         ]);
 
-         $section->fill($request->all());
-         unset($section->files);
+         $sections->fill($request->all());
+         unset($sections->files);
 
         if ($section->update()) {
             Notify::success('Grades Level updated.', 'Success!');

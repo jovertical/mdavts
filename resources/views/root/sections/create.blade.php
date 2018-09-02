@@ -26,22 +26,25 @@
                         @csrf
 
                         <div class="form-group">
-                        <!-- Year Level -->
+                        <!-- Grade -->
                         <div class="form-group">
-                            <label for="year_level">Year Level</label>
+                            <label for="grade_uuid">Grade</label>
 
-                            <select name="year_level" id="year_level" class="form-control">
+
+                            <select name="grade_uuid" id="grade_uuid" class="form-control">
                                 <option selected disabled>Please select year level</option>
-                                <option value="7" {{ old('year_level') == '7' ? 'selected' : '' }}>7</option>
+                                 @foreach ($grades as $grade)
+                            <option value= "{{$grade->uuid}}" >{{$grade->level}}</option>
+                                @endforeach
                             </select>
 
-                            @if ($errors->has('year_level'))
+                            @if ($errors->has('grade_uuid'))
                                 <span class="text-danger">
-                                    {{ $errors->first('year_level') }}
+                                    {{ $errors->first('grade_uuid') }}
                                 </span>
                             @endif
                         </div>
-                        <!--/. Year Level -->
+                        <!--/. Grade -->
 
                         <!-- Level -->
                             <label for="name">Section Name</label>

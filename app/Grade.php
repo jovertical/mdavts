@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Grades extends Model
+class Grade extends Model
 {
     //
 }

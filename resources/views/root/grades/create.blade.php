@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components.breadcrumbs')
         @slot('page_title')
-            Create grade level
+            Create Grade Level
         @endslot
 
         <li class="breadcrumb-item">
@@ -27,7 +27,7 @@
 
                         <div class="form-group">
                         <!-- Level -->
-                            <label for="level">Level</label>
+                            <label for="level">Grade Level</label>
 
                             <input
                                 type="text"
@@ -56,7 +56,7 @@
                                 name="description"
                                 id="description"
                                 class="form-control form-control-line"
-                                value="{{ old('level') }}"
+                                value="{{ old('description') }}"
                                 placeholder="Enter Description"
                             >
 

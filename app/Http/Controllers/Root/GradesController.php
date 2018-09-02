@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Root;
 
 use App\Services\{Notify};
-use App\{Grades};
+use App\{Grade};
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,28 +12,28 @@ class GradesController extends Controller
 {
     public function index()
     {
-        $grades = Grades::get();
+        $grade = Grade::get();
 
-        return view('root.grades.index', compact('grades'));
+        return view('root.grades.index', compact('grade'));
     }
 
     public function create()
     {
-        $grades = Grades::get();
+        $grade = Grade::get();
 
-        return view('root.grades.create', compact('grades'));
+        return view('root.grades.create', compact('grade'));
     }
 
-    public function store(Request $request, Grades $grades)
+    public function store(Request $request, Grade $grade)
     {
          $request->validate([
              'level' => 'required',
              'description' => 'required'
          ]);
 
-         $grades->fill($request->all());
+         $grade->fill($request->all());
 
-         if ($grades->save()) {
+         if ($grade->save()) {
              Notify::success('Grades created.', 'Success!');
 
              return redirect()->route('root.grades.index');
@@ -45,7 +45,7 @@ class GradesController extends Controller
      }
 
 
-        public function destroy(Request $request, Grades $grade)
+        public function destroy(Request $request, Grade $grade)
         {
             if ($grade->delete()) {
                 Notify::success('Year Level deleted.', 'Success!');
@@ -58,12 +58,12 @@ class GradesController extends Controller
             return redirect()->route('root.grades.index');
         }
 
-        public function edit(Request $request, Grades $grade)
+        public function edit(Request $request, Grade $grade)
         {
             return view('root.grades.edit', compact('grade'));
         }
 
-        public function update(Request $request, Grades $grade)
+        public function update(Request $request, Grade $grade)
     {
 
         $request->validate([

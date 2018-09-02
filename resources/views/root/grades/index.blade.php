@@ -40,7 +40,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach($grades as $grades)
+                                @foreach($grade as $grades)
                                     <tr>
                                         <td class="text-nowrap">
                                             <a href="{{ route('root.grades.edit', $grades) }}" class="link-edit-"grades
@@ -93,6 +93,7 @@
         });
 
         $('.link-destroy-grade').on('click', function(event) {
+            
             var action = $(this).data('action');
             var form = $('#form-destroy-grades');
             var modal = $("#modal-confirmation");
@@ -101,6 +102,7 @@
 
             modal.modal().on('click', '#btn-modal-confirm', function() {
                 form.submit();
+
             });
         });
     </script>
