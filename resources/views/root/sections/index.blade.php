@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components.breadcrumbs')
         @slot('page_title')
-            List of sections
+            List of Sections
         @endslot
 
         <li class="breadcrumb-item active">
