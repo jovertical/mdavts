@@ -3,7 +3,7 @@
         @component('root.components.breadcrumbs')
 
         @slot('page_title')
-            Create Users
+            Create User
         @endslot
 
         <li class="breadcrumb-item">
@@ -19,17 +19,31 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title"></h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h4 class="card-title">Please fill up the form</h4>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
-                    <form method="POST" action="{{ route('root.users.store') }}" class="form-material m-t-40" enctype="multipart/form-data" submit-once>
+                    <form
+                        method="POST"
+                        action="{{ route('root.users.store') }}"
+                        class="form-material m-t-40"
+                        enctype="multipart/form-data"
+                        submit-once
+                    >
                         @csrf
 
-                        <div class="form-group">
-                            <div class="row">
-                                <!-- First Name -->
-                                <div class="col-md">
-                                    <label for="firstname">First Name</label>
+                        <h3 class="box-title m-t-40">Personal</h3>
+                        <hr>
+
+                        <div class="row">
+                            <!-- First Name -->
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="firstname">
+                                        First Name <span class="text-danger">*</span>
+                                    </label>
 
                                     <input
                                         type="text"
@@ -46,11 +60,13 @@
                                         </span>
                                     @endif
                                 </div>
-                                <!--/.First Name -->
+                            </div>
+                            <!--/.First Name -->
 
-                                <!-- Middle Name -->
-                                <div class="col-md">
-                                    <label for="Middle_Name">Middle Name</label>
+                            <!-- Middle Name -->
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="middlename">Middle Name</label>
 
                                     <input
                                         type="text"
@@ -67,11 +83,15 @@
                                         </span>
                                     @endif
                                 </div>
-                                <!--/.Middle Name -->
+                            </div>
+                            <!--/.Middle Name -->
 
-                                <!-- Last Name -->
-                                <div class="col-md">
-                                    <label for="Last_Name">Last Name</label>
+                            <!-- Last Name -->
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="firstname">
+                                        Last Name <span class="text-danger">*</span>
+                                    </label>
 
                                     <input
                                         type="text"
@@ -88,9 +108,32 @@
                                         </span>
                                     @endif
                                 </div>
-                                <!--/.Last Name -->
                             </div>
+                            <!--/.Last Name -->
                         </div>
+
+                        <!-- Birthdate -->
+                        <div class="form-group">
+                            <label for="firstname">
+                                Birthdate
+                            </label>
+
+                            <input
+                                type="text"
+                                name="birthdate"
+                                id="birthdate"
+                                class="form-control form-control-line"
+                                placeholder="Input Birthdate"
+                                value="{{ old('birthdate') }}"
+                            >
+
+                            @if ($errors->has('birthdate'))
+                                <span class="text-danger">
+                                    {{ $errors->first('birthdate') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Birthdate -->
 
                         <!-- Gender -->
                         <div class="form-group">
@@ -110,26 +153,102 @@
                         </div>
                         <!--/. Gender -->
 
-                        <!-- Grade Level -->
+                        <!-- Address -->
                         <div class="form-group">
-                            <label for="grade_level">Grade Level</label>
+                            <label for="firstname">
+                                Address
+                            </label>
 
                             <input
                                 type="text"
-                                name="grade_level"
-                                id="grade_level"
+                                name="address"
+                                id="address"
                                 class="form-control form-control-line"
-                                value="{{ old('grade_level') }}"
-                                placeholder="Enter Grade Level"
+                                placeholder="Enter Address"
+                                value="{{ old('address') }}"
                             >
 
-                            @if ($errors->has('grade_level'))
+                            @if ($errors->has('address'))
                                 <span class="text-danger">
-                                    {{ $errors->first('grade_level') }}
+                                    {{ $errors->first('address') }}
                                 </span>
                             @endif
                         </div>
-                        <!--/. Grade Level -->
+                        <!--/. Address -->
+
+                        <!-- Contact Number -->
+                        <div class="form-group">
+                            <label for="firstname">
+                                Contact Number
+                            </label>
+
+                            <input
+                                type="text"
+                                name="contact_number"
+                                id="contact_number"
+                                class="form-control form-control-line"
+                                placeholder="Enter Contact Number"
+                                value="{{ old('contact_number') }}"
+                            >
+
+                            @if ($errors->has('contact_number'))
+                                <span class="text-danger">
+                                    {{ $errors->first('contact_number') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Contact Number -->
+
+                        <!-- Image -->
+                        <div class="form-group">
+                            <label>Image</label>
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+
+                                <span class="input-group-addon btn btn-default btn-file">
+                                    <span class="fileinput-new">Select file</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="hidden">
+                                    <input type="file" name="image">
+                                </span>
+
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                        <!--/. Image -->
+
+                        <h3 class="box-title m-t-40">School</h3>
+                        <hr>
+
+                        <!-- Grade -->
+                        <div class="form-group">
+                            <label for="grade">
+                                Grade <span class="text-danger">*</span>
+                            </label>
+
+                            <select name="grade" id="grade" class="form-control">
+                                <option selected disabled>Please select a grade</option>
+
+                                @foreach ($grades as $grade)
+                                    <option
+                                        value="{{ $grade->uuid_text }}"
+                                        {{ old('grade') == $grade->uuid_text ? 'selected' : '' }}
+                                    >
+                                        {{ $grade->level }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('grade'))
+                                <span class="text-danger">
+                                    {{ $errors->first('grade') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Grade -->
 
                         <!-- Section -->
                         <div class="form-group">
@@ -167,27 +286,6 @@
                         </div>
                         <!--/. LRN -->
 
-                        <!-- Image -->
-                        <div class="form-group">
-                            <label>Image</label>
-                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                <div class="form-control" data-trigger="fileinput">
-                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                    <span class="fileinput-filename"></span>
-                                </div>
-
-                                <span class="input-group-addon btn btn-default btn-file">
-                                    <span class="fileinput-new">Select file</span>
-                                    <span class="fileinput-exists">Change</span>
-                                    <input type="hidden">
-                                    <input type="file" name="image">
-                                </span>
-
-                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                            </div>
-                        </div>
-                        <!--/. Image -->
-
                         <!-- Submit -->
                         <div class="form-group">
                             <button type="submit" class="btn btn-info btn-loading">
@@ -214,4 +312,8 @@
     <script src="/root/assets/plugins/moment/moment.js"></script>
     <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
     <script src="/root/material/js/jasny-bootstrap.js"></script>
+
+    <script>
+        $('#birthdate').bootstrapMaterialDatePicker({time: false});
+    </script>
 @endsection

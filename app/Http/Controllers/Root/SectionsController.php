@@ -71,6 +71,7 @@ class SectionsController extends Controller
      * Show resource edit page.
      * @param \Illuminate\Http\Request
      * @param \App\Section
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request, Section $section)
     {

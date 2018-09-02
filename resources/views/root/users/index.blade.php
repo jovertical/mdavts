@@ -23,6 +23,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <h4 class="card-title">Users</h4>
+                    <h6 class="card-subtitle">
+                        This is the list of Users
+                    </h6>
+
                     <div class="table-responsive m-t-40">
                         <div>
                             <table id="table-users" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
@@ -30,7 +35,7 @@
                                     <tr>
                                         <th>Actions</th>
                                         <th>User</th>
-                                        <th>Grade Level</th>
+                                        <th>Grade</th>
                                         <th>Section</th>
                                     </tr>
                                 </thead>
@@ -65,7 +70,7 @@
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td>{{ $user->grade_level }}</td>
+                                            <td>{{ $user->grade->level }}</td>
                                             <td>{{ $user->section }}</td>
                                         </tr>
                                     @endforeach

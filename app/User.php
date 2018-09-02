@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return "{$this->lastname}, {$this->firstname} {$this->middlename}.";
     }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class, 'grade_uuid');
+    }
 }

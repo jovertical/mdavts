@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('uuid');
+            $table->uuid('grade_uuid')->nullable();
+            $table->uuid('section_uuid')->nullable();
             $table->enum('type', ['user', 'admin', '']);
             $table->string('role')->nullable();
             $table->string('username')->nullable();
@@ -33,8 +35,6 @@ class CreateUsersTable extends Migration
             $table->string('contact_number')->nullable();
 
             $table->string('lrn')->nullable();
-            $table->integer('grade_level')->nullable();
-            $table->string('section')->nullable();
 
             $table->text('path')->nullable();
             $table->text('directory')->nullable();

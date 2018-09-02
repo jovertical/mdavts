@@ -67,6 +67,7 @@ class GradesController extends Controller
      * Show resource edit page.
      * @param \Illuminate\Http\Request
      * @param \App\Grade
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request, Grade $grade)
     {
