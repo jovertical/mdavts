@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\File;
+
 /**
  * Define miscellaneous helper methods here.
  * This will be autoloaded, therefore it will be accessible globally.
@@ -77,30 +79,36 @@ if (! function_exists('create_filename')) {
 
 if (! function_exists('avatar_path')) {
     function avatar_path($model) {
-        if (! empty($directory = $model->directory)) {
-            return url("{$directory}/{$model->filename}");
+        $path = "{$model->directory}/{$model->filename}";
+
+        if (! File::exists($path)) {
+            return url('root/app/images/avatar.png');
         }
 
-        return url('root/app/images/avatar.png');
+        return url($path);
     }
 }
 
 if (! function_exists('avatar_resized_path')) {
     function avatar_resized_path($model) {
-        if (! empty($directory = $model->directory)) {
-            return url("{$directory}/resized/{$model->filename}");
+        $path = "{$model->directory}/resized/{$model->filename}";
+
+        if (! File::exists($path)) {
+            return url('root/app/images/avatar.png');
         }
 
-        return url('root/app/images/avatar.png');
+        return url($path);
     }
 }
 
 if (! function_exists('avatar_thumbnail_path')) {
     function avatar_thumbnail_path($model) {
-        if (! empty($directory = $model->directory)) {
-            return url("{$directory}/thumbnails/{$model->filename}");
+        $path = "{$model->directory}/thumbnails/{$model->filename}";
+
+        if (! File::exists($path)) {
+            return url('root/app/images/avatar.png');
         }
 
-        return url('root/app/images/avatar.png');
+        return url($path);
     }
 }

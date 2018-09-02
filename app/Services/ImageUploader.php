@@ -46,10 +46,9 @@ class ImageUploader
             ->save("{$resized_directory}/{$filename}", 95);
 
         Image::make("{$base_directory}/{$filename}")
-            ->fit(500, null, function ($constraint) {
+            ->fit(750, null, function ($constraint) {
                 $constraint->upsize();
             })
-            ->crop(350, 350)
             ->save("{$thumbnail_directory}/{$filename}", 95);
 
         return [

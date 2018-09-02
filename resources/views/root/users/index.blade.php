@@ -12,7 +12,7 @@
 
         @slot('action')
             <form method="GET" action="{{ route('root.users.create') }}">
-                <button type="submit" class="btn btn-info btn-loading float-right">
+                <button type="submit" class="btn btn-info float-right">
                     <i class="fa fa-plus"></i> Create
                 </button>
             </form>
@@ -55,8 +55,10 @@
                                             </td>
                                             <td>
                                                 <div>
-                                                    <span class="mr-2">
-                                                        <img src="{{ avatar_thumbnail_path($user) }}" alt="" class="profile-pic img-fluid rounded-circle" style="width: 30px!important;"/>
+                                                    <span class="zoom-gallery mr-2">
+                                                        <a href="{{ avatar_thumbnail_path($user) }}" title="{{ $user->full_name }}">
+                                                            <img src="{{ avatar_thumbnail_path($user) }}" alt="" class="profile-pic img-fluid rounded-circle" style="width: 30px!important;"/>
+                                                        </a>
                                                     </span>
                                                     <span class="font-weight-normal">
                                                         {{ str_limit($user->full_name_formal, 25) }}

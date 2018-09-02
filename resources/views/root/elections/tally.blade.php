@@ -45,7 +45,7 @@
                         This is the list of tally grouped by position
                     </h6>
 
-                    <form method="GET" action="" class="form-material">
+                    <form method="GET" action="" class="form-material" submit-once>
                         <div class="row">
                             <div class="col-md">
                                 <!-- Position -->
@@ -172,7 +172,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" id="btn-modal-generate" class="btn btn-info btn-loading waves-effect">Generate</button>
+                        <button type="submit" id="btn-modal-generate" class="btn btn-info waves-effect">Generate</button>
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>

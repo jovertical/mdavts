@@ -22,7 +22,7 @@
                     <h4 class="card-title"></h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="{{ route('root.users.store') }}" class="form-material m-t-40" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('root.users.store') }}" class="form-material m-t-40" enctype="multipart/form-data" submit-once>
                         @csrf
 
                         <div class="form-group">
@@ -152,12 +152,12 @@
                         </div>
                         <!--/. Section -->
 
-                        <!-- Learner's Reference Number -->
+                        <!-- LRN -->
                         <div class="form-group">
-                            <label for="lrn">Learner's Reference Number</label>
+                            <label for="lrn">LRN</label>
 
                             <input type="text" name="lrn" id="lrn" class="form-control form-control-line" value="{{ old('lrn') }}"
-                                placeholder="Enter Learner's Reference Number">
+                                placeholder="Enter LRN">
 
                             @if ($errors->has('lrn'))
                                 <span class="text-danger">
@@ -165,7 +165,7 @@
                                 </span>
                             @endif
                         </div>
-                        <!--/. Learner's Reference Number -->
+                        <!--/. LRN -->
 
                         <!-- Image -->
                         <div class="form-group">

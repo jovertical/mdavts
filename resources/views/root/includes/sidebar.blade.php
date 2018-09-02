@@ -69,11 +69,11 @@
 
                     <ul aria-expanded="false" class="collapse">
                         <li>
-                            <a href="{{ route('root.grades.index') }}">Grade</a>
+                            <a href="{{ route('root.grades.index') }}">Grades</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('root.sections.index') }}">Section   </a>
+                            <a href="{{ route('root.sections.index') }}">Sections</a>
                         </li>
                     </ul>
                 </li>

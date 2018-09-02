@@ -8,7 +8,6 @@ namespace App\Http\Controllers\Root;
 use App\Services\{Notify};
 use App\{User, Election, Position, Candidate};
 
-
 /**
  * Third-party
  */

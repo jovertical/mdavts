@@ -15,13 +15,13 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->uuid('uuid');
-            $table->integer('year_level')->nullable();
+            $table->uuid('grade_uuid');
             $table->text('name')->nullable();
             $table->string('description')->nullable();
+
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();
-            $table->uuid('grade_uuid');
             $table->timestamps();
             $table->softDeletes();
         });

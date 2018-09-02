@@ -3,11 +3,11 @@
 @section('content')
     @component('root.components.breadcrumbs')
         @slot('page_title')
-            Edit grades level
+            Edit Grade Level
         @endslot
 
         <li class="breadcrumb-item">
-            <a href="{{ route('root.grades.index') }}">Grades Levels</a>
+            <a href="{{ route('root.grades.index') }}">Grades</a>
         </li>
 
         <li class="breadcrumb-item active">
@@ -22,53 +22,60 @@
                     <h4 class="card-title">Please fill up the form</h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="{{ route('root.grades.update', $grade) }}" class="form-material m-t-40">
-                        @csrf
+                    <form
+                        method="POST"
+                        action="{{ route('root.grades.update', $grade) }}"
+                        class="form-material m-t-40"
+                        enctype="multipart/form-data"
+                        submit-once
+                    >
                         @method('PATCH')
+                        @csrf
 
                         <div class="form-group">
-                            <!-- Name -->
-                            <div class="col-md">
-                                <label for="level">Year Level</label>
+                            <!-- Level -->
+                            <label for="level">Grade Level</label>
 
-                                <input
-                                    type="text"
-                                    name="level"
-                                    id="level"
-                                    class="form-control form-control-line"
-                                    value="{{ old('level') ?? $grade->level }}"
-                                    placeholder="Enter Year Level"
-                                >
+                            <input
+                                type="number"
+                                name="level"
+                                id="level"
+                                class="form-control form-control-line"
+                                value="{{ old('level') ?? $grade->level }}"
+                                placeholder="Enter Year Level"
+                            >
 
-                                @if ($errors->has('level'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('level') }}
-                                    </span>
-                                @endif
-                            </div>
-                            <!--/. Name -->
+                            @if ($errors->has('level'))
+                                <span class="text-danger">
+                                    {{ $errors->first('level') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Level -->
 
-                            <!-- Description -->
-                            <div class="col-md">
-                                <label for="description">Description</label>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description">Description</label>
 
-                                <textarea
-                                    name="description"
-                                    id="description"
-                                    class="form-control form-control-line summernote"
-                                >{{ old('description') ?? $grade->description }}</textarea>
+                            <textarea
+                                name="description"
+                                id="description"
+                                class="form-control form-control-line summernote"
+                            >
+                                {{ old('description') ?? $grade->description  }}
+                            </textarea>
 
-                                @if ($errors->has('description'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('description') }}
-                                    </span>
-                                @endif
-                            </div>
-                            <!--/. Description -->
+                            @if ($errors->has('description'))
+                                <span class="text-danger">
+                                    {{ $errors->first('description') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Description -->
 
                         <!-- Submit -->
-                        <div class="col-md">
-                            <button type="submit" class="btn btn-info">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info btn-loading">
                                 <i class="fa fa-edit"></i> Update
                             </button>
 
@@ -76,7 +83,6 @@
                                 Cancel
                             </a>
                         </div>
-                        <!--/. Submit -->
                     </form>
                 </div>
             </div>
@@ -85,14 +91,18 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <link href="/root/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/moment/moment.js"></script>
-    <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
     <script src="/root/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
 
-
+    <script>
+        $('.summernote').summernote({
+            height: 350,
+            minHeight: null,
+            maxHeight: null,
+            focus: false
+        });
+    </script>
 @endsection

@@ -7,7 +7,7 @@
         @endslot
 
         <li class="breadcrumb-item">
-            <a href="{{ route('root.sections.index') }}">Section</a>
+            <a href="{{ route('root.sections.index') }}">Sections</a>
         </li>
 
         <li class="breadcrumb-item active">
@@ -22,32 +22,42 @@
                     <h4 class="card-title">Please fill up the form</h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="{{ route('root.sections.store') }}" class="form-material m-t-40" enctype="multipart/form-data">
+                    <form
+                        method="POST"
+                        action="{{ route('root.sections.store') }}"
+                        class="form-material m-t-40"
+                        submit-once
+                    >
                         @csrf
 
-                        <div class="form-group">
                         <!-- Grade -->
                         <div class="form-group">
-                            <label for="grade_uuid">Grade</label>
+                            <label for="grade">Grade</label>
 
+                            <select name="grade" id="grade" class="form-control">
+                                <option selected disabled>Please select a grade</option>
 
-                            <select name="grade_uuid" id="grade_uuid" class="form-control">
-                                <option selected disabled>Please select year level</option>
-                                 @foreach ($grades as $grade)
-                            <option value= "{{$grade->uuid}}" >{{$grade->level}}</option>
+                                @foreach ($grades as $grade)
+                                    <option
+                                        value="{{ $grade->uuid_text }}"
+                                        {{ old('grade') == $grade->uuid_text ? 'selected' : '' }}
+                                    >
+                                        {{ $grade->level }}
+                                    </option>
                                 @endforeach
                             </select>
 
-                            @if ($errors->has('grade_uuid'))
+                            @if ($errors->has('grade'))
                                 <span class="text-danger">
-                                    {{ $errors->first('grade_uuid') }}
+                                    {{ $errors->first('grade') }}
                                 </span>
                             @endif
                         </div>
                         <!--/. Grade -->
 
-                        <!-- Level -->
-                            <label for="name">Section Name</label>
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="name">Name</label>
 
                             <input
                                 type="text"
@@ -55,7 +65,7 @@
                                 id="name"
                                 class="form-control form-control-line"
                                 value="{{ old('name') }}"
-                                placeholder="Enter Section"
+                                placeholder="Enter Name"
                             >
 
                             @if ($errors->has('name'))
@@ -64,21 +74,19 @@
                                 </span>
                             @endif
                         </div>
-                        <!--/. Level -->
+                        <!--/. Name -->
 
-                                
-                        <div class="form-group">
                         <!-- Description -->
+                        <div class="form-group">
                             <label for="description">Description</label>
 
-                            <input
-                                type="text"
+                            <textarea
                                 name="description"
                                 id="description"
-                                class="form-control form-control-line"
-                                value="{{ old('description') }}"
-                                placeholder="Enter Description"
+                                class="form-control form-control-line summernote"
                             >
+                                {{ old('description') }}
+                            </textarea>
 
                             @if ($errors->has('description'))
                                 <span class="text-danger">
@@ -86,13 +94,11 @@
                                 </span>
                             @endif
                         </div>
-                        <!--/. Descrpition -->
-
-
+                        <!--/. Description -->
 
                         <!-- Submit -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">
+                            <button type="submit" class="btn btn-info btn-loading">
                                 <i class="fa fa-plus"></i> Create
                             </button>
 
@@ -100,7 +106,7 @@
                                 Cancel
                             </a>
                         </div>
-                        <br/>
+                        <!--/.Submit -->
                     </form>
                 </div>
             </div>
@@ -109,11 +115,18 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="/root/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/moment/moment.js"></script>
-    <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-    <script src="/root/material/js/jasny-bootstrap.js"></script>    
+    <script src="/root/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+
+    <script>
+        $('.summernote').summernote({
+            height: 350,
+            minHeight: null,
+            maxHeight: null,
+            focus: false
+        });
+    </script>
 @endsection

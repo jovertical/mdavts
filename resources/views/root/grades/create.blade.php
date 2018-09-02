@@ -22,15 +22,21 @@
                     <h4 class="card-title">Please fill up the form</h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="{{ route('root.grades.store') }}" class="form-material m-t-40" enctype="multipart/form-data">
+                    <form
+                        method="POST"
+                        action="{{ route('root.grades.store') }}"
+                        class="form-material m-t-40"
+                        enctype="multipart/form-data"
+                        submit-once
+                    >
                         @csrf
 
                         <div class="form-group">
-                        <!-- Level -->
+                            <!-- Level -->
                             <label for="level">Grade Level</label>
 
                             <input
-                                type="text"
+                                type="number"
                                 name="level"
                                 id="level"
                                 class="form-control form-control-line"
@@ -46,19 +52,17 @@
                         </div>
                         <!--/. Level -->
 
-                                
-                        <div class="form-group">
                         <!-- Description -->
+                        <div class="form-group">
                             <label for="description">Description</label>
 
-                            <input
-                                type="text"
+                            <textarea
                                 name="description"
                                 id="description"
-                                class="form-control form-control-line"
-                                value="{{ old('description') }}"
-                                placeholder="Enter Description"
+                                class="form-control form-control-line summernote"
                             >
+                                {{ old('description') }}
+                            </textarea>
 
                             @if ($errors->has('description'))
                                 <span class="text-danger">
@@ -66,13 +70,11 @@
                                 </span>
                             @endif
                         </div>
-                        <!--/. Descrpition -->
-
-
+                        <!--/. Description -->
 
                         <!-- Submit -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">
+                            <button type="submit" class="btn btn-info btn-loading">
                                 <i class="fa fa-plus"></i> Create
                             </button>
 
@@ -80,7 +82,6 @@
                                 Cancel
                             </a>
                         </div>
-                        <br/>
                     </form>
                 </div>
             </div>
@@ -89,11 +90,18 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="/root/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/moment/moment.js"></script>
-    <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-    <script src="/root/material/js/jasny-bootstrap.js"></script>    
+    <script src="/root/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+
+    <script>
+        $('.summernote').summernote({
+            height: 350,
+            minHeight: null,
+            maxHeight: null,
+            focus: false
+        });
+    </script>
 @endsection

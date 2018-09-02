@@ -17,6 +17,7 @@ class CreateGradesTable extends Migration
             $table->uuid('uuid');
             $table->integer('level')->nullable();
             $table->string('description')->nullable();
+
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();

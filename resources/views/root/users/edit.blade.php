@@ -1,4 +1,4 @@
-@extends('root.templates.master') 
+@extends('root.templates.master')
 @section('content') @component('root.components.breadcrumbs') @slot('page_title') Create
 Users @endslot
 
@@ -18,7 +18,7 @@ Users @endslot
                 <h4 class="card-title"></h4>
                 <h6 class="card-subtitle"></h6>
 
-                <form method="POST" action="{{ route('root.users.store') }}" class="form-material m-t-40">
+                <form method="POST" action="{{ route('root.users.store') }}" class="form-material m-t-40" submit-once>
                     @csrf
                     @method('PATCH')
 
@@ -27,10 +27,10 @@ Users @endslot
                         <div class="col-md">
                             <label for="First_Name">First Name</label>
 
-                            <input type="text" 
-                            name="firstname" 
-                            id="firstname" 
-                            class="form-control form-control-line" 
+                            <input type="text"
+                            name="firstname"
+                            id="firstname"
+                            class="form-control form-control-line"
                             value="{{ old('firstname') ?? $user->firstname }}"
                                 placeholder="Enter First Name"> @if ($errors->has('firstname'))
                             <span class="text-danger">
@@ -45,10 +45,10 @@ Users @endslot
                         <div class="col-md">
                             <label for="Middle_Name">Middle Name</label>
 
-                            <input type="text" 
-                            name="middlename" 
-                            id="middlename" 
-                            class="form-control form-control-line" 
+                            <input type="text"
+                            name="middlename"
+                            id="middlename"
+                            class="form-control form-control-line"
                             value="{{ old('middlename') ?? $user->middlename }}"
                                 placeholder="Enter Middle Name"> @if ($errors->has('middlename'))
                             <span class="text-danger">
@@ -63,11 +63,11 @@ Users @endslot
                         <div class="col-md">
                             <label for="Last_Name">Last Name</label>
 
-                            <input type="text" 
-                            name="lastname" 
-                            id="lastname" 
-                            class="form-control form-control-line" 
-                            value="{{ old('lastname') ?? $user->lastname }}" 
+                            <input type="text"
+                            name="lastname"
+                            id="lastname"
+                            class="form-control form-control-line"
+                            value="{{ old('lastname') ?? $user->lastname }}"
                             placeholder="Enter Last Name">                            @if ($errors->has('lastname'))
                             <span class="text-danger">
                                 {{ $errors->first('lastname') }}
@@ -98,10 +98,10 @@ Users @endslot
                         <div class="col-md">
                             <label for="grade_level">Grade Level</label>
 
-                            <input type="text" 
-                            name="grade_level" 
-                            id="grade_level" 
-                            class="form-control form-control-line" 
+                            <input type="text"
+                            name="grade_level"
+                            id="grade_level"
+                            class="form-control form-control-line"
                             value="{{ old('grade_level') ?? $user->grade_level }}"
                                 placeholder="Enter Grade Level"> @if ($errors->has('grade_level'))
                             <span class="text-danger">
@@ -116,11 +116,11 @@ Users @endslot
                         <div class="col-md">
                             <label for="section">Section</label>
 
-                            <input type="text" 
-                            name="section" 
-                            id="section" 
-                            class="form-control form-control-line" 
-                            value="{{ old('section') ?? $user->section }}" 
+                            <input type="text"
+                            name="section"
+                            id="section"
+                            class="form-control form-control-line"
+                            value="{{ old('section') ?? $user->section }}"
                             placeholder="Enter section">                            @if ($errors->has('section'))
                             <span class="text-danger">
                                 {{ $errors->first('section') }}
@@ -138,10 +138,10 @@ Users @endslot
                         <div class="col-md">
                             <label for="lrn">Learner's Reference Number</label>
 
-                            <input type="text" 
-                            name="lrn" 
-                            id="lrn" 
-                            class="form-control form-control-line" 
+                            <input type="text"
+                            name="lrn"
+                            id="lrn"
+                            class="form-control form-control-line"
                             value="{{ old('lrn') ?? $user->lrn}}" p
                             laceholder="Enter Learner's Reference Number">                            @if ($errors->has('lrn'))
                             <span class="text-danger">
@@ -171,11 +171,11 @@ Users @endslot
     </div>
 </div>
 @endsection
- 
+
 @section('styles')
 <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
 @endsection
- 
+
 @section('scripts')
 <script src="/root/assets/plugins/moment/moment.js"></script>
 <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>

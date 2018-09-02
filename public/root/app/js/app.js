@@ -36,10 +36,17 @@ $('.btn-loading').on('click', function(event) {
 
     // prepend loading icon.
     $(el).prepend(icon);
+
+    setTimeout(function() {
+        // remove icon.
+        if (el.has('i')) {
+            el.children('i').remove();
+        }
+    }, 30000);
 });
 
 // Disable children submit button on submission.
-$('form').on('submit', function (event) {
+$('form[submit-once]').on('submit', function (event) {
     $(this).find('button[type=submit]').attr({disabled: 1});
 });
 

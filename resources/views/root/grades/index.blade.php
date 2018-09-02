@@ -33,29 +33,36 @@
                             <thead>
                                 <tr>
                                     <th>Actions</th>
-                                    <th>Grade</th>
+                                    <th>Level</th>
                                     <th>Description</th>
-                                   
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach($grade as $grades)
+                                @foreach($grades as $grade)
                                     <tr>
                                         <td class="text-nowrap">
-                                            <a href="{{ route('root.grades.edit', $grades) }}" class="link-edit-"grades
-                                                data-toggle="tooltip" data-original-title="Edit">
+                                            <a
+                                                href="{{ route('root.grades.edit', $grade) }}"
+                                                class="link-edit-grades"
+                                                data-toggle="tooltip"
+                                                data-original-title="Edit"
+                                            >
                                                 <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
                                             </a>
 
-                                            <a href="#" data-action="{{ route('root.grades.destroy', $grades) }}" class="link-destroy-grade"
-                                                data-toggle="tooltip" data-original-title="Delete">
+                                            <a
+                                                href="#"
+                                                data-action="{{ route('root.grades.destroy', $grade) }}"
+                                                class="link-destroy-grade"
+                                                data-toggle="tooltip" data-original-title="Delete"
+                                            >
                                                 <i class="fas fa-window-close text-danger"></i>
                                             </a>
                                         </td>
 
-                                        <td>{{ $grades->level }}</td>
-                                        <td>{{ $grades->description}}</td>
+                                        <td>{{ $grade->level }}</td>
+                                        <td>{{ str_limit($grade->description, 25) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -93,7 +100,7 @@
         });
 
         $('.link-destroy-grade').on('click', function(event) {
-            
+
             var action = $(this).data('action');
             var form = $('#form-destroy-grades');
             var modal = $("#modal-confirmation");
