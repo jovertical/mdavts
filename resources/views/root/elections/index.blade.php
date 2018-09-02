@@ -83,7 +83,7 @@
                                                 </a>
 
                                                 <a
-                                                    href="{{ route('root.elections.tally', $election) }}" class="link-show-tally"
+                                                    href="{{ route('root.elections.tally.show', $election) }}" class="link-show-tally"
                                                     data-toggle="tooltip"
                                                     data-original-title="View Tally"
                                                 >

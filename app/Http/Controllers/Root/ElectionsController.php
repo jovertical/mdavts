@@ -100,6 +100,57 @@ class ElectionsController extends Controller
     }
 
     /**
+     * Show Set Control Numbers page
+     * @param \Illuminate\Http\Request
+     * @param \App\Election
+     * @return \Illuminate\View\View
+     */
+     public function setControlNumbers(Request $request, Election $election)
+     {
+         $data = collect([]);
+ 
+         $data->all_users = User::where('type', 'user')->count();
+ 
+         $data->with = DB::table('election_control_numbers')
+             ->where('election_uuid', $election->uuid)
+             ->count();
+ 
+         $data->without = $data->all_users - $data->with;
+ 
+         return view('root.elections.control_numbers', compact(
+             ['data', 'election']
+         ));
+     }
+ 
+     /**
+      * Store Control Numbers
+      * @param \Illuminate\Http\Request
+      * @param \App\Election
+      * @return \Illuminate\Http\RedirectResponse
+      */
+     public function storeControlNumbers(Request $request, Election $election)
+     {
+         $users = User::where('type', 'user')->get();
+         $voter_uuids = DB::table('election_control_numbers')
+             ->where('election_uuid', $election->uuid)
+             ->pluck('voter_uuid')
+             ->all();
+ 
+         // Store control numbers for each user with this election as reference.
+         $users->each(function($user) use ($election, $voter_uuids) {
+             if (! in_array($user->uuid, $voter_uuids)) {
+                 DB::table('election_control_numbers')->insert([
+                     'election_uuid' => $election->uuid,
+                     'voter_uuid' => $user->uuid,
+                     'number' => mt_rand(100000, 999999)
+                 ]);
+             }
+         });
+ 
+         return back();
+     }
+
+    /**
      * Show Set Election Positions page
      * @param \App\Election
      * @return \Illuminate\View\View
@@ -211,63 +262,12 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Show Set Control Numbers page
-     * @param \Illuminate\Http\Request
-     * @param \App\Election
-     * @return \Illuminate\View\View
-     */
-    public function setControlNumbers(Request $request, Election $election)
-    {
-        $data = collect([]);
-
-        $data->all_users = User::where('type', 'user')->count();
-
-        $data->with = DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
-            ->count();
-
-        $data->without = $data->all_users - $data->with;
-
-        return view('root.elections.control_numbers', compact(
-            ['data', 'election']
-        ));
-    }
-
-    /**
-     * Store Control Numbers
-     * @param \Illuminate\Http\Request
-     * @param \App\Election
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function storeControlNumbers(Request $request, Election $election)
-    {
-        $users = User::where('type', 'user')->get();
-        $voter_uuids = DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
-            ->pluck('voter_uuid')
-            ->all();
-
-        // Store control numbers for each user with this election as reference.
-        $users->each(function($user) use ($election, $voter_uuids) {
-            if (! in_array($user->uuid, $voter_uuids)) {
-                DB::table('election_control_numbers')->insert([
-                    'election_uuid' => $election->uuid,
-                    'voter_uuid' => $user->uuid,
-                    'number' => mt_rand(100000, 999999)
-                ]);
-            }
-        });
-
-        return back();
-    }
-
-    /**
      * Show Tally page
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
      */
-    public function tally(Request $request, Election $election)
+    public function showTally(Request $request, Election $election)
     {
         $election_votes = DB::table('election_votes')
             ->select(
@@ -297,5 +297,16 @@ class ElectionsController extends Controller
         }
 
         return view('root.elections.tally', compact(['election', 'archives']));
+    }
+
+    /**
+     * Generate Tally
+     * @param \Illuminate\Http\Request
+     * @param \App\Election
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function generateTally(Request $request, Election $election)
+    {
+        //
     }
 }

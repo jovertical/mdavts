@@ -19,6 +19,20 @@
         <li class="breadcrumb-item active">
             Tally
         </li>
+
+        @slot('action')
+            <button 
+                type="button" 
+                id="btn-generate" 
+                class="btn btn-info float-right" 
+                data-toggle="modal"
+                data-target="#modal-generate"
+                {{ Request::input('position') != null ? 'disabled' : '' }}
+                {{ now()->format('Y-m-d') < $election->end_date ? 'disabled' : '' }}
+            >
+                <i class="fas fa-balance-scale"></i> Generate
+            </button>
+        @endslot
     @endcomponent
 
     <div class="row">
@@ -110,6 +124,45 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+    </div>
+@endsection
+
+@section('modals')
+    <div id="modal-generate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" class="form-material">
+                    @csrf
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            Generate Results
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- File Type -->
+                        <div class="form-group">
+                            <label for="file_type">File Type</label>
+
+                            <select name="file_type" id="file_type" class="form-control">
+                                <option selected disabled>Please select a file type</option>
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        <!--/. File Type -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" id="btn-modal-generate" class="btn btn-info btn-loading waves-effect">Generate</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
