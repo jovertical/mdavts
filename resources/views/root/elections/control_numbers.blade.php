@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components.breadcrumbs')
         @slot('page_title')
-            Set Positions
+            Control Numbers
         @endslot
 
         <li class="breadcrumb-item">
@@ -17,7 +17,7 @@
         </li>
 
         <li class="breadcrumb-item active">
-            Positions
+            Control Numbers
         </li>
     @endcomponent
 
@@ -26,10 +26,9 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">
-                        Set Positions in {{ $election->name }}
+                        Control Numbers in {{ $election->name }}
                     </h4>
                     <h6 class="card-subtitle">
-                        Pick position(s) that will be available for candidates to run in {{ $election->name }}
                     </h6>
 
                     <form method="POST" action="">
@@ -37,29 +36,24 @@
 
                         <div class="form-group row p-t-20">
                             <div class="col-sm-4">
-                                @foreach ($positions as $position)
-                                    <div class="m-b-10">
-                                        <label class="custom-control custom-checkbox">
-                                            <input
-                                                type="checkbox"
-                                                name="positions[]"
-                                                value="{{ $position->uuid_text }}"
-                                                class="custom-control-input"
-                                                {{ in_array($position->uuid_text, $position_uuids) ? 'checked' : '' }}
-                                            >
-                                            <span class="custom-control-label">
-                                                {{ $position->name }}
-                                            </span>
-                                        </label>
-                                    </div>
-                                @endforeach
+                                <ul class="list-icons">
+                                    <li>
+                                        Total users: {{ $data->all_users }}
+                                    </li>
+                                    <li>
+                                        Users with control number: {{ $data->with }}
+                                    </li>
+                                    <li>
+                                        Users without control number: {{ $data->without }}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
                         <!-- Submit -->
                         <div class="form-group">
                             <button type="submit" class="btn btn-info btn-loading">
-                                <i class="fas fa-check"></i> Set &nbsp;&nbsp;
+                                <i class="fas fa-plus"></i> Generate
                             </button>
 
                             <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">

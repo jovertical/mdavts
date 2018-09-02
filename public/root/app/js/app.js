@@ -38,6 +38,7 @@ $('.btn-loading').on('click', function(event) {
     $(el).prepend(icon);
 });
 
+// Disable children submit button on submission.
 $('form').on('submit', function (event) {
     $(this).find('button[type=submit]').attr({disabled: 1});
 });

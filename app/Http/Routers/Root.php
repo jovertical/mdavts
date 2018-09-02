@@ -45,14 +45,19 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
+            Route::name('control-numbers.')->group(function() {
+                Route::get('control-numbers', 'ElectionsController@setControlNumbers')->name('set');
+                Route::post('control-numbers', 'ElectionsController@storeControlNumbers');
+            });
+
             Route::name('positions.')->group(function() {
                 Route::get('positions', 'ElectionsController@setPositions')->name('set');
-                Route::patch('positions', 'ElectionsController@updatePositions')->name('update');
+                Route::post('positions', 'ElectionsController@storePositions');
             });
 
             Route::name('candidates.')->group(function() {
-                Route::get('candidates', 'ElectionsController@nominee')->name('set');
-                Route::post('candidates', 'ElectionsController@nominate')->name('nominate');
+                Route::get('candidates', 'ElectionsController@setCandidate')->name('set');
+                Route::post('candidates', 'ElectionsController@storeCandidate');
             });
 
             Route::get('tally', 'ElectionsController@tally')->name('tally');

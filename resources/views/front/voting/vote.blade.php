@@ -26,7 +26,7 @@
 
                                     <p class="card-text candidate-detail">
                                         <span class="font-weight-normal">
-                                            {{ $candidate->user->grade_level.' - '.$user->section }}
+                                            {{ str_limit($candidate->user->grade_level.' - '.$user->section, 15) }}
                                         </span>
                                     </p>
 

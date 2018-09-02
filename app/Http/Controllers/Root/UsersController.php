@@ -116,7 +116,7 @@ class UsersController extends Controller
             ->get();
 
         $control_numbers->each(function($number) use ($control_numbers) {
-            $number->election = Election::find($number->election_uuid)->first();
+            $number->election = Election::find($number->election_uuid);
         });
 
         return view('root.users.control_numbers', compact(

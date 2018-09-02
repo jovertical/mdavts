@@ -124,8 +124,8 @@
                                             </p>
 
                                             <div class="candidate-footer">
-                                                <a
-                                                    href="#"
+                                                <button
+                                                    type="button"
                                                     class="btn btn-success link-nominate"
                                                     data-toggle="modal"
                                                     data-target="#modal-nominate"
@@ -135,7 +135,7 @@
                                                     data-user-section="{{ $user->section }}"
                                                 >
                                                     <i class="fas fa-ribbon"></i> Nominate
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                         <button type="submit" id="btn-modal-nominate" class="btn btn-info btn-loading waves-effect">
                             <i class="fas fa-ribbon"></i> Nominate
                         </button>
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Back</button>
                     </div>
                 </form>
             </div>

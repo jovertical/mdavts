@@ -48,15 +48,6 @@ class ElectionsController extends Controller
         unset($election->files);
 
         if ($election->save()) {
-            // Store control numbers for each user with this election as reference.
-            User::where('type', 'user')->get()->each(function($user) use ($election) {
-                DB::table('election_control_numbers')->insert([
-                    'election_uuid' => $election->uuid,
-                    'voter_uuid' => $user->uuid,
-                    'number' => mt_rand(100000, 999999)
-                ]);
-            });
-
             Notify::success('Election created.', 'Success!');
 
             return redirect()->route('root.elections.index');
@@ -131,12 +122,12 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Update Election Positions
+     * Store Election Positions
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePositions(Request $request, Election $election)
+    public function storePositions(Request $request, Election $election)
     {
         $position_uuids = $request->input('positions');
 
@@ -157,12 +148,12 @@ class ElectionsController extends Controller
     }
 
     /**
-     * Show Nominees page
+     * Show Set Candidate Page
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
      */
-    public function nominee(Request $request, Election $election)
+    public function setCandidate(Request $request, Election $election)
     {
         if ($request->has('firstname')) {
             $firstname = "%{$request->input('firstname')}%";
@@ -195,7 +186,7 @@ class ElectionsController extends Controller
      * @param \App\Election
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function nominate(Request $request, Election $election)
+    public function storeCandidate(Request $request, Election $election)
     {
         $request->validate([
             'position' => 'required'
@@ -215,6 +206,57 @@ class ElectionsController extends Controller
         }
 
         Notify::warning('Failed to nominate candidate.', 'Warning!');
+
+        return back();
+    }
+
+    /**
+     * Show Set Control Numbers page
+     * @param \Illuminate\Http\Request
+     * @param \App\Election
+     * @return \Illuminate\View\View
+     */
+    public function setControlNumbers(Request $request, Election $election)
+    {
+        $data = collect([]);
+
+        $data->all_users = User::where('type', 'user')->count();
+
+        $data->with = DB::table('election_control_numbers')
+            ->where('election_uuid', $election->uuid)
+            ->count();
+
+        $data->without = $data->all_users - $data->with;
+
+        return view('root.elections.control_numbers', compact(
+            ['data', 'election']
+        ));
+    }
+
+    /**
+     * Store Control Numbers
+     * @param \Illuminate\Http\Request
+     * @param \App\Election
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeControlNumbers(Request $request, Election $election)
+    {
+        $users = User::where('type', 'user')->get();
+        $voter_uuids = DB::table('election_control_numbers')
+            ->where('election_uuid', $election->uuid)
+            ->pluck('voter_uuid')
+            ->all();
+
+        // Store control numbers for each user with this election as reference.
+        $users->each(function($user) use ($election, $voter_uuids) {
+            if (! in_array($user->uuid, $voter_uuids)) {
+                DB::table('election_control_numbers')->insert([
+                    'election_uuid' => $election->uuid,
+                    'voter_uuid' => $user->uuid,
+                    'number' => mt_rand(100000, 999999)
+                ]);
+            }
+        });
 
         return back();
     }
