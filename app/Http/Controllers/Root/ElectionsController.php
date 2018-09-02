@@ -271,15 +271,15 @@ class ElectionsController extends Controller
     {
         $election_votes = DB::table('election_votes')
             ->select(
-                'position_uuid as position',
-                'candidate_uuid as candidate',
+                'position_uuid',
+                'candidate_uuid',
                 DB::raw('COUNT(*) as votes')
             )
-            ->groupBy('candidate')
+            ->groupBy('candidate_uuid')
             ->get()
             ->map(function($vote) {
-                $vote->position = Position::find($vote->position);
-                $vote->candidate = User::find($vote->candidate);
+                $vote->position = Position::find($vote->position_uuid);
+                $vote->candidate = User::find($vote->candidate_uuid);
 
                 return $vote;
             })
