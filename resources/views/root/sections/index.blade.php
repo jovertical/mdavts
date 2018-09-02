@@ -42,23 +42,23 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach($section as $sections)
+                                    @foreach($sections as $section)
                                         <tr>
                                             <td class="text-nowrap">
-                                                <a href="{{ route('root.sections.edit', $sections) }}" class="link-edit-"sections
+                                                <a href="{{ route('root.sections.edit', $section) }}" class="link-edit-"sections
                                                     data-toggle="tooltip" data-original-title="Edit">
                                                     <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
                                                 </a>
 
-                                                <a href="#" data-action="{{ route('root.sections.destroy', $sections) }}" class="link-destroy-grade"
+                                                <a href="#" data-action="{{ route('root.sections.destroy', $section) }}" class="link-destroy-grade"
                                                     data-toggle="tooltip" data-original-title="Delete">
                                                     <i class="fas fa-window-close text-danger"></i>
                                                 </a>
                                             </td>
-
-                                            <td>{{ $sections->year_level }}</th>
-                                            <td>{{ $sections->name }}</td>
-                                            <td>{{ $sections->description}}</td>
+                                            
+                                            <td>{{ $section->grade->level }}</td>
+                                            <td>{{ $section->name }}</td>
+                                            <td>{{ $section->description}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

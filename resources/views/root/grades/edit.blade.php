@@ -56,9 +56,7 @@
                                     name="description"
                                     id="description"
                                     class="form-control form-control-line summernote"
-                                >
-                                    {{ old('description') ?? $grade->description }}
-                                </textarea>
+                                >{{ old('description') ?? $grade->description }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="text-danger">

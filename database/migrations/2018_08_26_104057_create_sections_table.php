@@ -21,6 +21,7 @@ class CreateSectionsTable extends Migration
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();
+            $table->uuid('grade_uuid');
             $table->timestamps();
             $table->softDeletes();
         });
