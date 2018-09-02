@@ -7,7 +7,7 @@
         @endslot
 
         <li class="breadcrumb-item active">
-            grades
+            Grades
         </li>
 
         @slot('action')
