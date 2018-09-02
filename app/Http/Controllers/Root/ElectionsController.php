@@ -108,20 +108,20 @@ class ElectionsController extends Controller
      public function setControlNumbers(Request $request, Election $election)
      {
          $data = collect([]);
- 
+
          $data->all_users = User::where('type', 'user')->count();
- 
+
          $data->with = DB::table('election_control_numbers')
              ->where('election_uuid', $election->uuid)
              ->count();
- 
+
          $data->without = $data->all_users - $data->with;
- 
+
          return view('root.elections.control_numbers', compact(
              ['data', 'election']
          ));
      }
- 
+
      /**
       * Store Control Numbers
       * @param \Illuminate\Http\Request
@@ -135,7 +135,7 @@ class ElectionsController extends Controller
              ->where('election_uuid', $election->uuid)
              ->pluck('voter_uuid')
              ->all();
- 
+
          // Store control numbers for each user with this election as reference.
          $users->each(function($user) use ($election, $voter_uuids) {
              if (! in_array($user->uuid, $voter_uuids)) {
@@ -146,7 +146,7 @@ class ElectionsController extends Controller
                  ]);
              }
          });
- 
+
          return back();
      }
 
@@ -272,14 +272,14 @@ class ElectionsController extends Controller
         $election_votes = DB::table('election_votes')
             ->select(
                 'position_uuid as position',
-                'candidate_uuid as user',
+                'candidate_uuid as candidate',
                 DB::raw('COUNT(*) as votes')
             )
-            ->groupBy('candidate_uuid')
+            ->groupBy('candidate')
             ->get()
             ->map(function($vote) {
                 $vote->position = Position::find($vote->position);
-                $vote->user = User::find($vote->user);
+                $vote->candidate = User::find($vote->candidate);
 
                 return $vote;
             })
@@ -307,6 +307,6 @@ class ElectionsController extends Controller
      */
     public function generateTally(Request $request, Election $election)
     {
-        //
+        $archives = collect([]);
     }
 }

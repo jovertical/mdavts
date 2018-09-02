@@ -21,10 +21,10 @@
         </li>
 
         @slot('action')
-            <button 
-                type="button" 
-                id="btn-generate" 
-                class="btn btn-info float-right" 
+            <button
+                type="button"
+                id="btn-generate"
+                class="btn btn-info float-right"
                 data-toggle="modal"
                 data-target="#modal-generate"
                 {{ Request::input('position') != null ? 'disabled' : '' }}
@@ -113,7 +113,7 @@
                                     <tbody>
                                         @foreach(collect($stats['votes'])->sortByDesc('votes') as $vote)
                                             <tr>
-                                                <td>{{ str_limit($vote->user->full_name_formal, 25) }}</td>
+                                                <td>{{ str_limit($vote->candidate->full_name_formal, 25) }}</td>
                                                 <td>{{ $vote->votes }}</td>
                                             </tr>
                                         @endforeach
