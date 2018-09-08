@@ -161,7 +161,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Custom Service Providers
-        Barryvdh\DomPDF\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ],
 
