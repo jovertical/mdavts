@@ -88,11 +88,7 @@
             // to male the ui fit in darker theme.
             $('input').addClass('text-white');
 
-            $('select option:enabled').addClass('text-white');
-
-            $('select').on('change', function(event) {
-                $(this).addClass('text-white')
-            });
+            $('select, select > option:enabled').addClass('text-white');
         </script>
 
         {!! Notify::notification() !!}

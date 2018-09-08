@@ -46,11 +46,11 @@
                                             <td class="text-nowrap">
                                                 <a href="{{ route('root.users.edit', $user) }}" class="link-edit-user"
                                                     data-toggle="tooltip" data-original-title="Edit">
-                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                    <i class="fas fa-pencil-alt m-r-10"></i>
                                                 </a>
 
                                                 <a href="{{ route('root.users.control-numbers', $user) }}" class="link-show-control-numbers" data-toggle="tooltip" data-original-title="Control Numbers">
-                                                    <i class="fas fa-key text-inverse m-r-10"></i>
+                                                    <i class="fas fa-key m-r-10"></i>
                                                 </a>
 
                                                 <a href="#" data-action="{{ route('root.users.destroy', $user) }}" class="link-destroy-user"
@@ -71,7 +71,7 @@
                                                 </div>
                                             </td>
                                             <td>{{ $user->grade->level }}</td>
-                                            <td>{{ $user->section }}</td>
+                                            <td>{{ $user->section->name }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Root;
  * Application
  */
 use App\Services\{Notify};
-use App\{Grade};
+use App\{Grade, Section};
 
 /**
  * Laravel

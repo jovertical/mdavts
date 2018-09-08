@@ -235,6 +235,8 @@
                                 @foreach ($grades as $grade)
                                     <option
                                         value="{{ $grade->uuid_text }}"
+                                        data-sections="{{ $grade->sections->pluck('uuid_text')->toJson() }}"
+                                        data-section-names="{{ $grade->sections->pluck('name')->toJson() }}"
                                         {{ old('grade') == $grade->uuid_text ? 'selected' : '' }}
                                     >
                                         {{ $grade->level }}
@@ -252,22 +254,21 @@
 
                         <!-- Section -->
                         <div class="form-group">
-                            <label for="section">Section</label>
+                            <div class="form-group">
+                                <label for="grade">
+                                    Section <span class="text-danger">*</span>
+                                </label>
 
-                            <input
-                                type="text"
-                                name="section"
-                                id="section"
-                                class="form-control form-control-line"
-                                value="{{ old('section') }}"
-                                placeholder="Enter section"
-                            >
+                                <select name="section" id="section" class="form-control">
+                                    <option selected disabled>Please select a section</option>
+                                </select>
 
-                            @if ($errors->has('section'))
-                                <span class="text-danger">
-                                    {{ $errors->first('section') }}
-                                </span>
-                            @endif
+                                @if ($errors->has('section'))
+                                    <span class="text-danger">
+                                        {{ $errors->first('section') }}
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                         <!--/. Section -->
 
@@ -317,6 +318,21 @@
         $('#birthdate').bootstrapMaterialDatePicker({
             time: false,
             maxDate: moment().subtract(10, 'years')
+        });
+
+        $('#grade').on('change', function(event) {
+            var el = $('#grade option:selected');
+            var sections = el.data('sections');
+            var section_names = el.data('section-names');
+
+            $('#section').html('<option selected disabled>Please select a section</option>');
+
+            $.each(sections, function(index, section) {
+                $('#section').append($('<option>', {
+                    value: section,
+                    text: section_names[index]
+                }))
+            })
         });
     </script>
 @endsection

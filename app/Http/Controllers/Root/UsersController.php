@@ -66,7 +66,7 @@ class UsersController extends Controller
 
         $user->lrn = $request->input('lrn');
         $user->grade_uuid = Grade::encodeUuid($request->get('grade'));
-        $user->section_uuid = $request->get('section');
+        $user->section_uuid = Section::encodeUuid($request->get('section'));
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
@@ -131,7 +131,7 @@ class UsersController extends Controller
 
         $user->lrn = $request->input('lrn');
         $user->grade_uuid = Grade::encodeUuid($request->get('grade'));
-        $user->section_uuid = $request->get('section');
+        $user->section_uuid = Section::encodeUuid($request->get('section'));
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
