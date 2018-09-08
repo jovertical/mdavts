@@ -20,17 +20,31 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Please fill up the form</h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
-                    <form method="POST" action="{{ route('root.admins.update', $admin) }}" class="form-material m-t-40" enctype="multipart/form-data">
+                    <form
+                        method="POST"
+                        action="{{ route('root.admins.update', $admin) }}"
+                        class="form-material m-t-40"
+                        enctype="multipart/form-data"
+                        submit-once
+                    >
                         @csrf
                         @method('PATCH')
+
+                        <h3 class="box-title m-t-40">General</h3>
+                        <hr>
 
                         <div class="form-group">
                             <div class="row">
                                 <!-- Firstname -->
                                 <div class="col-md">
-                                    <label for="firstname">First Name</label>
+                                    <label for="firstname">
+                                        First Name <span class="text-danger">*</span>
+                                    </label>
 
                                     <input
                                         type="text"
@@ -72,7 +86,9 @@
 
                                 <!-- Lastname -->
                                 <div class="col-md">
-                                    <label for="lastname">Last Name</label>
+                                    <label for="lastname">
+                                        Last Name <span class="text-danger">*</span>
+                                    </label>
 
                                     <input
                                         type="text"
@@ -153,9 +169,14 @@
                         </div>
                         <!--/. Address -->
 
+                        <h3 class="box-title m-t-40">Account</h3>
+                        <hr>
+
                         <!-- Email -->
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">
+                                Email <span class="text-danger">*</span>
+                            </label>
 
                             <input
                                 type="email"
@@ -173,6 +194,33 @@
                             @endif
                         </div>
                         <!--/. Email -->
+
+                        <!-- Username -->
+                        <div class="form-group">
+                            <label for="contact_number">Username</label>
+
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                class="form-control form-control-line"
+                                value="{{ old('username') ?? $admin->username }}"
+                                placeholder="Enter Contact Number"
+                            >
+
+                            <span class="help-block text-muted">
+                                <small>
+                                    An auto generated username will be created, if left blank.
+                                </small>
+                            </span>
+
+                            @if ($errors->has('username'))
+                                <span class="text-danger">
+                                    {{ $errors->first('username') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Username -->
 
                         <!-- Contact number -->
                         <div class="form-group">
@@ -215,6 +263,15 @@
 
                                 <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                             </div>
+
+                            <span class="help-block text-muted">
+                                <small>
+                                    File extensions supported:
+                                    <code>jpg/jpeg</code>,
+                                    <code>png</code>,
+                                    <code>gif</code>
+                                </small>
+                            </span>
                         </div>
                         <!--/. Image -->
 
@@ -224,7 +281,7 @@
                                 <i class="fas fa-edit"></i> Update
                             </button>
 
-                            <a href="{{ route('root.admins.index') }}" class="btn btn-secondary btn-loading">
+                            <a href="{{ route('root.admins.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                         </div>
@@ -246,6 +303,9 @@
     <script src="/root/material/js/jasny-bootstrap.js"></script>
 
     <script>
-        $('#birthdate').bootstrapMaterialDatePicker({time: false});
+        $('#birthdate').bootstrapMaterialDatePicker({
+            time: false,
+            maxDate: moment().subtract(10, 'years')
+        });
     </script>
 @endsection

@@ -19,9 +19,10 @@ class CreateUsersTable extends Migration
             $table->uuid('section_uuid')->nullable();
             $table->enum('type', ['user', 'admin', '']);
             $table->string('role')->nullable();
-            $table->string('username')->nullable();
             $table->string('email')->nullable();
             $table->string('password')->nullable();
+            $table->string('username')->nullable();
+            $table->string('contact_number')->nullable();
             $table->rememberToken();
             $table->boolean('active')->default(1);
             $table->boolean('verified')->default(0);
@@ -32,7 +33,6 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['male', 'female', ''])->nullable();
             $table->text('address')->nullable();
-            $table->string('contact_number')->nullable();
 
             $table->string('lrn')->nullable();
 

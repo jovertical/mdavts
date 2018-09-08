@@ -34,7 +34,7 @@
                     >
                         @csrf
 
-                        <h3 class="box-title m-t-40">Personal</h3>
+                        <h3 class="box-title m-t-40">General</h3>
                         <hr>
 
                         <div class="row">
@@ -176,6 +176,9 @@
                         </div>
                         <!--/. Address -->
 
+                        <h3 class="box-title m-t-40">Account</h3>
+                        <hr>
+
                         <!-- Contact Number -->
                         <div class="form-group">
                             <label for="firstname">
@@ -217,6 +220,15 @@
 
                                 <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                             </div>
+
+                            <span class="help-block text-muted">
+                                <small>
+                                    File extensions supported:
+                                    <code>jpg/jpeg</code>,
+                                    <code>png</code>,
+                                    <code>gif</code>
+                                </small>
+                            </span>
                         </div>
                         <!--/. Image -->
 
@@ -256,7 +268,7 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="grade">
-                                    Section <span class="text-danger">*</span>
+                                    Section
                                 </label>
 
                                 <select name="section" id="section" class="form-control">

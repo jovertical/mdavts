@@ -34,7 +34,11 @@ class AdminsController extends Controller
         $admin = new User;
 
         $admin->type = 'admin';
-        $admin->username = create_username($request->post('firstname'));
+        $admin->email = $request->input('email');
+        $admin->username = empty($username = $request->input('username'))
+            ? create_username($request->post('firstname'))
+            : $username;
+        $admin->contact_number = $request->input('contact_number');
 
         $admin->firstname = $request->input('firstname');
         $admin->middlename = $request->input('middlename');
@@ -42,8 +46,6 @@ class AdminsController extends Controller
         $admin->birthdate = $request->input('birthdate');
         $admin->gender = $request->input('gender');
         $admin->address = $request->input('address');
-        $admin->email = $request->input('email');
-        $admin->contact_number = $request->input('contact_number');
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
@@ -85,13 +87,17 @@ class AdminsController extends Controller
 
     public function update(Request $request, User $admin)
     {
-         $request->validate([
+        $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'birthdate' => 'required|date',
-            'gender' => 'required',
-            'email' => "required|email|unique:users,email,{$admin->uuid},uuid",
+            'email' => 'required|email',
         ]);
+
+        $admin->email = $request->input('email');
+        $admin->username = empty($username = $request->input('username'))
+            ? create_username($request->post('firstname'))
+            : $username;
+        $admin->contact_number = $request->input('contact_number');
 
         $admin->firstname = $request->input('firstname');
         $admin->middlename = $request->input('middlename');
@@ -99,8 +105,6 @@ class AdminsController extends Controller
         $admin->birthdate = $request->input('birthdate');
         $admin->gender = $request->input('gender');
         $admin->address = $request->input('address');
-        $admin->email = $request->input('email');
-        $admin->contact_number = $request->input('contact_number');
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(

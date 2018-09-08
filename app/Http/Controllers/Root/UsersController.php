@@ -65,8 +65,13 @@ class UsersController extends Controller
         $user->contact_number = $request->input('contact_number');
 
         $user->lrn = $request->input('lrn');
-        $user->grade_uuid = Grade::encodeUuid($request->get('grade'));
-        $user->section_uuid = Section::encodeUuid($request->get('section'));
+
+        $user->grade_uuid = ! empty($grade = $request->get('grade'))
+            ? Grade::encodeUuid($grade)
+            : null;
+        $user->section_uuid = ! empty($section = $request->get('section'))
+            ? Section::encodeUuid($section)
+            : null;
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
@@ -130,8 +135,13 @@ class UsersController extends Controller
         $user->contact_number = $request->input('contact_number');
 
         $user->lrn = $request->input('lrn');
-        $user->grade_uuid = Grade::encodeUuid($request->get('grade'));
-        $user->section_uuid = Section::encodeUuid($request->get('section'));
+
+        $user->grade_uuid = ! empty($grade = $request->get('grade'))
+            ? Grade::encodeUuid($grade)
+            : null;
+        $user->section_uuid = ! empty($section = $request->get('section'))
+            ? Section::encodeUuid($section)
+            : null;
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(

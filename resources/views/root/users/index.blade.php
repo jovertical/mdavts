@@ -34,9 +34,13 @@
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
-                                        <th>User</th>
+                                        <th width="25%">Name</th>
+                                        <th>Birthdate</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
                                         <th>Grade</th>
                                         <th>Section</th>
+                                        <th>LRN</th>
                                     </tr>
                                 </thead>
 
@@ -70,8 +74,12 @@
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td>{{ $user->grade->level }}</td>
-                                            <td>{{ $user->section->name }}</td>
+                                            <td>{!! $user->birthdate ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! $user->gender ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! $user->address ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! optional($user->grade)->level ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! optional($user->section)->name ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! $user->lrn ?? '<i>No Data</i>' !!}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

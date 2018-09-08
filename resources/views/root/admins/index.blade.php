@@ -12,7 +12,7 @@
 
         @slot('action')
             <form method="GET" action="{{ route('root.admins.create') }}">
-                <button type="submit" class="btn btn-info btn-loading float-right">
+                <button type="submit" class="btn btn-info float-right">
                     <i class="fas fa-plus"></i> Create
                 </button>
             </form>
@@ -34,12 +34,11 @@
                                 <thead>
                                     <tr>
                                         <th>Actions</th>
-                                        <th>Admin</th>
+                                        <th width="25%">Name</th>
+                                        <th width="25%">Email</th>
                                         <th>Birthdate</th>
                                         <th>Gender</th>
                                         <th>Address</th>
-                                        <th>Email</th>
-                                        <th>Contact</th>
                                     </tr>
                                 </thead>
 
@@ -57,16 +56,16 @@
                                                     <span class="mr-2">
                                                         <img src="{{ avatar_thumbnail_path($admin) }}" alt="" class="profile-pic img-fluid rounded-circle" style="width: 30px!important;"/>
                                                     </span>
+
                                                     <span class="font-weight-normal">
                                                         {{ str_limit($admin->full_name_formal, 25) }}
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td>{{ $admin->birthdate }}</td>
-                                            <td>{{ ucfirst($admin->gender) }}</td>
-                                            <td>{{ str_limit($admin->address, 15) }}</td>
-                                            <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->contact_number }}</td>
+                                            <td>{!! $admin->email !!}</td>
+                                            <td>{!! $admin->birthdate ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! ucfirst($admin->gender ?? '<i>No Data</i>')  !!}</td>
+                                            <td>{!! str_limit($admin->address, 15) ?? '<i>No Data</i>' !!}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

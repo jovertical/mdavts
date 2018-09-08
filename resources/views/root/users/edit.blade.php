@@ -218,6 +218,15 @@
 
                                 <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                             </div>
+
+                            <span class="help-block text-muted">
+                                <small>
+                                    File extensions supported:
+                                    <code>jpg/jpeg</code>,
+                                    <code>png</code>,
+                                    <code>gif</code>
+                                </small>
+                            </span>
                         </div>
                         <!--/. Image -->
 
@@ -253,12 +262,11 @@
                         </div>
                         <!--/. Grade -->
 
-
                         <!-- Section -->
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="grade">
-                                    Section <span class="text-danger">*</span>
+                                    Section
                                 </label>
 
                                 <select name="section" id="section" class="form-control">
@@ -323,19 +331,18 @@
     <script src="/root/material/js/jasny-bootstrap.js"></script>
 
     <script>
-        var i = "{{ App\Section::decodeUuid($user->section_uuid) }}";
-
         $('#birthdate').bootstrapMaterialDatePicker({
             time: false,
             maxDate: moment().subtract(10, 'years')
         });
 
+        var currentSection = "{{ ! empty($section = $user->section_uuid) ? App\Section::decodeUuid($section) : null }}"
+
         var appendSections = function (sections, sectionNames) {
             $('#section').html('<option selected disabled>Please select a section</option>');
 
             $.each(sections, function(index, section) {
-                var select = section ==
-                    "{{ App\Section::decodeUuid($user->section_uuid) }}" ? true : false;
+                var select = section == currentSection ? true : false;
 
                 $('#section').append($('<option>', {
                     value: section,
