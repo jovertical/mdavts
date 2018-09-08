@@ -46,7 +46,7 @@
                                             <td class="text-nowrap">
                                                 <a href="{{ route('root.sections.edit', $section) }}" class="link-edit-section"
                                                     data-toggle="tooltip" data-original-title="Edit">
-                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                    <i class="fas fa-pencil-alt m-r-10"></i>
                                                 </a>
 
                                                 <a href="#" data-action="{{ route('root.sections.destroy', $section) }}" class="link-destroy-section"

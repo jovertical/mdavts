@@ -46,7 +46,7 @@
                                             <td class="text-nowrap">
                                                 <a href="{{ route('root.positions.edit', $position) }}" class="link-edit-position"
                                                     data-toggle="tooltip" data-original-title="Edit">
-                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                    <i class="fas fa-pencil-alt m-r-10"></i>
                                                 </a>
 
                                                 <a href="#" data-action="{{ route('root.positions.destroy', $position) }}" class="link-destroy-position"

@@ -49,7 +49,7 @@
                                             <td class="text-nowrap">
                                                 <a href="{{ route('root.admins.edit', $admin) }}" class="link-edit-admin"
                                                     data-toggle="tooltip" data-original-title="Edit">
-                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                    <i class="fas fa-pencil-alt m-r-10"></i>
                                                 </a>
                                             </td>
                                             <td>

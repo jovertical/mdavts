@@ -12,10 +12,12 @@
 
         <!-- Bootstrap Core CSS -->
         <link href="/root/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
         <!-- Custom CSS -->
         <link href="/root/material/css/style.css" rel="stylesheet">
+
         <!-- You can change the theme colors from here -->
-        <link href="/root/material/css/colors/blue.css" id="theme" rel="stylesheet">
+        <link href="/root/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
 
         <!-- toast CSS -->
         <link href="/root/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
@@ -88,6 +90,14 @@
 
                     closeFullscreen();
                 }
+            });
+
+            $('input').addClass('text-white');
+
+            $('select option:enabled').addClass('text-white');
+
+            $('select').on('change', function(event) {
+                $(this).addClass('text-white')
             });
         </script>
 

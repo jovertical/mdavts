@@ -52,7 +52,7 @@
                                                     data-toggle="tooltip"
                                                     data-original-title="Edit"
                                                 >
-                                                    <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                    <i class="fas fa-pencil-alt m-r-10"></i>
                                                 </a>
 
                                                 <a
@@ -61,7 +61,7 @@
                                                     data-toggle="tooltip"
                                                     data-original-title="Generate Control Numbers"
                                                 >
-                                                    <i class="fas fa-id-card-alt text-inverse m-r-10"></i>
+                                                    <i class="fas fa-id-card-alt m-r-10"></i>
                                                 </a>
 
                                                 <a
@@ -70,7 +70,7 @@
                                                     data-toggle="tooltip"
                                                     data-original-title="Set Positions"
                                                 >
-                                                    <i class="fas fa-tag text-inverse m-r-10"></i>
+                                                    <i class="fas fa-tag m-r-10"></i>
                                                 </a>
 
                                                 <a
@@ -79,7 +79,7 @@
                                                     data-toggle="tooltip"
                                                     data-original-title="Set Candidates"
                                                 >
-                                                    <i class="fas fa-users text-inverse m-r-10"></i>
+                                                    <i class="fas fa-users m-r-10"></i>
                                                 </a>
 
                                                 <a
@@ -87,7 +87,7 @@
                                                     data-toggle="tooltip"
                                                     data-original-title="View Tally"
                                                 >
-                                                    <i class="fas fa-archive text-inverse"></i>
+                                                    <i class="fas fa-archive"></i>
                                                 </a>
                                             </td>
                                             <td>{{ $election->name }}</td>

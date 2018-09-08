@@ -314,6 +314,9 @@
     <script src="/root/material/js/jasny-bootstrap.js"></script>
 
     <script>
-        $('#birthdate').bootstrapMaterialDatePicker({time: false});
+        $('#birthdate').bootstrapMaterialDatePicker({
+            time: false,
+            maxDate: moment().subtract(10, 'years')
+        });
     </script>
 @endsection

@@ -48,7 +48,7 @@
                                                 data-toggle="tooltip"
                                                 data-original-title="Edit"
                                             >
-                                                <i class="fas fa-pencil-alt text-inverse m-r-10"></i>
+                                                <i class="fas fa-pencil-alt m-r-10"></i>
                                             </a>
 
                                             <a
