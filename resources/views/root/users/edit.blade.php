@@ -177,6 +177,9 @@
                         </div>
                         <!--/. Address -->
 
+                        <h3 class="box-title m-t-40">Account</h3>
+                        <hr>
+
                         <!-- Contact Number -->
                         <div class="form-group">
                             <label for="firstname">
@@ -247,7 +250,7 @@
                                         value="{{ $grade->uuid_text }}"
                                         data-sections="{{ $grade->sections->pluck('uuid_text')->toJson() }}"
                                         data-section-names="{{ $grade->sections->pluck('name')->toJson() }}"
-                                        {{ (old('grade') ?? $user->grade->uuid_text)  == $grade->uuid_text ? 'selected' : '' }}
+                                        {{ (old('grade') ?? optional($user->grade)->uuid_text)  == $grade->uuid_text ? 'selected' : '' }}
                                     >
                                         {{ $grade->level }}
                                     </option>
