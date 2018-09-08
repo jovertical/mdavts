@@ -50,7 +50,7 @@
                                         <tr>
                                             <td class="text-nowrap">
                                                 <a href="#" class="link-print-control-number" data-toggle="tooltip" data-original-title="Print Control Number">
-                                                    <i class="fas fa-print text-inverse m-r-10"></i>
+                                                    <i class="fas fa-print m-r-10"></i>
                                                 </a>
                                             </td>
                                             <td>

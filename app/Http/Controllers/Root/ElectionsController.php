@@ -220,28 +220,35 @@ class ElectionsController extends Controller
      */
     public function setCandidate(Request $request, Election $election)
     {
+        $users = User::where('type', 'user');
+
         if ($request->has('firstname')) {
             $firstname = "%{$request->input('firstname')}%";
+
+            $users->where('firstname', 'like', $firstname ?? '');
         }
 
         if ($request->has('lastname')) {
             $lastname = "%{$request->input('lastname')}%";
+
+            $users->where('lastname', 'like', $lastname ?? '');
         }
 
-        $users = User::where('type', 'user')
-            ->where('firstname', 'like', $firstname ?? '')
-            ->where('lastname', 'like', $lastname ?? '')
-            ->get();
-
         // filter user to prevent being nominated again!!!
-        $users = $users->filter(function($user) use ($election) {
+        $users = $users->get()->filter(function($user) use ($election) {
             return Candidate::where('election_uuid', $election->uuid)
                 ->where('user_uuid', $user->uuid)
                 ->count() == 0;
         });
 
+        $allUserCount = $users->count();
+
+        if ($request->has('c')) {
+            $users = $users->take($request->get('c'))->all();
+        }
+
         return view('root.elections.candidates', compact(
-            ['election', 'users']
+            ['election', 'users', 'allUserCount']
         ));
     }
 

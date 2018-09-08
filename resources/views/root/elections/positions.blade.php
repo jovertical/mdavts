@@ -32,7 +32,7 @@
                         Pick position(s) that will be available for candidates to run in {{ $election->name }}
                     </h6>
 
-                    <form method="POST" action="">
+                    <form method="POST" action="" submit-once>
                         @csrf
 
                         <div class="form-group row p-t-20">
@@ -62,7 +62,7 @@
                                 <i class="fas fa-check"></i> Set &nbsp;&nbsp;
                             </button>
 
-                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">
+                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary">
                                 Back
                             </a>
                         </div>

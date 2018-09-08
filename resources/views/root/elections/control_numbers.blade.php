@@ -28,10 +28,9 @@
                     <h4 class="card-title">
                         Control Numbers in {{ $election->name }}
                     </h4>
-                    <h6 class="card-subtitle">
-                    </h6>
+                    <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="">
+                    <form method="POST" action="" submit-once>
                         @csrf
 
                         <div class="form-group row p-t-20">
@@ -56,7 +55,7 @@
                                 <i class="fas fa-plus"></i> Generate
                             </button>
 
-                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">
+                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary">
                                 Back
                             </a>
                         </div>

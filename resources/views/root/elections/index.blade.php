@@ -74,7 +74,7 @@
                                                 </a>
 
                                                 <a
-                                                    href="{{ route('root.elections.candidates.set', $election) }}"
+                                                    href="{{ route('root.elections.candidates.set', [$election, 'c' => 8]) }}"
                                                     class="link-set-candidates"
                                                     data-toggle="tooltip"
                                                     data-original-title="Set Candidates"

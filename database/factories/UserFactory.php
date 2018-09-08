@@ -20,6 +20,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
+        'contact_number' => $faker->phoneNumber,
 
         'firstname' => $faker->firstName,
         'middlename' => $faker->lastName,
@@ -27,9 +28,5 @@ $factory->define(App\User::class, function (Faker $faker) {
         'birthdate' => $faker->date,
         'gender' => $faker->randomElements(['male', 'female'])[0],
         'address' => $faker->address,
-        'contact_number' => $faker->phoneNumber,
-
-        'grade_level' => mt_rand(1, 12),
-        'section' => ucwords($faker->word)
     ];
 });

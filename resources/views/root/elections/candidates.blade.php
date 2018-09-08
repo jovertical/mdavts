@@ -33,7 +33,9 @@
                         Search the candidate here, please input their firstname and/or lastname.
                     </h6>
 
-                    <form method="GET" action="" class="form-material">
+                    <form method="GET" action="" class="form-material" submit-once>
+                        <input type="hidden" name="c" value="{{ Request::input('c') }}">
+
                         <div class="row">
                             <!-- Firstname -->
                             <div class="col-md">
@@ -119,7 +121,7 @@
 
                                             <p class="card-text candidate-detail">
                                                 <span class="font-weight-normal">
-                                                    {{ $user->grade_level.' - '.$user->section }}
+                                                    {{ optional($user->grade)->level.' - '.optional($user->section)->name }}
                                                 </span>
                                             </p>
 
@@ -131,8 +133,8 @@
                                                     data-target="#modal-nominate"
                                                     data-user-uuid={{ $user->uuid_text }}
                                                     data-user-name="{{ $user->full_name_formal }}"
-                                                    data-user-grade="{{ $user->grade_level }}"
-                                                    data-user-section="{{ $user->section }}"
+                                                    data-user-grade="{{ optional($user->grade)->level }}"
+                                                    data-user-section="{{ optional($user->section)->name }}"
                                                 >
                                                     <i class="fas fa-ribbon"></i> Nominate
                                                 </button>
@@ -144,6 +146,23 @@
                             @endforeach
                         @endunless
                     </div>
+
+                    @unless(count($users) >= $allUserCount)
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group text-center">
+                                    <a
+                                        href="{{ Request::fullUrlWithQuery([
+                                            'c' => (Request::input('c') ?? 8) + 8,
+                                            'firstname' => Request::input('firstname'),
+                                            'lastname' => Request::input('lastname')
+                                        ]) }}"
+                                        class="btn btn-secondary">Load More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endunless
                 </div>
             </div>
         </div>
@@ -154,7 +173,7 @@
     <div id="modal-nominate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="" class="form-material">
+                <form method="POST" action="" class="form-material" submit-once>
                     @csrf
 
                     <div class="modal-header">
