@@ -12,7 +12,7 @@
 
         @slot('action')
             <form method="GET" action="{{ route('root.elections.create') }}">
-                <button type="submit" class="btn btn-info btn-loading float-right">
+                <button type="submit" class="btn btn-info float-right">
                     <i class="fas fa-plus"></i> Create
                 </button>
             </form>

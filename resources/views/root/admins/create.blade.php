@@ -216,6 +216,8 @@
                             </span>
 
                             @if ($errors->has('username'))
+                                <br />
+
                                 <span class="text-danger">
                                     {{ $errors->first('username') }}
                                 </span>

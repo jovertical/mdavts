@@ -20,82 +20,78 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Please fill up the form</h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
-                    <form method="POST" action="{{ route('root.elections.store') }}" class="form-material m-t-40">
+                    <form
+                        method="POST"
+                        action="{{ route('root.elections.store') }}"
+                        class="form-material m-t-40"
+                        submit-once
+                    >
                         @csrf
 
+                        <!-- Name -->
                         <div class="form-group">
-                            <!-- Name -->
-                            <div class="col-md">
-                                <label for="Name">Name</label>
+                            <label for="Name">
+                                Name <span class="text-danger">*</span>
+                            </label>
 
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    class="form-control form-control-line"
-                                    value="{{ old('name') }}"
-                                    placeholder="Enter election name"
-                                >
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                class="form-control form-control-line"
+                                value="{{ old('name') }}"
+                                placeholder="E.g. Election {{ date('Y') }}"
+                            >
 
-                                @if ($errors->has('name'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('name') }}
-                                    </span>
-                                @endif
-                            </div>
-                            <!--/. Name -->
-
-                            <br/>
-
-                            <!-- Description -->
-                            <div class="col-md">
-                                <label for="description">Description</label>
-
-                                <textarea
-                                    name="description"
-                                    id="description"
-                                    class="form-control form-control-line summernote"
-                                >
-                                    {{ old('description') }}
-                                </textarea>
-
-                                @if ($errors->has('description'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('description') }}
-                                    </span>
-                                @endif
-                            </div>
-                            <!--/. Description -->
-
-                            <br/>
-
-                            <!-- Date of Start -->
-                            <div class="col-md">
-                                <label for="start_date">Start</label>
-
-                                <input
-                                    type="text"
-                                    name="start_date"
-                                    id="start_date"
-                                    class="form-control form-control-line"
-                                    value="{{ old('start_date') }}"
-                                    placeholder="Start of Election"
-                                >
-
-                                @if ($errors->has('start_date'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('start_date') }}
-                                    </span>
-                                @endif
-                            </div>
-                            <!--/. Date of Start -->
+                            @if ($errors->has('name'))
+                                <span class="text-danger">
+                                    {{ $errors->first('name') }}
+                                </span>
+                            @endif
                         </div>
+                        <!--/. Name -->
+
+                        <!-- Date of Start -->
+                        <div class="form-group">
+                            <label for="start_date">
+                                Start Date <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="start_date"
+                                id="start_date"
+                                class="form-control form-control-line"
+                                value="{{ old('start_date') }}"
+                                placeholder="Start of Election"
+                            >
+
+                            <span class="help-block text-muted">
+                                <small>
+                                    It must be after the <code>today</code>.
+                                </small>
+                            </span>
+
+                            <br />
+
+                            @if ($errors->has('start_date'))
+                                <span class="text-danger">
+                                    {{ $errors->first('start_date') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Date of Start -->
 
                         <!-- Date of End -->
-                        <div class="col-md">
-                            <label for="end_date">End</label>
+                        <div class="form-group">
+                            <label for="end_date">
+                                End Date <span class="text-danger">*</span>
+                            </label>
 
                             <input
                                 type="text"
@@ -106,6 +102,14 @@
                                 placeholder="End of Election"
                             >
 
+                            <span class="help-block text-muted">
+                                <small>
+                                    It must be after <code>start date</code>.
+                                </small>
+                            </span>
+
+                            <br />
+
                             @if ($errors->has('end_date'))
                                 <span class="text-danger">
                                     {{ $errors->first('end_date') }}
@@ -114,8 +118,25 @@
                         </div>
                         <!--/. Date of End -->
 
-                        <br/>
-                        <br/>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description">Description</label>
+
+                            <textarea
+                                name="description"
+                                id="description"
+                                class="form-control form-control-line summernote"
+                            >
+                                {{ old('description') }}
+                            </textarea>
+
+                            @if ($errors->has('description'))
+                                <span class="text-danger">
+                                    {{ $errors->first('description') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Description -->
 
                         <!-- Submit -->
                         <div class="form-group">
@@ -123,7 +144,7 @@
                                 <i class="fas fa-plus"></i> Create
                             </button>
 
-                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary btn-loading">
+                            <a href="{{ route('root.elections.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                         </div>
