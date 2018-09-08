@@ -12,10 +12,12 @@
 
         <!-- Bootstrap Core CSS -->
         <link href="/root/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
         <!-- Custom CSS -->
         <link href="/root/material/css/style.css" rel="stylesheet">
+
         <!-- You can change the theme colors from here -->
-        <link href="/root/material/css/colors/blue.css" id="theme" rel="stylesheet">
+        <link href="/root/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
 
         @yield('styles')
     </head>
@@ -40,31 +42,28 @@
         <!-- All Jquery -->
         <!-- ============================================================== -->
         <script src="/root/assets/plugins/jquery/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
         <script src="/root/assets/plugins/popper/popper.min.js"></script>
         <script src="/root/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <!-- slimscrollbar scrollbar JavaScript -->
         <script src="/root/material/js/jquery.slimscroll.js"></script>
-        <!--Wave Effects -->
         <script src="/root/material/js/waves.js"></script>
-        <!--Menu sidebar -->
-        <!--stickey kit -->
         <script src="/root/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
         <script src="/root/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
-        <!--Custom JavaScript -->
         <script src="/root/material/js/custom.min.js"></script>
 
-        <!-- ============================================================== -->
-        <!-- This page plugins -->
-        <!-- ============================================================== -->
-        <!--c3 JavaScript -->
         <script src="/root/assets/plugins/d3/d3.min.js"></script>
         <script src="/root/assets/plugins/c3-master/c3.min.js"></script>
-
-        <!-- ============================================================== -->
-        <!-- Style switcher -->
-        <!-- ============================================================== -->
         <script src="/root/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+        <script>
+            // to male the ui fit in darker theme.
+            $('input').addClass('text-white');
+
+            $('select option:enabled').addClass('text-white');
+
+            $('select').on('change', function(event) {
+                $(this).addClass('text-white')
+            });
+        </script>
 
         @yield('scripts')
     </body>

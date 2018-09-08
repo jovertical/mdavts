@@ -10,19 +10,12 @@
         <!-- Favicon icon -->
         <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="/root/assets/images/favicon2.png">
 
-        <!-- Bootstrap Core CSS -->
         <link href="/root/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="/root/material/css/style.css" rel="stylesheet">
-
-        <!-- You can change the theme colors from here -->
-        <link href="/root/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
-
-        <!-- toast CSS -->
         <link href="/root/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
-
         <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+
+        <link href="/root/material/css/style.css" rel="stylesheet">
+        <link href="/root/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
 
         <link href="/root/app/css/app.css">
 
@@ -92,6 +85,7 @@
                 }
             });
 
+            // to male the ui fit in darker theme.
             $('input').addClass('text-white');
 
             $('select option:enabled').addClass('text-white');
