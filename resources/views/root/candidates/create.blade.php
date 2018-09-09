@@ -81,6 +81,12 @@
                             <select name="position" id="position" class="form-control">
                                 <option selected disabled>Please select a position</option>
                             </select>
+
+                            @if ($errors->has('position'))
+                                <span class="text-danger">
+                                    {{ $errors->first('position') }}
+                                </span>
+                            @endif
                         </div>
                         <!--/. Position -->
 

@@ -50,7 +50,7 @@ class ElectionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:elections,name,NULL,uuid,deleted_at,NULL',
             'start_date' => 'required|date|after:today|before:end_date',
             'end_date' => 'required|date|after:start_date'
         ]);
@@ -88,7 +88,7 @@ class ElectionsController extends Controller
     public function update(Request $request, Election $election)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => "required|unique:elections,name,{$election->uuid},uuid,deleted_at,NULL",
             'start_date' => 'required|date|after:today|before:end_date',
             'end_date' => 'required|date|after:start_date'
         ]);
