@@ -19,151 +19,74 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">---</h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h4 class="card-title">Please fill up the form</h4>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
-                    <form method="POST" action="{{ route('root.candidates.store') }}" class="form-material m-t-40">
+                    <form
+                        method="POST"
+                        action="{{ route('root.candidates.store') }}"
+                        class="form-material m-t-40"
+                        submit-once
+                    >
                         @csrf
 
-                        <div class="form-group">
-                                <!-- First Name -->
-                                <div class="col-md">
-                                    <label for="First_Name">First Name</label>
+                        <input type="hidden" name="election">
+                        <input type="hidden" name="user">
 
-                                    <input
-                                        type="text"
-                                        name="first_name"
-                                        id="first_name"
-                                        class="form-control form-control-line"
-                                        value="{{ old('name') }}"
-                                        placeholder="Enter First Name"
-                                    >
+                        <!-- Election -->
+                        <div class="m-b-20">
+                            <label for="">
+                                Election <span class="text-danger">*</span>
+                            </label>
 
-                                    @if ($errors->has('first_name'))
-                                        <span class="text-danger">
-                                            {{ $errors->first('first_name') }}
-                                        </span>
-                                    @endif
-                                </div>
-                                <!--/.First Name -->
+                            <div id="election-input">
+                                <input type="text" class="form-control typeahead" placeholder="Start typing to find election...">
+                            </div>
 
-                                <br/>
-
-                                <!-- Middle Name -->
-                                <div class="col-md">
-                                    <label for="Middle_Name">Middle Name</label>
-                                
-                                    <input type="text" 
-                                    name="middle_name" 
-                                    id="middle_name" 
-                                    class="form-control form-control-line" 
-                                    value="{{ old('middle_name') }}" 
-                                    placeholder="Enter Middle Name">  
-
-                                    @if ($errors->has('middle_name'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('middle_name') }}
-                                    </span> 
-                                    @endif
-                                </div>
-                                <!--/.Middle Name -->
-
-                                <br/>
-
-                                <!-- Last Name -->
-                                <div class="col-md">
-                                    <label for="Last_Name">Last Name</label>
-                                
-                                    <input type="text" 
-                                    name="last_name" 
-                                    id="last_name" 
-                                    class="form-control form-control-line" 
-                                    value="{{ old('last_name') }}"
-                                    placeholder="Enter Last Name"
-                                    > 
-                                    
-                                    @if ($errors->has('last_name'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('last_name') }}
-                                    </span> 
-                                    @endif
-                                </div>
-                                <!--/.Last Name -->
-
-                                <br/>
-
-                                <!-- Position -->
-                                <div class="col-md">
-                                    <label for="position">Position</label>
-
-                                    <input
-                                        type="text"
-                                        name="position"
-                                        id="position"
-                                        class="form-control form-control-line"
-                                        value="{{ old('position') }}"
-                                        placeholder="Enter position"
-                                    >
-
-                                    @if ($errors->has('position'))
-                                        <span class="text-danger">
-                                            {{ $errors->first('position') }}
-                                        </span>
-                                    @endif
-                                </div>
-                                <!--/. Position -->
-
-                                <br/>
-
-                                <!-- Party List -->
-                                <div class="col-md">
-                                    <label for="party_list">Party List</label>
-
-                                    <input
-                                        type="text"
-                                        name="party_list"
-                                        id="party_list"
-                                        class="form-control form-control-line"
-                                        value="{{ old('party_list') }}"
-                                        placeholder="Party List"
-                                    >
-
-                                    @if ($errors->has('party_list'))
-                                        <span class="text-danger">
-                                            {{ $errors->first('party_list') }}
-                                        </span>
-                                    @endif
-                                </div>
-                                <!--/. Party List -->
-                        </div>
-
-                        <!-- Grade Level -->
-                        <div class="col-md">
-                            <label for="grade_level">Grade Level</label>
-
-                            <input
-                                type="text"
-                                name="grade_level"
-                                id="grade_level"
-                                class="form-control form-control-line"
-                                value="{{ old('grade_level') }}"
-                                placeholder="Grade Level"
-                            >
-
-                            @if ($errors->has('grade_level'))
+                            @if ($errors->has('election'))
                                 <span class="text-danger">
-                                    {{ $errors->first('grade_level') }}
+                                    {{ $errors->first('election') }}
                                 </span>
                             @endif
                         </div>
-                        <!--/. Grade Level -->
+                        <!--/. Election -->
 
-                        <br/>
-                        <br/>
+                        <!-- User -->
+                        <div class="m-b-20">
+                            <label for="">
+                                User <span class="text-danger">*</span>
+                            </label>
+
+                            <div id="user-input">
+                                <input type="text" class="form-control typeahead" placeholder="Start typing to find user...">
+                            </div>
+
+                            @if ($errors->has('user'))
+                                <span class="text-danger">
+                                    {{ $errors->first('user') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. User -->
+
+                        <!-- Position -->
+                        <div class="form-group">
+                            <label for="position">
+                                Position <span class="text-danger">*</span>
+                            </label>
+
+                            <select name="position" id="position" class="form-control">
+                                <option selected disabled>Please select a position</option>
+                            </select>
+                        </div>
+                        <!--/. Position -->
 
                         <!-- Submit -->
-                        <div class="form-group">z
-                            <button type="submit" class="btn btn-info">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info loading">
                                 <i class="fa fa-plus"></i> Create
                             </button>
 
@@ -181,10 +104,81 @@
 
 @section('styles')
     <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="/root/assets/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
     <script src="/root/assets/plugins/moment/moment.js"></script>
     <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="/root/assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
 
+    <script>
+        var elections = JSON.parse('{!! $elections !!}');
+        var users = JSON.parse('{!! $users !!}');
+        var positions = JSON.parse('{!! $positions !!}');
+
+        var electionNames = elections.map(function(election) {
+            return election.name;
+        });
+        var electionUuids = elections.map(function(election) {
+            return election.uuid;
+        });
+
+        var userFullNames = users.map(function(user) {
+            return user.full_name;
+        });
+        var userUuids = users.map(function(user) {
+            return user.uuid_text;
+        });
+
+        var elections = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: electionNames
+        });
+
+        var users = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: userFullNames
+        });
+
+        $('#election-input .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            name: 'elections',
+            source: elections
+        }).on('typeahead:selected', function (event, selection) {
+            var index = electionNames.indexOf(selection);
+            var electionUuid = electionUuids[index];
+            var electionInput = $('input[name=election]');
+            var electionPositions = positions[electionUuid];
+
+            electionInput.val(electionUuid);
+
+            $('#position').html('<option selected disabled>Please select a position</option>');
+
+            $.each(electionPositions, function(index, position) {
+                $('#position').append($('<option>', {
+                    value: index,
+                    text: position
+                }));
+            });
+        });
+
+        $('#user-input .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            name: 'users',
+            source: users
+        }).on('typeahead:selected', function (event, selection) {
+            var index = userFullNames.indexOf(selection);
+
+            $('input[name=user]').val(userUuids[index]);
+        });
+    </script>
 @endsection

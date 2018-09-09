@@ -59,8 +59,8 @@
                                                     {{ $candidate->position->name }}
                                                 </a>
                                             </td>
-                                            <td>{{ $candidate->user->grade_level }}</td>
-                                            <td>{{ $candidate->user->section }}</td>
+                                            <td>{!! optional($candidate->user->grade)->level ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! optional($candidate->user->section)->name ?? '<i>No Data</i>'  !!}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
