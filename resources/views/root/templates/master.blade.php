@@ -17,7 +17,7 @@
         <link href="/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
 
         <!-- #stylesheet: Theme -->
-        <link href="/material/css/style.css" rel="stylesheet">
+        <link href="/material/css/dark.css" rel="stylesheet">
         <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
 
         <!-- #stylesheet: Magnific Popup -->
