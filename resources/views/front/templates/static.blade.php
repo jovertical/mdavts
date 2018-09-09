@@ -10,8 +10,11 @@
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon2.png">
 
+        <!-- #stylesheet: Bootstrap -->
         <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/material/css/style.css" rel="stylesheet">
+
+        <!-- #stylesheet: Theme -->
+        <link href="/material/css/material.css" rel="stylesheet">
         <link href="/material/css/colors/blue.css" id="theme" rel="stylesheet">
 
         @yield('styles')

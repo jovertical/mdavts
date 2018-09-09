@@ -14,7 +14,7 @@
         <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- #stylesheet: Theme -->
-        <link href="/material/css/style.css" rel="stylesheet">
+        <link href="/material/css/material.css" rel="stylesheet">
         <link href="/material/css/colors/blue.css" id="theme" rel="stylesheet">
 
         <!-- #stylesheet: Magnific Popup -->

@@ -14,7 +14,7 @@
         <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="/material/css/style.css" rel="stylesheet">
+        <link href="/material/css/dark.css" rel="stylesheet">
 
         <!-- You can change the theme colors from here -->
         <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
