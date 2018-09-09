@@ -307,6 +307,8 @@ class ElectionsController extends Controller
             ->sortBy('position.level')
             ->values();
 
+        $archives = [];
+
         foreach ($election_votes as $vote) {
             $archives[$vote->position->uuid]['votes'][] = $vote;
             $archives[$vote->position->uuid]['position'] = $vote->position;

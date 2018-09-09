@@ -74,7 +74,7 @@
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/datatables/datatables.min.js"></script>
+    <script src="/assets/plugins/datatables/datatables.min.js"></script>
 
     <script>
         $('#table-candidates').DataTable({

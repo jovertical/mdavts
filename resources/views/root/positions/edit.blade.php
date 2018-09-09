@@ -22,7 +22,12 @@
                     <h4 class="card-title">---</h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="{{ route('root.positions.update', $position) }}" class="form-material m-t-40">
+                    <form
+                        method="POST"
+                        action="{{ route('root.positions.update', $position) }}"
+                        class="form-material m-t-40"
+                        submit-once
+                    >
                         @method('PATCH')
                         @csrf
 
@@ -95,7 +100,7 @@
                                 <i class="fas fa-edit"></i> Update
                             </button>
 
-                            <a href="{{ route('root.positions.index') }}" class="btn btn-secondary btn-loading">
+                            <a href="{{ route('root.positions.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                         </div>
@@ -108,11 +113,11 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
+    <link href="/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+    <script src="/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
 
     <script>
         $('.summernote').summernote({

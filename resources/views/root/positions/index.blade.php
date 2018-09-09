@@ -12,7 +12,7 @@
 
         @slot('action')
             <form method="GET" action="{{ route('root.positions.create') }}">
-                <button type="submit" class="btn btn-info btn-loading float-right">
+                <button type="submit" class="btn btn-info float-right">
                     <i class="fas fa-plus"></i> Create
                 </button>
             </form>
@@ -87,7 +87,7 @@
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/datatables/datatables.min.js"></script>
+    <script src="/assets/plugins/datatables/datatables.min.js"></script>
 
     <script>
         $('#table-positions').DataTable({

@@ -22,7 +22,12 @@
                     <h4 class="card-title">---</h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="{{ route('root.positions.store') }}" class="form-material m-t-40">
+                    <form
+                        method="POST"
+                        action="{{ route('root.positions.store') }}"
+                        class="form-material m-t-40"
+                        submit-once
+                    >
                         @csrf
 
                         <!-- Name -->
@@ -45,26 +50,27 @@
                             @endif
                         </div>
                         <!--/. Name -->
-                        <!-- Name -->
+
+                        <!-- Level -->
                         <div class="form-group">
-                                <label for="name">Level</label>
+                            <label for="level">Level</label>
 
-                                <input
-                                    type="text"
-                                    name="level"
-                                    id="level"
-                                    class="form-control form-control-line"
-                                    value="{{ old('level') }}"
-                                    placeholder="Enter level"
-                                >
+                            <input
+                                type="text"
+                                name="level"
+                                id="level"
+                                class="form-control form-control-line"
+                                value="{{ old('level') }}"
+                                placeholder="Enter level"
+                            >
 
-                                @if ($errors->has('level'))
-                                    <span class="text-danger">
-                                        {{ $errors->first('level') }}
-                                    </span>
-                                @endif
-                            </div>
-                            <!--/. Name -->
+                            @if ($errors->has('level'))
+                                <span class="text-danger">
+                                    {{ $errors->first('level') }}
+                                </span>
+                            @endif
+                        </div>
+                        <!--/. Level -->
 
                         <!-- Description -->
                         <div class="form-group">
@@ -93,7 +99,7 @@
                                 <i class="fas fa-plus"></i> Create
                             </button>
 
-                            <a href="{{ route('root.positions.index') }}" class="btn btn-secondary btn-loading">
+                            <a href="{{ route('root.positions.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                         </div>
@@ -106,11 +112,11 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
+    <link href="/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+    <script src="/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
 
     <script>
         $('.summernote').summernote({

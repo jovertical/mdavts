@@ -90,11 +90,11 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
+    <link href="/assets/plugins/summernote/dist/summernote-bs4.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+    <script src="/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
 
     <script>
         $('.summernote').summernote({

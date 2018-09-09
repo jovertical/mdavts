@@ -109,14 +109,14 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
-    <link href="/root/assets/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
+    <link href="/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="/assets/plugins/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/moment/moment.js"></script>
-    <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-    <script src="/root/assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+    <script src="/assets/plugins/moment/moment.js"></script>
+    <script src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="/assets/plugins/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
 
     <script>
         var elections = JSON.parse('{!! $elections !!}');

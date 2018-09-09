@@ -82,7 +82,7 @@ if (! function_exists('avatar_path')) {
         $path = "{$model->directory}/{$model->filename}";
 
         if (! File::exists($path)) {
-            return url('root/app/images/avatar.png');
+            return url('/app/images/avatar.png');
         }
 
         return url($path);
@@ -94,7 +94,7 @@ if (! function_exists('avatar_resized_path')) {
         $path = "{$model->directory}/resized/{$model->filename}";
 
         if (! File::exists($path)) {
-            return url('root/app/images/avatar.png');
+            return url('/app/images/avatar.png');
         }
 
         return url($path);
@@ -106,7 +106,7 @@ if (! function_exists('avatar_thumbnail_path')) {
         $path = "{$model->directory}/thumbnails/{$model->filename}";
 
         if (! File::exists($path)) {
-            return url('root/app/images/avatar.png');
+            return url('/app/images/avatar.png');
         }
 
         return url($path);

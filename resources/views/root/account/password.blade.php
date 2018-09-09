@@ -23,7 +23,7 @@
                         @method('PATCH')
 
                         <div class="form-group">
-                           
+
                                 <!-- Firstname -->
                                 <div class="col-md">
                                     <label for="old_password">Old Password</label>
@@ -104,12 +104,12 @@
 @endsection
 
 @section('styles')
-    <link href="/root/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
-    <script src="/root/assets/plugins/moment/moment.js"></script>
-    <script src="/root/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script src="/assets/plugins/moment/moment.js"></script>
+    <script src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
     <script>
         $('#birthdate').bootstrapMaterialDatePicker({time: false});

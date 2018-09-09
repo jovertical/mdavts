@@ -12,17 +12,17 @@
                 <b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="/root/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                     <!-- Light Logo icon -->
-                    <img src="/root/assets/images/logo-light-icon1.png" style= "width: 60px;" alt="homepage" class="light-logo" />
+                    <img src="/assets/images/logo-light-icon1.png" style= "width: 60px;" alt="homepage" class="light-logo" />
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
                 <span>
                     <!-- dark Logo text -->
-                    <img src="/root/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                    <img src="/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                     <!-- Light Logo text -->
-                    <img src="/root/assets/images/logo-light-text1.png" style= "width: 150px" class="light-logo" alt="homepage" />
+                    <img src="/assets/images/logo-light-text1.png" style= "width: 150px" class="light-logo" alt="homepage" />
                 </span>
             </a>
         </div>

@@ -10,14 +10,24 @@
         <!-- Favicon icon -->
         <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="/root/assets/images/favicon2.png">
 
-        <link href="/root/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/root/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
-        <link href="/root/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+        <!-- #stylesheet: Bootstrap -->
+        <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <link href="/root/material/css/style.css" rel="stylesheet">
-        <link href="/root/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
+        <!-- #stylesheet: jQuery Toast -->
+        <link href="/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
 
-        <link href="/root/app/css/app.css">
+        <!-- #stylesheet: Theme -->
+        <link href="/material/css/style.css" rel="stylesheet">
+        <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
+
+        <!-- #stylesheet: Magnific Popup -->
+        <link href="/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+
+        <!-- #stylesheet: Custom Global -->
+        <link href="/app/css/style.css">
+
+        <!-- #stylesheet: Custom Root -->
+        <link href="/root/app/css/style.css">
 
         @yield('styles')
     </head>
@@ -50,26 +60,31 @@
             @yield('modals')
         </div>
 
-        <script src="/root/assets/plugins/jquery/jquery.min.js"></script>
-        <script src="/root/assets/plugins/popper/popper.min.js"></script>
-        <script src="/root/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/root/material/js/jquery.slimscroll.js"></script>
-        <script src="/root/material/js/waves.js"></script>
-        <script src="/root/material/js/sidebarmenu.js"></script>
-        <script src="/root/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-        <script src="/root/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
-        <script src="/root/material/js/custom.min.js"></script>
+        <script src="/assets/plugins/jquery/jquery.min.js"></script>
+        <script src="/assets/plugins/popper/popper.min.js"></script>
+        <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/material/js/jquery.slimscroll.js"></script>
+        <script src="/material/js/waves.js"></script>
+        <script src="/material/js/sidebarmenu.js"></script>
+        <script src="/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+        <script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+        <script src="/material/js/custom.min.js"></script>
 
-        <script src="/root/assets/plugins/d3/d3.min.js"></script>
-        <script src="/root/assets/plugins/c3-master/c3.min.js"></script>
-        <script src="/root/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-        <script src="/root/assets/plugins/toast-master/js/jquery.toast.js"></script>
-        <script src="/root/assets/plugins/toast-master/js/jquery.toast.js"></script>
+        <script src="/assets/plugins/d3/d3.min.js"></script>
+        <script src="/assets/plugins/c3-master/c3.min.js"></script>
+        <script src="/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+        <script src="/assets/plugins/toast-master/js/jquery.toast.js"></script>
+        <script src="/assets/plugins/toast-master/js/jquery.toast.js"></script>
 
-        <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
-        <script src="/root/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
+        <!-- #script: Magnific Popup -->
+        <script src="/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
+        <script src="/assets/plugins/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
 
-        <script src="/root/app/js/app.js"></script>
+        <!-- #script: Custom Global -->
+        <script src="/app/js/script.js"></script>
+
+        <!-- #script: Custom Root -->
+        <script src="/root/app/js/script.js"></script>
 
         <script>
             $('.fullscreen-toggler').on('click', function (event) {
