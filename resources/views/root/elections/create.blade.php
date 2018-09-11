@@ -73,7 +73,7 @@
 
                             <span class="help-block text-muted">
                                 <small>
-                                    It must be after the <code>today</code>.
+                                    Must not be the date before <code>today</code>.
                                 </small>
                             </span>
 
