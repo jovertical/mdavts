@@ -18,7 +18,7 @@ class SessionsController extends Controller
     public function signin(Request $request)
     {
         $request->validate([
-            'username'  => 'required|string|min:6',
+            'username'  => 'required|string',
             'password'  => 'required|string|min:6'
         ]);
 
