@@ -46,6 +46,8 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
+            Route::get('dashboard', 'ElectionsController@showDashboardPage')->name('dashboard');
+
             Route::name('control-numbers.')->group(function() {
                 Route::get('control-numbers', 'ElectionsController@setControlNumbers')->name('set');
                 Route::post('control-numbers', 'ElectionsController@storeControlNumbers');

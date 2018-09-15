@@ -1,17 +1,13 @@
-@extends('root.templates.master')
+@extends('root.templates.election')
 
 @section('content')
-    @component('root.components.breadcrumbs')
+    @component('root.components._election.breadcrumbs')
         @slot('page_title')
             Tally
         @endslot
 
         <li class="breadcrumb-item">
-            <a href="{{ route('root.elections.index') }}">Elections</a>
-        </li>
-
-        <li class="breadcrumb-item">
-            <a href="{{ route('root.elections.edit', $election) }}">
+            <a href="{{ route('root.elections.dashboard', $election) }}">
                 {{ $election->name }}
             </a>
         </li>

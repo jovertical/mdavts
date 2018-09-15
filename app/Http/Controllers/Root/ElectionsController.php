@@ -74,9 +74,21 @@ class ElectionsController extends Controller
     }
 
     /**
+     * Show Election Dashboard Page.
+     * @param \Illuminate\Http\Request
+     * @param \App\Election
+     * @return \Illuminate\View\View
+     */
+    public function showDashboardPage(Request $request, Election $election)
+    {
+        return view('root.elections.election.dashboard', compact('election'));
+    }
+
+    /**
      * Show resource edit page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request, Election $election)
     {
@@ -132,7 +144,7 @@ class ElectionsController extends Controller
 
          $data->without = $data->all_users - $data->with;
 
-         return view('root.elections.control_numbers', compact(
+         return view('root.elections.election.control_numbers', compact(
              ['data', 'election']
          ));
      }
@@ -184,7 +196,7 @@ class ElectionsController extends Controller
             })
             ->all();
 
-        return view('root.elections.positions', compact(
+        return view('root.elections.election.positions', compact(
             ['position_uuids', 'positions', 'election']
         ));
     }
@@ -250,7 +262,7 @@ class ElectionsController extends Controller
             $users = $users->take($request->get('c'))->all();
         }
 
-        return view('root.elections.candidates', compact(
+        return view('root.elections.election.candidates', compact(
             ['election', 'users', 'allUserCount']
         ));
     }
@@ -322,7 +334,7 @@ class ElectionsController extends Controller
             $archives = [$archive];
         }
 
-        return view('root.elections.tally', compact(['election', 'archives']));
+        return view('root.elections.election.tally', compact(['election', 'archives']));
     }
 
     /**

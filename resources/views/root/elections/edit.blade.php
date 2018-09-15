@@ -6,10 +6,6 @@
             Edit an election
         @endslot
 
-        <li class="breadcrumb-item">
-            <a href="{{ route('root.elections.index') }}">Elections</a>
-        </li>
-
         <li class="breadcrumb-item active">
             Edit
         </li>

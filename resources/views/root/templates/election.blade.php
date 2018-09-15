@@ -46,7 +46,7 @@
         <!-- ============================================================== -->
         <div id="main-wrapper">
             @include('root.includes.header')
-            @include('root.includes._master.sidebar')
+            @include('root.includes._election.sidebar')
 
             <div class="page-wrapper">
                 <!-- ============================================================== -->
