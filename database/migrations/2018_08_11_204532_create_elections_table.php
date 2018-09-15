@@ -19,6 +19,7 @@ class CreateElectionsTable extends Migration
             $table->text('description')->nullable();
             $table->string('start_date');
             $table->string('end_date');
+            $table->enum('status', ['upcoming', 'active', 'closed', ''])->default('upcoming');
             $table->boolean('active')->default(1);
 
             $table->uuid('created_by')->nullable();

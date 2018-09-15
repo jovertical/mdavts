@@ -13,4 +13,24 @@ class Election extends Model
     {
         return $this->hasMany(Candidate::class);
     }
+
+    /**
+     * @return string
+     */
+    public function getStatusClassAttribute()
+    {
+        switch ($this->status) {
+            case 'upcoming':
+                return 'warning';
+            break;
+
+            case 'active':
+                return 'success';
+            break;
+
+            case 'closed':
+                return 'danger';
+            break;
+        }
+    }
 }

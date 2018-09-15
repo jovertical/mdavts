@@ -29,19 +29,20 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::prefix('account')->name('account.')->group(function() {
-            Route::get('profile', 'AccountController@profile')->name('profile');
-            Route::get('password', 'AccountController@password')->name('password');
-            Route::patch('profile', 'AccountController@updateProfile')->name('profile.update');
-            Route::patch('password', 'AccountController@updatePassword')->name('password.update');
-        });
-
         Route::get('/', 'DashboardController@index')->name('dashboard');
 
-        Route::resource('admins', 'AdminsController');
-        Route::resource('elections', 'ElectionsController');
-        Route::resource('candidates', 'CandidatesController');
-        Route::resource('users', 'UsersController');
+        Route::resources([
+            'admins' => 'AdminsController',
+            'users' => 'UsersController',
+
+            'elections' => 'ElectionsController',
+            'candidates' => 'CandidatesController',
+            'positions' => 'PositionsController',
+
+            'grades' => 'GradesController',
+            'sections' => 'SectionsController',
+        ]);
+
         Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
@@ -64,8 +65,16 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
             Route::post('results', 'ElectionsController@generateResults')->name('results.generate');
         });
 
-        Route::resource('positions', 'PositionsController');
-        Route::resource('grades', 'GradesController');
-        Route::resource('sections','SectionsController');
+        Route::prefix('system')->name('system.')->group(function() {
+            Route::get('settings', 'SettingsController@showSettingsPage')->name('settings');
+            Route::post('settings', 'SettingsController@update');
+        });
+
+        Route::prefix('account')->name('account.')->group(function() {
+            Route::get('profile', 'AccountController@profile')->name('profile');
+            Route::get('password', 'AccountController@password')->name('password');
+            Route::patch('profile', 'AccountController@updateProfile')->name('profile.update');
+            Route::patch('password', 'AccountController@updatePassword')->name('password.update');
+        });
     });
 });

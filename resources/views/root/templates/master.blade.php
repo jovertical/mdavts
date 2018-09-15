@@ -8,7 +8,7 @@
         <title>{{ config('app.name') }}</title>
 
         <!-- Favicon icon -->
-        <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="/root/assets/images/favicon2.png">
+        <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="/assets/images/favicon2.png">
 
         <!-- #stylesheet: Bootstrap -->
         <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">

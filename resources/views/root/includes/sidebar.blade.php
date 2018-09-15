@@ -3,17 +3,20 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+                <!-- Dashboard -->
                 <li>
                     <a href="{{ route('root.dashboard') }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-gauge"></i>
                         <span class="hide-menu">Dashboard </span>
                     </a>
                 </li>
+                <!--/. Dashboard -->
 
+                <!-- Users -->
                 <li>
                     <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-account-multiple"></i>
-                        <span class="hide-menu">System Users</span>
+                        <span class="hide-menu">Users</span>
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
@@ -26,7 +29,28 @@
                         </li>
                     </ul>
                 </li>
+                <!--/. Users -->
 
+                <!-- School -->
+                <li>
+                    <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-school"></i>
+                        <span class="hide-menu">School</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a href="{{ route('root.grades.index') }}">Grades</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('root.sections.index') }}">Sections</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--/. School -->
+
+                <!-- Election System -->
                 <li>
                     <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-widgets"></i>
@@ -45,23 +69,37 @@
                         </li>
                     </ul>
                 </li>
+                <!--/. Election System -->
 
-                 <li>
+                <!-- Reports -->
+                <li>
                     <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-school"></i>
-                        <span class="hide-menu">School</span>
+                        <i class="mdi mdi-chart-pie"></i>
+                        <span class="hide-menu">Reports</span>
                     </a>
 
                     <ul aria-expanded="false" class="collapse">
                         <li>
-                            <a href="{{ route('root.grades.index') }}">Grades</a>
-                        </li>
-
-                        <li>
-                            <a href="{{ route('root.sections.index') }}">Sections</a>
+                            <a href="#">-</a>
                         </li>
                     </ul>
                 </li>
+                <!--/. Reports -->
+
+                <!-- System -->
+                <li>
+                    <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-chip"></i>
+                        <span class="hide-menu">System</span>
+                    </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a href="{{ route('root.system.settings') }}">Settings</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--/. System -->
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

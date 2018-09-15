@@ -37,6 +37,7 @@
                                         <th width="20%">Name</th>
                                         <th width="15%">Start Date</th>
                                         <th width="15%">End Date</th>
+                                        <th>Status</th>
                                         <th>Positions</th>
                                         <th>Candidates</th>
                                     </tr>
@@ -93,6 +94,11 @@
                                             <td>{{ $election->name }}</td>
                                             <td>{{ $election->start_date }}</td>
                                             <td>{{ $election->end_date }}</td>
+                                            <td>
+                                                <span class="label label-rounded label-{{ $election->status_class }}">
+                                                    {{ ucfirst($election->status) }}
+                                                </span>
+                                            </td>
                                             <td>{{ optional($election->positions)->count() ?? 0 }}</td>
                                             <td>{{ optional($election->candidates)->count() ?? 0 }}</td>
                                         </tr>
