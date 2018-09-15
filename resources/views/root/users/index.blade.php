@@ -76,7 +76,7 @@
                                             </td>
                                             <td>{!! $user->birthdate ?? '<i>No Data</i>' !!}</td>
                                             <td>{!! $user->gender ?? '<i>No Data</i>' !!}</td>
-                                            <td>{!! $user->address ?? '<i>No Data</i>' !!}</td>
+                                            <td>{!! str_limit($user->address, 15) ?? '<i>No Data</i>' !!}</td>
                                             <td>{!! optional($user->grade)->level ?? '<i>No Data</i>' !!}</td>
                                             <td>{!! optional($user->section)->name ?? '<i>No Data</i>' !!}</td>
                                             <td>{!! $user->lrn ?? '<i>No Data</i>' !!}</td>

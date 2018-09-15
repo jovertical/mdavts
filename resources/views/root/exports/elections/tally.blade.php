@@ -1,4 +1,4 @@
-@extends('root.templates.pdf')
+@extends('root.templates.export')
 
 @section('title')
     {{ $heading }}

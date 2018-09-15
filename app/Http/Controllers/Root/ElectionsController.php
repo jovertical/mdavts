@@ -5,18 +5,21 @@ namespace App\Http\Controllers\Root;
 /**
  * Application
  */
+use App\Exports\{ElectionTallyExport};
+use App\Repositories\ElectionTallyRepository;
 use App\Services\{Notify};
 use App\{User, Election, Position, Candidate};
 
 /**
- * Third-party
+ * Package Services
  */
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Laravel
  */
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -332,86 +335,39 @@ class ElectionsController extends Controller
     {
         $file_name = $request->input('file_name');
         $file_type = $request->input('file_type');
-        $heading = "{$election->name} Results";
 
         try {
-            $archives = $this->getArchives($election);
-
             switch (strtolower($file_type)) {
                 case 'pdf':
-                    return $this->exportResultsAsPdf(
-                        $archives, $file_name, $heading
-                    );
+                    $heading = "{$election->name} Results";
+                    $archives = (new ElectionTallyRepository)->getData($election);
+
+                    return PDF::loadView('root.exports.elections.tally', compact(
+                        ['archives', 'heading']
+                    ))
+                    ->setPaper('a4', 'landscape')
+                    ->setOptions(['dpi' => 150])
+                    ->download($file_name.'.pdf');
                 break;
 
                 case 'excel':
-
+                    return Excel::download(
+                        new ElectionTallyExport($election), "{$file_name}.xlsx"
+                    );
                 break;
 
                 case 'csv':
-
+                    return Excel::download(
+                        new ElectionTallyExport($election), "{$file_name}.csv"
+                    );
                 break;
             }
 
-            throw new Exception('Error generating results');
+            throw new \ErrorException('Error generating results');
         } catch (Exception $e) {
             Notify::error($e->getMessage(), 'Error!');
         }
 
         return back();
-    }
-
-    /**
-     * Produce a data set for result generation.
-     * @param \App\Election
-     * @return array
-     */
-    protected function getArchives(Election $election)
-    {
-        // position, candidate, votes.
-        return DB::table('election_votes')
-            ->select(
-                'position_uuid as position',
-                'candidate_uuid as candidate',
-                DB::raw('COUNT(*) as votes')
-            )
-            ->where('election_uuid', $election->uuid)
-            ->groupBy('candidate')
-            ->get()
-            ->sortByDesc('votes')
-            ->unique('position')
-            ->map(function ($value, $key) {
-                $position = Position::find($value->position);
-                $value->position = $position->name;
-                $value->level = $position->level;
-                $value->candidate = User::find($value->candidate)->full_name_formal;
-
-                return $value;
-            })
-            ->sortBy('level')
-            ->each(function ($item, $key) {
-                unset($item->level);
-
-                return $item;
-            })
-            ->values()
-            ->all();
-    }
-
-    /**
-     * Export Results as PDF
-     * @param array
-     * @return PDF
-     */
-    protected function exportResultsAsPdf(
-        array $archives, string $file_name, string $heading
-    ) {
-        $pdf = PDF::loadView('root.elections.results.pdf', compact(
-                ['archives', 'heading']
-            ))
-            ->setPaper('a4', 'landscape')
-            ->setOptions(['dpi' => 150]);
-
-        return $pdf->download($file_name.'.pdf');
     }
 }
