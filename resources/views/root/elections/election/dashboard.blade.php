@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="m-t-20">
-                        <table id="table-standings" class="table stylish-table">
+                        <table id="table-standings" class="table stylish-table" style="min-height: 200px;">
                             <thead>
                                 <tr>
                                     <th>Position</th>
@@ -110,25 +110,33 @@
                             </thead>
 
                             <tbody>
-                                @foreach($winners as $winner)
+                                @unless(count($winners) > 0)
                                     <tr>
-                                        <td>{{ $winner->position->name }}</td>
-                                        <td>
-                                            <div>
-                                                <span class="round mr-2">
-                                                    <img src="{{ avatar_thumbnail_path($winner->user) }}" alt="user" width="50">
-                                                </span>
-
-                                                <span class="font-weight-normal">
-                                                    {{ $winner->user->full_name_formal }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span>{{ $winner->votes }}</span>
+                                        <td colspan="3" class="text-center">
+                                            <span class="font-weight-normal">No Data Yet</span>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach($winners as $winner)
+                                        <tr>
+                                            <td>{{ $winner->position->name }}</td>
+                                            <td>
+                                                <div>
+                                                    <span class="round mr-2">
+                                                        <img src="{{ avatar_thumbnail_path($winner->user) }}" alt="user" width="50">
+                                                    </span>
+
+                                                    <span class="font-weight-normal">
+                                                        {{ $winner->user->full_name_formal }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span>{{ $winner->votes }}</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endunless
                             </tbody>
                         </table>
                     </div>
@@ -255,16 +263,8 @@
 @section('scripts')
     <script src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
     <script src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="/assets/plugins/datatables/datatables.min.js"></script>
 
     <script>
-        $('#table-standings').DataTable({
-            dom: 'Brtp',
-            sorting: false,
-            bLengthChange : false,
-        });
-
-
         // Set of dates that serves as starting point of the countdown.
         var dates = {
             upcoming: "{{ \Carbon\Carbon::parse($election->start_date)->format('M d Y, H:i:s') }}",

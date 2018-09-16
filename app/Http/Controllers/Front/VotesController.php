@@ -40,14 +40,12 @@ class VotesController extends Controller
 
         $election = Election::find($control_number->election_uuid);
 
-        $now = now()->format('Y-m-d');
-
-        if ($now < $election->start_date) {
+        if ($election->status == 'upcoming') {
             $errors[] = 'Election is not yet started.';
         }
 
-        if ($now > $election->end_date) {
-            $errors[] = 'Election is over.';
+        if ($election->status == 'closed') {
+            $errors[] = 'Election is closed.';
         }
 
         if ($control_number->used) {
