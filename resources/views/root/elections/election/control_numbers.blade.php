@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components._election.breadcrumbs')
         @slot('page_title')
-            Control Numbers
+            Election Control Numbers
         @endslot
 
         <li class="breadcrumb-item">
@@ -15,6 +15,18 @@
         <li class="breadcrumb-item active">
             Control Numbers
         </li>
+
+        @slot('action')
+            <button
+                type="button"
+                id="btn-export"
+                class="btn btn-info float-right"
+                data-toggle="modal"
+                data-target="#modal-export"
+            >
+                <i class="fas fa-copy"></i> Export
+            </button>
+        @endslot
     @endcomponent
 
     <div class="row">

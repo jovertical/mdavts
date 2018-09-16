@@ -47,7 +47,7 @@
 
                 <!-- Candidates -->
                 <li>
-                    <a href="{{ route('root.elections.candidates', [$election, 'c' => 8]) }}" class="waves-effect waves-dark" aria-expanded="false">
+                    <a href="{{ route('root.elections.candidates.index', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-account-multiple"></i>
                         <span class="hide-menu">Candidates</span>
                     </a>

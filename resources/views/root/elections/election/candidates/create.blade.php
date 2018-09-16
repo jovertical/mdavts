@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components._election.breadcrumbs')
         @slot('page_title')
-            Set Candidates
+            Election Candidate Creation
         @endslot
 
         <li class="breadcrumb-item">
@@ -12,8 +12,14 @@
             </a>
         </li>
 
+        <li class="breadcrumb-item">
+            <a href="{{ route('root.elections.candidates.index', $election) }}">
+                Candidates
+            </a>
+        </li>
+
         <li class="breadcrumb-item active">
-            Candidates
+            Create
         </li>
     @endcomponent
 
@@ -22,7 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">
-                        Add a Candidate in {{ $election->name }}
+                        Nominate a Candidate to run in {{ $election->name }}
                     </h4>
 
                     <h6 class="card-subtitle">
@@ -169,7 +175,12 @@
     <div id="modal-nominate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="" class="form-material" submit-once>
+                <form
+                    method="POST"
+                    action="{{ route('root.elections.candidates.store', $election) }}"
+                    class="form-material"
+                    submit-once
+                >
                     @csrf
 
                     <div class="modal-header">

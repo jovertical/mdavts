@@ -23,14 +23,27 @@ use App\Http\Controllers\Controller;
 
 class ElectionCandidatesController extends Controller
 {
+    /**
+     * Show Candidate Index Page.
+     * @param \App\Election
+     * @return \Illuminate\View\View
+     */
+    public function index(Election $election)
+    {
+        $candidates = Candidate::where('election_uuid', $election->uuid)->get();
+
+        return view('root.elections.election.candidates.index', compact(
+            ['election', 'candidates']
+        ));
+    }
 
     /**
-     * Show Set Candidate Page.
+     * Show Candidate Creation Page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
      */
-    public function showCandidatesPage(Request $request, Election $election)
+    public function create(Request $request, Election $election)
     {
         $users = User::where('type', 'user');
 
@@ -59,16 +72,16 @@ class ElectionCandidatesController extends Controller
             $users = $users->take($request->get('c'))->all();
         }
 
-        return view('root.elections.election.candidates', compact(
+        return view('root.elections.election.candidates.create', compact(
             ['election', 'users', 'allUserCount']
         ));
     }
 
     /**
-     * Nominate.
+     * Store Candidate.
      * @param \Illuminate\Http\Request
      * @param \App\Election
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Routing\Redirector/\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Election $election)
     {
@@ -86,7 +99,7 @@ class ElectionCandidatesController extends Controller
         if ($candidate->save()) {
             Notify::success('Candidate nominated.', 'Success!');
 
-            return back();
+            return redirect()->route('root.elections.candidates.index', $election);
         }
 
         Notify::warning('Failed to nominate candidate.', 'Warning!');

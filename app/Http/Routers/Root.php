@@ -54,8 +54,11 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
             Route::get('positions', 'ElectionPositionsController@showPositionsPage')->name('positions');
             Route::post('positions', 'ElectionPositionsController@store');
 
-            Route::get('candidates', 'ElectionCandidatesController@showCandidatesPage')->name('candidates');
-            Route::post('candidates', 'ElectionCandidatesController@store');
+            Route::prefix('candidates')->name('candidates.')->group(function() {
+                Route::get('/', 'ElectionCandidatesController@index')->name('index');
+                Route::get('create', 'ElectionCandidatesController@create')->name('create');
+                Route::post('/', 'ElectionCandidatesController@store')->name('store');
+            });
 
             Route::get('tally', 'ElectionTallyController@showTallyPage')->name('tally');
             Route::post('tally', 'ElectionTallyController@export');

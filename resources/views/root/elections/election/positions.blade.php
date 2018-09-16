@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components._election.breadcrumbs')
         @slot('page_title')
-            Set Positions
+            Election Positions
         @endslot
 
         <li class="breadcrumb-item">

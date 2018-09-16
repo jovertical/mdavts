@@ -3,7 +3,7 @@
 @section('content')
     @component('root.components._election.breadcrumbs')
         @slot('page_title')
-            Tally
+            Election Tally
         @endslot
 
         <li class="breadcrumb-item">
@@ -19,13 +19,13 @@
         @slot('action')
             <button
                 type="button"
-                id="btn-generate"
+                id="btn-export"
                 class="btn btn-info float-right"
                 data-toggle="modal"
-                data-target="#modal-generate"
+                data-target="#modal-export"
                 {{ now()->format('Y-m-d') < $election->end_date ? 'disabled' : '' }}
             >
-                <i class="fas fa-balance-scale"></i> Generate
+                <i class="fas fa-copy"></i> Export
             </button>
         @endslot
     @endcomponent
@@ -124,7 +124,7 @@
 @endsection
 
 @section('modals')
-    <div id="modal-generate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="modal-export" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form method="POST" action="" class="form-material">
@@ -132,7 +132,7 @@
 
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            Generate Results
+                            Export Tally
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
@@ -168,7 +168,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" id="btn-modal-generate" class="btn btn-info waves-effect">Generate</button>
+                        <button type="submit" id="btn-modal-export" class="btn btn-info waves-effect">Export</button>
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
