@@ -18,6 +18,7 @@ class CreateElectionControlNumbers extends Migration
             $table->uuid('voter_uuid')->index();
             $table->string('number');
             $table->boolean('used')->default(0);
+            $table->timestamp('used_at')->nullable();
         });
     }
 

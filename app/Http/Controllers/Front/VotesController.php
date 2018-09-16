@@ -195,7 +195,9 @@ class VotesController extends Controller
         DB::table('election_control_numbers')
             ->where('election_uuid', $election->uuid)
             ->where('voter_uuid', $user->uuid)
-            ->update(['used' => 1]);
+            ->update([
+                'used' => 1, 'used_at' => now()
+            ]);
 
         // Remove voting data from session. (kalimutan na)
         session()->forget('voting');

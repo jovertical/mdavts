@@ -16,10 +16,6 @@
         <!-- #stylesheet: jQuery Toast -->
         <link href="/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
 
-        <!-- #stylesheet: Theme -->
-        <link href="/material/css/dark.css" rel="stylesheet">
-        <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
-
         <!-- #stylesheet: Magnific Popup -->
         <link href="/assets/plugins/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
 
@@ -30,6 +26,10 @@
         <link href="/root/app/css/style.css">
 
         @yield('styles')
+
+        <!-- #stylesheet: Theme -->
+        <link href="/material/css/dark.css" rel="stylesheet">
+        <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
     </head>
 
     <body class="fix-header fix-sidebar card-no-border">
