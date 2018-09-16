@@ -60,8 +60,14 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
                 Route::post('/', 'ElectionCandidatesController@store')->name('store');
             });
 
-            Route::get('tally', 'ElectionTallyController@showTallyPage')->name('tally');
-            Route::post('tally', 'ElectionTallyController@export');
+            Route::prefix('tally')->name('tally.')->group(function() {
+                Route::get('/', 'ElectionTallyController@showTallyPage')->name('index');
+                Route::post('export', 'ElectionTallyController@export')->name('export');
+            });
+
+            Route::prefix('results')->name('results.')->group(function() {
+                Route::post('export', 'ElectionResultsController@export')->name('export');
+            });
         });
 
         Route::prefix('system')->name('system.')->group(function() {

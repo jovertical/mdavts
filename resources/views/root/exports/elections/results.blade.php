@@ -21,8 +21,8 @@
         <tbody>
             @foreach($archives as $stats)
                 <tr>
-                    <td>{{ $stats->position }}</td>
-                    <td>{{ $stats->candidate }}</td>
+                    <td>{{ $stats->position->name }}</td>
+                    <td>{{ $stats->user->full_name_formal }}</td>
                     <td>{{ $stats->votes }}</td>
                 </tr>
             @endforeach

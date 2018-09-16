@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Root;
 /**
  * Application
  */
+use App\Repositories\ElectionRepository;
 use App\{User, Election};
 
 /**
@@ -24,7 +25,7 @@ class ElectionDashboardController extends Controller
      */
     public function showDashboardPage(Request $request, Election $election)
     {
-        $data = [
+        $stats = [
             'votes_today' => [],
             'total_votes' => [],
             'voters_ineligible' => [],
@@ -54,32 +55,35 @@ class ElectionDashboardController extends Controller
 
         // Votes Today
         $voteTodayRate = ($votesTodayCount / max($eligibleVotersCount, 1)) * 100;
-        $data['votes_today']['value'] = $votesTodayCount;
-        $data['votes_today']['rate'] = round($voteTodayRate);
-        $data['votes_today']['floored_rate'] = floor($voteTodayRate / 5) * 5;
+        $stats['votes_today']['value'] = $votesTodayCount;
+        $stats['votes_today']['rate'] = round($voteTodayRate);
+        $stats['votes_today']['floored_rate'] = floor($voteTodayRate / 5) * 5;
 
         // Total Votes
         $totalVoteRate = ($allVotesCount / max($eligibleVotersCount, 1)) * 100;
-        $data['total_votes']['value'] = $allVotesCount;
-        $data['total_votes']['rate'] = round($totalVoteRate);
-        $data['total_votes']['floored_rate'] = floor($totalVoteRate / 5) * 5;
+        $stats['total_votes']['value'] = $allVotesCount;
+        $stats['total_votes']['rate'] = round($totalVoteRate);
+        $stats['total_votes']['floored_rate'] = floor($totalVoteRate / 5) * 5;
 
         // Voters Eligible
         $votersEligibleRate = ($eligibleVotersCount / max($allVotersCount, 1)) * 100;
-        $data['voters_eligible']['value'] = $eligibleVotersCount;
-        $data['voters_eligible']['rate'] = round($votersEligibleRate);
-        $data['voters_eligible']['floored_rate'] = floor($votersEligibleRate / 5) * 5;
+        $stats['voters_eligible']['value'] = $eligibleVotersCount;
+        $stats['voters_eligible']['rate'] = round($votersEligibleRate);
+        $stats['voters_eligible']['floored_rate'] = floor($votersEligibleRate / 5) * 5;
 
         // Voters Ineligible
         $votersIneligibleRate = $allVotersCount > 0
-            ? (100 - $data['voters_eligible']['rate'])
+            ? (100 - $stats['voters_eligible']['rate'])
             : 0;
-        $data['voters_ineligible']['value'] = $ineligibleVotersCount;
-        $data['voters_ineligible']['rate'] = round($votersIneligibleRate);
-        $data['voters_ineligible']['floored_rate'] = floor($votersIneligibleRate / 5) * 5;
+        $stats['voters_ineligible']['value'] = $ineligibleVotersCount;
+        $stats['voters_ineligible']['rate'] = round($votersIneligibleRate);
+        $stats['voters_ineligible']['floored_rate'] = floor($votersIneligibleRate / 5) * 5;
+
+        // Election Winners
+        $winners = (new ElectionRepository($election))->getWinners();
 
         return view('root.elections.election.dashboard', compact(
-            ['data', 'election']
+            ['election', 'stats', 'winners']
         ));
     }
 }

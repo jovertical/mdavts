@@ -56,7 +56,7 @@
 
                 <!-- Tally -->
                 <li>
-                    <a href="{{ route('root.elections.tally', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
+                    <a href="{{ route('root.elections.tally.index', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-archive"></i>
                         <span class="hide-menu">Tally</span>
                     </a>
