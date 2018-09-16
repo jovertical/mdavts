@@ -139,7 +139,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Requirements</h4>
+                    <h4 class="card-title">Things To Do</h4>
                     <table class="table browser m-t-30 no-border">
                         <tbody>
                             <tr>
@@ -162,6 +162,19 @@
                                 <td class="text-right">
                                     @unless($election->candidates->count() > 0)
                                         <i class="fas fa-exclamation-triangle text-danger"></i>
+                                    @else
+                                        <i class="fas fa-check text-success"></i>
+                                    @endunless
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    100% voter eligibility ({{ $stats['voters_eligible']['value'].' / '.$stats['all_voters']['value'] }})
+                                </td>
+                                <td class="text-right">
+                                    @unless($stats['voters_eligible']['value'] == $stats['all_voters']['value'])
+                                        <i class="fas fa-exclamation-triangle text-warning"></i>
                                     @else
                                         <i class="fas fa-check text-success"></i>
                                     @endunless

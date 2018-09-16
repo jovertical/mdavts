@@ -53,6 +53,9 @@ class ElectionDashboardController extends Controller
 
         $ineligibleVotersCount = $allVotersCount - $eligibleVotersCount;
 
+        // All Voters Count
+        $stats['all_voters']['value'] = $allVotersCount;
+
         // Votes Today
         $voteTodayRate = ($votesTodayCount / max($eligibleVotersCount, 1)) * 100;
         $stats['votes_today']['value'] = $votesTodayCount;
