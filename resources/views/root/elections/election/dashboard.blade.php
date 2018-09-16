@@ -6,15 +6,13 @@
             Election Dashboard
         @endslot
 
-        <li class="breadcrumb-item">
-            <a href="{{ route('root.elections.dashboard', $election) }}">
-                {{ $election->name }}
-            </a>
-        </li>
-
         <li class="breadcrumb-item active">
             Dashboard
         </li>
+
+        @slot('action')
+            <div id="time" class="float-right"></div>
+        @endslot
     @endcomponent
 
     <div class="row">
@@ -85,7 +83,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex no-block">
-                        <h4 class="card-title">Election Standing</h4>
+                        <h4 class="card-title">Standings</h4>
 
                         <div class="ml-auto">
                             <button
@@ -100,12 +98,13 @@
                             </button>
                         </div>
                     </div>
-                    <div class="table-responsive m-t-20">
-                        <table class="table stylish-table">
+
+                    <div class="m-t-20">
+                        <table id="table-standings" class="table stylish-table">
                             <thead>
                                 <tr>
                                     <th>Position</th>
-                                    <th colspan="2">Candidate</th>
+                                    <th>Candidate</th>
                                     <th>Votes</th>
                                 </tr>
                             </thead>
@@ -115,15 +114,15 @@
                                     <tr>
                                         <td>{{ $winner->position->name }}</td>
                                         <td>
-                                            <span class="round">
-                                                <img src="{{ avatar_thumbnail_path($winner->user) }}" alt="user" width="50">
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $winner->user->full_name_formal }}</h6>
-                                            <small class="text-muted">
-                                                {{ str_limit($winner->user->grade_level.' - '.$winner->user->section, 15) }}
-                                            </small>
+                                            <div>
+                                                <span class="round mr-2">
+                                                    <img src="{{ avatar_thumbnail_path($winner->user) }}" alt="user" width="50">
+                                                </span>
+
+                                                <span class="font-weight-normal">
+                                                    {{ $winner->user->full_name_formal }}
+                                                </span>
+                                            </div>
                                         </td>
                                         <td>
                                             <span>{{ $winner->votes }}</span>
@@ -137,7 +136,42 @@
             </div>
         </div>
 
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Requirements</h4>
+                    <table class="table browser m-t-30 no-border">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Set at least one position ({{ $election->positions->count() }})
+                                </td>
+                                <td class="text-right">
+                                    @unless($election->positions->count() > 0)
+                                        <i class="fas fa-exclamation-triangle text-danger"></i>
+                                    @else
+                                        <i class="fas fa-check text-success"></i>
+                                    @endunless
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Set at least one candidate ({{ $election->candidates->count() }})
+                                </td>
+                                <td class="text-right">
+                                    @unless($election->candidates->count() > 0)
+                                        <i class="fas fa-exclamation-triangle text-danger"></i>
+                                    @else
+                                        <i class="fas fa-check text-success"></i>
+                                    @endunless
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Row -->
 @endsection
@@ -206,4 +240,46 @@
 @section('scripts')
     <script src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
     <script src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="/assets/plugins/datatables/datatables.min.js"></script>
+
+    <script>
+        $('#table-standings').DataTable({
+            dom: 'Brtp',
+            sorting: false,
+            bLengthChange : false,
+        });
+
+        // Set the date we're counting down to
+        var countDownDate = new Date(
+            "{{ \Carbon\Carbon::parse($election->end_date)->format('M d Y, H:i:s') }}"
+        ).getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="time"
+            document.getElementById("time").innerHTML =
+                '<h4 class="text-{{ $election->status_class }}">'
+                    + days + "d " + hours + "h " + minutes + "m " + seconds + "s " +
+                '</h4>';
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("time").innerHTML =
+                    '<h4 class="text-danger">CLOSED</h4>';
+            }
+        }, 1000);
+    </script>
 @endsection

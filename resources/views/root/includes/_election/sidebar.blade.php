@@ -15,7 +15,13 @@
                 <li class="nav-devider"></li>
 
                 <li class="nav-small-cap">
-                    {{ str_limit(strtoupper($election->name), 15) }}
+                    <span>
+                        {{ str_limit(strtoupper($election->name), 15) }}
+                    </span>
+
+                    <span class="label label-{{ $election->status_class }} float-right">
+                        {{ ucfirst($election->status) }}
+                    </span>
                 </li>
 
                 <!-- Dashboard -->
