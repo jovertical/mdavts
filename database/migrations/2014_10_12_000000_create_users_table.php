@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->uuid('uuid');
             $table->uuid('grade_uuid')->nullable();
             $table->uuid('section_uuid')->nullable();
+
             $table->enum('type', ['user', 'admin', '']);
             $table->string('role')->nullable();
             $table->string('email')->nullable();

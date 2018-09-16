@@ -173,7 +173,9 @@
                                     100% voter eligibility ({{ $stats['voters_eligible']['value'].' / '.$stats['all_voters']['value'] }})
                                 </td>
                                 <td class="text-right">
-                                    @unless($stats['voters_eligible']['value'] == $stats['all_voters']['value'])
+                                    @if($stats['all_voters']['value'] == 0)
+                                        <i class="fas fa-exclamation-triangle text-danger"></i>
+                                    @elseif($stats['voters_eligible']['value'] != $stats['all_voters']['value'])
                                         <i class="fas fa-exclamation-triangle text-warning"></i>
                                     @else
                                         <i class="fas fa-check text-success"></i>
@@ -262,10 +264,15 @@
             bLengthChange : false,
         });
 
+
+        // Set of dates that serves as starting point of the countdown.
+        var dates = {
+            upcoming: "{{ \Carbon\Carbon::parse($election->start_date)->format('M d Y, H:i:s') }}",
+            active: "{{ \Carbon\Carbon::parse($election->end_date)->format('M d Y, H:i:s') }}",
+        }
+
         // Set the date we're counting down to
-        var countDownDate = new Date(
-            "{{ \Carbon\Carbon::parse($election->end_date)->format('M d Y, H:i:s') }}"
-        ).getTime();
+        var countDownDate = new Date(dates['{{ $election->status }}']).getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function () {
