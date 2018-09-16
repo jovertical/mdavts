@@ -46,25 +46,19 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
-            Route::get('dashboard', 'ElectionsController@showDashboardPage')->name('dashboard');
+            Route::get('dashboard', 'ElectionDashboardController@showDashboardPage')->name('dashboard');
 
-            Route::name('control-numbers.')->group(function() {
-                Route::get('control-numbers', 'ElectionsController@setControlNumbers')->name('set');
-                Route::post('control-numbers', 'ElectionsController@storeControlNumbers');
-            });
+            Route::get('control-numbers', 'ElectionControlNumbersController@showControlNumbersPage')->name('control-numbers');
+            Route::post('control-numbers', 'ElectionControlNumbersController@store');
 
-            Route::name('positions.')->group(function() {
-                Route::get('positions', 'ElectionsController@setPositions')->name('set');
-                Route::post('positions', 'ElectionsController@storePositions');
-            });
+            Route::get('positions', 'ElectionPositionsController@showPositionsPage')->name('positions');
+            Route::post('positions', 'ElectionPositionsController@store');
 
-            Route::name('candidates.')->group(function() {
-                Route::get('candidates', 'ElectionsController@setCandidate')->name('set');
-                Route::post('candidates', 'ElectionsController@storeCandidate');
-            });
+            Route::get('candidates', 'ElectionCandidatesController@showCandidatesPage')->name('candidates');
+            Route::post('candidates', 'ElectionCandidatesController@store');
 
-            Route::get('tally', 'ElectionsController@showTally')->name('tally.show');
-            Route::post('results', 'ElectionsController@generateResults')->name('results.generate');
+            Route::get('tally', 'ElectionTallyController@showTallyPage')->name('tally');
+            Route::post('tally', 'ElectionTallyController@export');
         });
 
         Route::prefix('system')->name('system.')->group(function() {

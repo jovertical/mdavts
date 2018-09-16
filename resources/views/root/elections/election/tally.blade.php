@@ -127,7 +127,7 @@
     <div id="modal-generate" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="{{ route('root.elections.results.generate', $election) }}" class="form-material">
+                <form method="POST" action="" class="form-material">
                     @csrf
 
                     <div class="modal-header">

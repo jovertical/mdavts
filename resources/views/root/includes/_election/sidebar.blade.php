@@ -29,7 +29,7 @@
 
                 <!-- Control Numbers -->
                 <li>
-                    <a href="{{ route('root.elections.control-numbers.set', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
+                    <a href="{{ route('root.elections.control-numbers', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-account-key"></i>
                         <span class="hide-menu">Control Numbers</span>
                     </a>
@@ -38,7 +38,7 @@
 
                 <!-- Positions -->
                 <li>
-                    <a href="{{ route('root.elections.positions.set', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
+                    <a href="{{ route('root.elections.positions', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-tag-multiple"></i>
                         <span class="hide-menu">Positions</span>
                     </a>
@@ -47,7 +47,7 @@
 
                 <!-- Candidates -->
                 <li>
-                    <a href="{{ route('root.elections.candidates.set', [$election, 'c' => 8]) }}" class="waves-effect waves-dark" aria-expanded="false">
+                    <a href="{{ route('root.elections.candidates', [$election, 'c' => 8]) }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-account-multiple"></i>
                         <span class="hide-menu">Candidates</span>
                     </a>
@@ -56,7 +56,7 @@
 
                 <!-- Tally -->
                 <li>
-                    <a href="{{ route('root.elections.tally.show', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
+                    <a href="{{ route('root.elections.tally', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
                         <i class="mdi mdi-archive"></i>
                         <span class="hide-menu">Tally</span>
                     </a>
