@@ -73,7 +73,7 @@
 
                             <span class="help-block text-muted">
                                 <small>
-                                    Must not be the date before <code>today</code>.
+                                    Must be the date after or equal to <code>today</code>.
                                 </small>
                             </span>
 
@@ -104,7 +104,7 @@
 
                             <span class="help-block text-muted">
                                 <small>
-                                    It must be after <code>start date</code>.
+                                    Must be the date equal or after the <code>start date</code>.
                                 </small>
                             </span>
 
