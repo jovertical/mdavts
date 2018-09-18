@@ -187,7 +187,7 @@
                                         <i class="fas fa-exclamation-triangle text-warning"></i>
                                     @else
                                         <i class="fas fa-check text-success"></i>
-                                    @endunless
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>
@@ -267,8 +267,8 @@
     <script>
         // Set of dates that serves as starting point of the countdown.
         var dates = {
-            upcoming: "{{ \Carbon\Carbon::parse($election->start_date)->format('M d Y, H:i:s') }}",
-            active: "{{ \Carbon\Carbon::parse($election->end_date)->format('M d Y, H:i:s') }}",
+            upcoming: "{{ \Carbon\Carbon::parse($election->start_date)->addSeconds(86399)->format('M d Y, H:i:s') }}",
+            active: "{{ \Carbon\Carbon::parse($election->end_date)->addSeconds(86399)->format('M d Y, H:i:s') }}",
         }
 
         // Set the date we're counting down to
