@@ -48,9 +48,6 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
             Route::get('dashboard', 'ElectionDashboardController@showDashboardPage')->name('dashboard');
 
-            Route::get('control-numbers', 'ElectionControlNumbersController@showControlNumbersPage')->name('control-numbers');
-            Route::post('control-numbers', 'ElectionControlNumbersController@store');
-
             Route::get('positions', 'ElectionPositionsController@showPositionsPage')->name('positions');
             Route::post('positions', 'ElectionPositionsController@store');
 
@@ -58,6 +55,12 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
                 Route::get('/', 'ElectionCandidatesController@index')->name('index');
                 Route::get('create', 'ElectionCandidatesController@create')->name('create');
                 Route::post('/', 'ElectionCandidatesController@store')->name('store');
+            });
+
+            Route::prefix('control-numbers')->name('control-numbers.')->group(function() {
+                Route::get('/', 'ElectionControlNumbersController@index')->name('index');
+                Route::get('/create', 'ElectionControlNumbersController@create')->name('create');
+                Route::post('/', 'ElectionControlNumbersController@store')->name('store');
             });
 
             Route::prefix('tally')->name('tally.')->group(function() {

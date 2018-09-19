@@ -1,44 +1,45 @@
-@extends('root.templates.master')
+@extends('root.templates.election')
 
 @section('content')
-    @component('root.components.breadcrumbs')
+    @component('root.components._election.breadcrumbs')
         @slot('page_title')
-            List of Control Numbers
+            Election Control Numbers
         @endslot
 
         <li class="breadcrumb-item">
-            <a href="{{ route('root.users.index') }}">Users</a>
-        </li>
-
-        <li class="breadcrumb-item">
-            <a href="{{ route('root.users.edit', $user) }}">
-                {{ $user->full_name }}
+            <a href="{{ route('root.elections.dashboard', $election) }}">
+                {{ $election->name }}
             </a>
         </li>
 
         <li class="breadcrumb-item active">
-            Control Numbers
+            Control-Numbers
         </li>
+
+        @slot('action')
+            <form method="GET" action="{{ route('root.elections.control-numbers.create', $election) }}">
+                <button type="submit" class="btn btn-info float-right">
+                    <i class="fas fa-plus"></i> Create
+                </button>
+            </form>
+        @endslot
     @endcomponent
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">
-                        Control Numbers
-                    </h4>
-
+                    <h4 class="card-title">Election Control Numbers</h4>
                     <h6 class="card-subtitle">
-                        This is {{ $user->full_name }}'s Control Numbers
+                        This is the list of control numbers (of voters) that can be used for this election.
                     </h6>
 
                     <div class="table-responsive m-t-40">
                         <div>
-                            <table id="table-control-numbers" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="table-control_numbers" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>Election</th>
+                                        <th>Voter</th>
                                         <th>Number</th>
                                         <th>Used</th>
                                     </tr>
@@ -48,15 +49,11 @@
                                     @foreach($control_numbers as $cn)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('root.elections.edit', $cn->election) }}">
-                                                    {{ $cn->election->name }}
+                                                <a href="{{ route('root.users.edit', $cn->user) }}">
+                                                    {!! $cn->user->full_name_formal ?? '<i>No Data</i>'  !!}
                                                 </a>
                                             </td>
-                                            <td>
-                                                <span class="font-weight-bold">
-                                                    {{ $cn->number }}
-                                                </span>
-                                            </td>
+                                            <td>{!! $cn->number ?? '<i>No Data</i>'  !!}</td>
                                             <td>
                                                 @unless ($cn->used)
                                                     <span class="label label-rounded label-danger">
@@ -84,7 +81,7 @@
     <script src="/assets/plugins/datatables/datatables.min.js"></script>
 
     <script>
-        $('#table-control-numbers').DataTable({
+        $('#table-control_numbers').DataTable({
             "bLengthChange" : false,
         });
     </script>

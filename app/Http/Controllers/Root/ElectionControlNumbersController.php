@@ -24,12 +24,33 @@ use App\Http\Controllers\Controller;
 class ElectionControlNumbersController extends Controller
 {
     /**
-     * Show Set Control Numbers page.
+     * Show Resource Index page.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\View\View
      */
-    public function showControlNumbersPage(Request $request, Election $election)
+    public function index(Request $request, Election $election)
+    {
+        $control_numbers = DB::table('election_control_numbers as ecn')
+            ->where('ecn.election_uuid', $election->uuid)
+            ->get();
+
+        $control_numbers->each(function($cn) {
+            $cn->user = User::find($cn->voter_uuid);
+        });
+
+        return view('root.elections.election.control_numbers.index', compact(
+            ['election', 'control_numbers']
+        ));
+    }
+
+    /**
+     * Show Resource Creation page.
+     * @param \Illuminate\Http\Request
+     * @param \App\Election
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request, Election $election)
     {
         $data = collect([]);
 
@@ -43,13 +64,13 @@ class ElectionControlNumbersController extends Controller
 
         $data->without = $data->all_users - $data->with;
 
-        return view('root.elections.election.control_numbers', compact(
+        return view('root.elections.election.control_numbers.create', compact(
            ['data', 'election']
         ));
     }
 
     /**
-     * Store Control Numbers.
+     * Store Resource.
      * @param \Illuminate\Http\Request
      * @param \App\Election
      * @return \Illuminate\Http\RedirectResponse

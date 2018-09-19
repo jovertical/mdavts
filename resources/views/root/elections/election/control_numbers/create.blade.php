@@ -12,8 +12,14 @@
             </a>
         </li>
 
+        <li class="breadcrumb-item">
+            <a href="{{ route('root.elections.control-numbers.index', $election) }}">
+                Control-Numbers
+            </a>
+        </li>
+
         <li class="breadcrumb-item active">
-            Control Numbers
+            Create
         </li>
 
         @slot('action')
@@ -38,7 +44,11 @@
                     </h4>
                     <h6 class="card-subtitle"></h6>
 
-                    <form method="POST" action="" submit-once>
+                    <form
+                        method="POST"
+                        action="{{ route('root.elections.control-numbers.store', $election) }}"
+                        submit-once
+                    >
                         @csrf
 
                         <div class="form-group row p-t-20">

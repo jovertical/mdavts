@@ -33,15 +33,6 @@
                 </li>
                 <!--/. Dashboard -->
 
-                <!-- Control Numbers -->
-                <li>
-                    <a href="{{ route('root.elections.control-numbers', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-account-key"></i>
-                        <span class="hide-menu">Control Numbers</span>
-                    </a>
-                </li>
-                <!--/. Control Numbers -->
-
                 <!-- Positions -->
                 <li>
                     <a href="{{ route('root.elections.positions', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
@@ -59,6 +50,15 @@
                     </a>
                 </li>
                 <!--/. Candidates -->
+
+                <!-- Control Numbers -->
+                <li>
+                    <a href="{{ route('root.elections.control-numbers.index', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-account-key"></i>
+                        <span class="hide-menu">Control Numbers</span>
+                    </a>
+                </li>
+                <!--/. Control Numbers -->
 
                 <!-- Tally -->
                 <li>
