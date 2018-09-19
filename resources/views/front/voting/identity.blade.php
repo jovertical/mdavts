@@ -19,7 +19,13 @@
 
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="{{ route('front.voting.identity') }}" class="form-horizontal form-material" id="loginform" submit-once>
+                <form
+                    method="POST"
+                    action="{{ route('front.voting.identity') }}"
+                    id="loginform"
+                    class="form-horizontal form-material"
+                    submit-once
+                >
                     @csrf
 
                     <h3 class="box-title m-b-40 text-center">

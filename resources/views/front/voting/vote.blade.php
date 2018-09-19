@@ -4,9 +4,9 @@
     <div class="wrapper-large">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title text-center">
+                <h2 class="card-title text-center">
                     {{ $position->name }}
-                </h4>
+                </h2>
 
                 <div class="mb-4"></div>
 
@@ -26,12 +26,16 @@
 
                                     <p class="card-text candidate-detail">
                                         <span class="font-weight-normal">
-                                            {{ str_limit($candidate->user->grade_level.' - '.$user->section, 15) }}
+                                            {{ str_limit(optional($candidate->user->grade)->level.' - '.optional($candidate->user->section)->name, 15) }}
                                         </span>
                                     </p>
 
                                     <div class="candidate-footer">
-                                        <form method="POST" action="">
+                                        <form
+                                            method="POST"
+                                            action=""
+                                            submit-once
+                                        >
                                             @csrf
 
                                             <input type="hidden" name="user_uuid" value="{{ $candidate->user->uuid_text }}">
@@ -49,37 +53,42 @@
                     @endforeach
                 </div>
 
-                <div class="row">
-                    <div class="col-md">
-                        <!-- Links -->
-                        <div class="form-group">
-                            <a
-                                href="?pi={{ Request::input('pi') }}&back"
-                                class="btn btn-secondary btn-loading float-left {{ Request::input('pi') == 0 ? 'disabled' : '' }}"
-                            >
-                                Back
-                            </a>
-
-                            @if (Request::input('pi') < ($positions->count() - 1))
-                                <a
-                                    href="?pi={{ Request::input('pi') }}&next"
-                                    class="btn btn-success btn-loading float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
-                                >
-                                    Next
-                                </a>
-                            @else
-                                <form method="POST" action="{{ route('front.voting.store', [$election, $user]) }}">
-                                    @csrf
-
-                                    <button type="submit" class="btn btn-success btn-loading float-right {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
-                                        Submit
-                                    </button>
-                                </form>
-                            @endif
-                        </div>
-                        <!--/. Links -->
+                <!-- Links -->
+                <div class="form-group row">
+                    <div class="col text-left">
+                        <a
+                            href="?pi={{ Request::input('pi') }}&back"
+                            class="btn btn-secondary btn-loading {{ Request::input('pi') == 0 ? 'disabled' : '' }}"
+                        >
+                            Back
+                        </a>
                     </div>
+
+                    <div class="col text-right">
+                        @if (Request::input('pi') < ($positions->count() - 1))
+                            <a
+                                href="?pi={{ Request::input('pi') }}&next"
+                                class="btn btn-success btn-loading {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
+                            >
+                                Next
+                            </a>
+                        @else
+                            <form
+                                method="POST"
+                                action="{{ route('front.voting.store', [$election, $user]) }}"
+                                submit-once
+                            >
+                                @csrf
+
+                                <button type="submit" class="btn btn-success btn-loading {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
+                                    Submit
+                                </button>
+                            </form>
+                        @endif
+                    </div>
+
                 </div>
+                <!--/. Links -->
             </div>
         </div>
     </div>
