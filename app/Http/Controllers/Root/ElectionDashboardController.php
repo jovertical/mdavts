@@ -47,8 +47,10 @@ class ElectionDashboardController extends Controller
 
         $allVotersCount = User::where('type', 'user')->count();
 
-        $eligibleVotersCount = DB::table('election_control_numbers')
+        $eligibleVotersCount = DB::table('election_control_numbers as ecn')
+            ->leftJoin('users as u', 'u.uuid', '=', 'ecn.voter_uuid')
             ->where('election_uuid', $election->uuid)
+            ->where('u.deleted_at', null)
             ->count();
 
         $ineligibleVotersCount = $allVotersCount - $eligibleVotersCount;

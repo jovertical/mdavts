@@ -35,8 +35,10 @@ class ElectionControlNumbersController extends Controller
 
         $data->all_users = User::where('type', 'user')->count();
 
-        $data->with = DB::table('election_control_numbers')
+        $data->with = DB::table('election_control_numbers as ecn')
+            ->leftJoin('users as u', 'u.uuid', '=', 'ecn.voter_uuid')
             ->where('election_uuid', $election->uuid)
+            ->where('u.deleted_at', null)
             ->count();
 
         $data->without = $data->all_users - $data->with;
