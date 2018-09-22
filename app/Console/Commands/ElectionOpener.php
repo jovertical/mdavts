@@ -6,21 +6,21 @@ use App\Election;
 use Illuminate\Support\Collection;
 use Illuminate\Console\Command;
 
-class ElectionCloser extends Command
+class ElectionOpener extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'election:closer {--force}';
+    protected $signature = 'election:opener {--force}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Close Election';
+    protected $description = 'Open Election';
 
     /**
      * Create a new command instance.
@@ -41,14 +41,14 @@ class ElectionCloser extends Command
     {
         $this->info("Initializing...");
 
-        $allActiveElections = Election::where('status', 'active')->get();
+        $allUpcomingElections = Election::where('status', 'upcoming')->get();
 
-        $endingActiveElections = Election::where('status', 'active')
-            ->where('end_date', now()->format('Y-m-d'))
+        $todayUpcomingElections = Election::where('status', 'upcoming')
+            ->where('start_date', now()->format('Y-m-d'))
             ->get();
 
         $this->updateElectionStatus(
-            $this->option('force') ? $allActiveElections : $endingActiveElections
+            $this->option('force') ? $allUpcomingElections : $todayUpcomingElections
         );
     }
 
@@ -59,13 +59,13 @@ class ElectionCloser extends Command
     protected function updateElectionStatus(Collection $elections) : void
     {
         foreach ($elections as $election) {
-            $election->status = 'closed';
+            $election->status = 'active';
 
-            $this->info("Closing: {$election->name}");
+            $this->info("Opening: {$election->name}");
 
             $election->update();
 
-            $this->comment("Closed: {$election->name}");
+            $this->comment("Opened: {$election->name}");
         }
     }
 }

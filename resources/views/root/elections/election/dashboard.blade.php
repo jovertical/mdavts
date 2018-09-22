@@ -288,14 +288,14 @@
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Display the result in the element with id="time"
-            document.getElementById("time").innerHTML =
-                '<h4 class="text-{{ $election->status_class }}">'
-                    + days + "d " + hours + "h " + minutes + "m " + seconds + "s " +
-                '</h4>';
-
-            // If the count down is finished, write some text
-            if (distance < 0) {
+            if (distance > 0) {
+                // Display the result in the element with id="time"
+                document.getElementById("time").innerHTML =
+                    '<h4 class="text-{{ $election->status_class }}">'
+                        + days + "d " + hours + "h " + minutes + "m " + seconds + "s " +
+                    '</h4>';
+            } else {
+                // If the count down is finished, write some text
                 clearInterval(x);
                 document.getElementById("time").innerHTML =
                     '<h4 class="text-danger">CLOSED</h4>';
