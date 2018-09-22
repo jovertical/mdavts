@@ -20,7 +20,10 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Please fill up the form</h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
                     <form
                         method="POST"
@@ -32,7 +35,9 @@
 
                         <!-- Grade -->
                         <div class="form-group">
-                            <label for="grade">Grade</label>
+                            <label for="grade">
+                                Grade<span class="text-danger">*</span>
+                            </label>
 
                             <select name="grade" id="grade" class="form-control">
                                 <option selected disabled>Please select a grade</option>
@@ -57,7 +62,9 @@
 
                         <!-- Name -->
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">
+                                Name <span class="text-danger">*</span>
+                            </label>
 
                             <input
                                 type="text"

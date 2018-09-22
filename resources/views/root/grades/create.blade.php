@@ -20,7 +20,10 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Please fill up the form</h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
                     <form
                         method="POST"
@@ -33,7 +36,9 @@
 
                         <div class="form-group">
                             <!-- Level -->
-                            <label for="level">Grade Level</label>
+                            <label for="level">
+                                Grade Level <span class="text-danger">*</span>
+                            </label>
 
                             <input
                                 type="number"

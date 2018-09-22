@@ -23,14 +23,20 @@ use App\Http\Controllers\Controller;
 
 class ElectionPositionsController extends Controller
 {
-
     /**
      * Show Set Election Positions page.
      * @param \App\Election
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View/\Illuminate\Http\RedirectResponse
      */
     public function showPositionsPage(Election $election)
     {
+        // add a check to prevent further modifications.
+        if (in_array($election->status, ['active', 'closed'])) {
+            Notify::warning("The election is already {$election->status}.");
+
+            return back();
+        }
+
         $positions = Position::all();
 
         $position_uuids = DB::table('election_position')
@@ -54,7 +60,7 @@ class ElectionPositionsController extends Controller
      */
     public function store(Request $request, Election $election)
     {
-        $position_uuids = $request->input('positions');
+        $position_uuids = $request->input('positions') ?? [];
 
         DB::table('election_position')
             ->where('election_uuid', $election->uuid)

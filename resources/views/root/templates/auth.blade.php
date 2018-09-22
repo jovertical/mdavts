@@ -13,13 +13,17 @@
         <!-- Bootstrap Core CSS -->
         <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Custom CSS -->
-        <link href="/material/css/dark.css" rel="stylesheet">
+        <!-- #stylesheet: Custom Global -->
+        <link href="/app/css/style.css">
 
-        <!-- You can change the theme colors from here -->
-        <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
+        <!-- #stylesheet: Custom Root -->
+        <link href="/root/app/css/style.css">
 
         @yield('styles')
+
+        <!-- #stylesheet: Theme -->
+        <link href="/material/css/dark.css" rel="stylesheet">
+        <link href="/material/css/colors/green-dark.css" id="theme" rel="stylesheet">
     </head>
 
     <body>
@@ -53,6 +57,12 @@
         <script src="/assets/plugins/d3/d3.min.js"></script>
         <script src="/assets/plugins/c3-master/c3.min.js"></script>
         <script src="/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+        <!-- #script: Custom Global -->
+        <script src="/app/js/script.js"></script>
+
+        <!-- #script: Custom Root -->
+        <script src="/root/app/js/script.js"></script>
 
         <script>
             // to male the ui fit in darker theme.

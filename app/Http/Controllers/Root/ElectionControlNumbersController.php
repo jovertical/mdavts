@@ -52,6 +52,13 @@ class ElectionControlNumbersController extends Controller
      */
     public function create(Request $request, Election $election)
     {
+        // add a check to prevent further modifications.
+        if (in_array($election->status, ['active', 'closed'])) {
+            Notify::warning("The election is already {$election->status}.");
+
+            return back();
+        }
+
         $data = collect([]);
 
         $data->all_users = User::where('type', 'user')->count();

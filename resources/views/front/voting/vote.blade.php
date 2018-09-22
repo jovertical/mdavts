@@ -13,7 +13,7 @@
                 <div class="row justify-content-center zoom-gallery">
                     @foreach ($candidates as $candidate)
                         <!-- user -->
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-3">
                             <div class="card candidate">
                                 <a class="candidate-image-link" href="{{ avatar_thumbnail_path($candidate->user) }}" title="{{ $candidate->user->full_name }}">
                                     <img class="card-img-top img-responsive magnifiable candidate-image" src="{{ avatar_thumbnail_path($candidate->user) }}">

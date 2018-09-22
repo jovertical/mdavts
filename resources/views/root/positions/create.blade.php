@@ -19,8 +19,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">---</h4>
-                    <h6 class="card-subtitle"></h6>
+                    <h4 class="card-title">Please fill up the form</h4>
+                    <h6 class="card-subtitle">
+                        Fields with
+                        <span class="text-danger">*</span> are required
+                    </h6>
 
                     <form
                         method="POST"
@@ -32,7 +35,9 @@
 
                         <!-- Name -->
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">
+                                Name <span class="text-danger">*</span>
+                            </label>
 
                             <input
                                 type="text"
@@ -53,7 +58,9 @@
 
                         <!-- Level -->
                         <div class="form-group">
-                            <label for="level">Level</label>
+                            <label for="level">
+                                Level <span class="text-danger">*</span>
+                            </label>
 
                             <input
                                 type="text"

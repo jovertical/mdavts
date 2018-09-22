@@ -62,7 +62,7 @@
                                                     data-toggle="tooltip"
                                                     data-original-title="Manage"
                                                 >
-                                                    <i class="fas fa-eye m-r-10"></i>
+                                                    <i class="fas fa-box-open m-r-10"></i>
                                                 </a>
                                             </td>
                                             <td>{{ $election->name }}</td>

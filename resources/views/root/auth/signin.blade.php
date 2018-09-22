@@ -19,7 +19,13 @@
 
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="{{ route('root.auth.signin') }}" class="form-horizontal form-material" id="loginform">
+                <form
+                    method="POST"
+                    action="{{ route('root.auth.signin') }}"
+                    class="form-horizontal form-material"
+                    id="loginform"
+                    submit-once
+                >
                     @csrf
 
                     <h3 class="box-title m-b-20 text-center">
@@ -73,7 +79,7 @@
 
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light">
+                            <button type="submit" class="btn btn-info btn-loading btn-lg btn-block text-uppercase waves-effect waves-light">
                                 Sign in
                             </button>
                         </div>
