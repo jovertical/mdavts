@@ -62,6 +62,9 @@
                             <a href="{{ route('root.elections.index') }}">Elections</a>
                         </li>
                         <li>
+                            <a href="{{ route('root.partylists.index') }}">Party Lists</a>
+                        </li>
+                        <li>
                             <a href="{{ route('root.positions.index') }}">Positions</a>
                         </li>
                         <li>

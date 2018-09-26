@@ -41,6 +41,7 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
 
             'grades' => 'GradesController',
             'sections' => 'SectionsController',
+            'partylists' => 'PartyListsController',
         ]);
 
         Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
@@ -84,5 +85,7 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
             Route::patch('profile', 'AccountController@updateProfile')->name('profile.update');
             Route::patch('password', 'AccountController@updatePassword')->name('password.update');
         });
+
+        
     });
 });

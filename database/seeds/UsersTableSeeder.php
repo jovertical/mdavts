@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
             'firstname' => 'Bryan',
             'middlename' => null,
             'lastname' => 'Eduria',
-            'birthdate' => '1997-01-11',
+            'birthdate' => '1996-01-11',
             'gender' => 'male',
             'address' => 'Guyong, Sta Maria, Bulacan',
 

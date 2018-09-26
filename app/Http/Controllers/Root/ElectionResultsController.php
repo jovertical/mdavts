@@ -49,18 +49,6 @@ class ElectionResultsController extends Controller
                     ->setOptions(['dpi' => 150])
                     ->download($file_name.'.pdf');
                 break;
-
-                case 'excel':
-                    return Excel::download(
-                        new ElectionResultsExport($election), "{$file_name}.xlsx"
-                    );
-                break;
-
-                case 'csv':
-                    return Excel::download(
-                        new ElectionResultsExport($election), "{$file_name}.csv"
-                    );
-                break;
             }
 
             throw new \ErrorException('Error generating results');
