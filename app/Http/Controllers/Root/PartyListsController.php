@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Root;
  * Application
  */
 use App\Services\Notify;
-use App\PartyList;
+use App\{PartyList};
 
 
 /*
@@ -31,9 +31,12 @@ class PartyListsController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'party' => 'required',
         ]);
+
+        
 
         $partylist = new PartyList;
         $partylist->party = $request->input('party');
@@ -53,6 +56,26 @@ class PartyListsController extends Controller
     public function edit(Request $request, PartyList $partylist)
     {
         return view('root.partylists.edit', compact('partylist'));
+    }
+
+    public function update(Request $request, PartyList $partylist)
+    {
+        $request->validate([
+            'party' => 'required',
+        ]);
+
+        $partylist->party = $request->input('party');
+        $partylist->description = $request->input('description');
+
+        if ($partylist->save()) {
+            Notify::success('Party List created.', 'Success!');
+
+            return redirect()->route('root.partylists.index');
+        }
+
+        Notify::warning('Cannot create the party list.', 'Warning!');
+
+        return redirect()->route('root.partylists.index');
     }
 
     public function destroy(Request $request, PartyList $partylist)

@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Party Lists</h4>
                     <h6 class="card-subtitle">
-                        This is the list of party lists in the allowed to run in an election.
+                        This is the list of party lists that are allowed to run in an election.
                     </h6>
 
                     <div class="table-responsive m-t-40">
