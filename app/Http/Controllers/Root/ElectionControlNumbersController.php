@@ -53,7 +53,7 @@ class ElectionControlNumbersController extends Controller
     public function create(Request $request, Election $election)
     {
         // add a check to prevent further modifications.
-        if (in_array($election->status, ['active', 'closed'])) {
+        if (in_array($election->status, ['active', 'ended', 'closed'])) {
             Notify::warning("The election is already {$election->status}.");
 
             return back();
@@ -80,7 +80,7 @@ class ElectionControlNumbersController extends Controller
      * Store Resource.
      * @param \Illuminate\Http\Request
      * @param \App\Election
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Routing\Redirector
      */
     public function store(Request $request, Election $election)
     {
@@ -103,6 +103,6 @@ class ElectionControlNumbersController extends Controller
 
         Notify::success('Control Number(s) stored.');
 
-        return back();
+        return redirect()->route('root.elections.control-numbers.index', $election);
     }
 }

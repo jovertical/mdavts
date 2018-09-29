@@ -31,7 +31,7 @@ class ElectionPositionsController extends Controller
     public function showPositionsPage(Election $election)
     {
         // add a check to prevent further modifications.
-        if (in_array($election->status, ['active', 'closed'])) {
+        if (in_array($election->status, ['active', 'ended', 'closed'])) {
             Notify::warning("The election is already {$election->status}.");
 
             return back();

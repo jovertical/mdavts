@@ -19,13 +19,13 @@
         @slot('action')
             <button
                 type="button"
-                id="btn-export"
-                class="btn btn-info float-right"
+                id="btn-declare"
+                class="btn btn-success float-right"
                 data-toggle="modal"
-                data-target="#modal-export"
-                {{ now()->format('Y-m-d') < $election->end_date ? 'disabled' : '' }}
+                data-target="#modal-declare"
+                {{ $election->status != 'closed' ? 'disabled' : '' }}
             >
-                <i class="fas fa-copy"></i> Export
+                <i class="fas fa-balance-scale"></i> Declare
             </button>
         @endslot
     @endcomponent
@@ -124,51 +124,43 @@
 @endsection
 
 @section('modals')
-    <div id="modal-export" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="modal-declare" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="" class="form-material">
+                <form method="POST" action="{{ route('root.elections.results.export', $election) }}" class="form-material">
                     @csrf
 
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            Export Tally
+                            Declare {{ $election->name }} Winners
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
 
                     <div class="modal-body">
-                        <!-- File Name -->
-                        <div class="form-group">
-                            <label for="file_name">File Name</label>
+                        <div class="table-responsive m-t-40">
+                            <div>
+                                <table id="table-standings" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Candidate</th>
+                                            <th>Vote Count</th>
+                                        </tr>
+                                    </thead>
 
-                            <input
-                                type="text"
-                                name="file_name"
-                                id="file_name"
-                                class="form-control form-control-line"
-                                value="{{ "{$election->name}-Results--".now()->format('Y-m-d') }}"
-                                placeholder="Enter File Name"
-                            >
+                                    <tbody>
+                                        <tr>
+                                            <td>Jose Rizal</td>
+                                            <td>5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <!--/. File Name -->
-
-                        <!-- File Type -->
-                        <div class="form-group">
-                            <label for="file_type">File Type</label>
-
-                            <select name="file_type" id="file_type" class="form-control">
-                                <option selected disabled>Please select a file type</option>
-                                <option value="pdf">PDF</option>
-                                <option value="excel">Excel</option>
-                                <option value="csv">CSV</option>
-                            </select>
-                        </div>
-                        <!--/. File Type -->
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" id="btn-modal-export" class="btn btn-info waves-effect">Export</button>
+                        <button type="submit" id="btn-modal-declare" class="btn btn-info waves-effect">Declare</button>
                         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>

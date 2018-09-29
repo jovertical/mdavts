@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\ElectionOpener',
-        'App\Console\Commands\ElectionCloser',
+        'App\Console\Commands\ElectionEnder',
     ];
 
     /**
