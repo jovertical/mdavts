@@ -44,8 +44,12 @@ class VotesController extends Controller
             $errors[] = 'Election is not yet started.';
         }
 
+        if ($election->status == 'ended') {
+            $errors[] = 'Election is already ended.';
+        }
+
         if ($election->status == 'closed') {
-            $errors[] = 'Election is closed.';
+            $errors[] = 'Election is already closed.';
         }
 
         if ($control_number->used) {
