@@ -23,7 +23,7 @@
                 class="btn btn-success float-right"
                 data-toggle="modal"
                 data-target="#modal-declare"
-                {{ $election->status != 'closed' ? 'disabled' : '' }}
+                {{ $election->status != 'ended' ? 'disabled' : '' }}
             >
                 <i class="fas fa-balance-scale"></i> Declare
             </button>
@@ -127,7 +127,7 @@
     <div id="modal-declare" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="{{ route('root.elections.results.export', $election) }}" class="form-material">
+                <form method="POST" action="{{ route('root.elections.winners.declare', $election) }}" class="form-material">
                     @csrf
 
                     <div class="modal-header">
@@ -138,33 +138,197 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="table-responsive m-t-40">
-                            <div>
-                                <table id="table-standings" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Candidate</th>
-                                            <th>Vote Count</th>
-                                        </tr>
-                                    </thead>
+                        <div id="tb-wrapper">
+                            <div id="tb-header"></div>
+                            <div id="tb-body" class="row justify-content-center"></div>
+                            <div id="tb-footer">
+                                <!-- Links -->
+                                <div class="form-group row">
+                                    <div class="col text-left">
+                                        <button type="button" id="btn-tb-back" class="btn btn-secondary">
+                                            Back
+                                        </a>
+                                    </div>
 
-                                    <tbody>
-                                        <tr>
-                                            <td>Jose Rizal</td>
-                                            <td>5</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <div class="col text-center">
+                                        <button type="button" id="btn-tb-randomize" class="btn btn-warning btn-loading">
+                                            Randomize
+                                        </button>
+                                    </div>
+                
+                                    <div class="col text-right">
+                                        <button type="button" id="btn-tb-next" class="btn btn-secondary">
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--/. Links -->
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" id="btn-modal-declare" class="btn btn-info waves-effect">Declare</button>
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="submit" id="btn-modal-declare" class="btn btn-info waves-effect">
+                            Declare
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+@endsection
+
+@section('styles')
+    <style>
+        .candidate {
+            text-align: center;
+            min-height: 250px;
+        }
+
+        .candidate-name {
+            font-size: 1rem;
+        }
+
+        .selected-candidate {
+            background-color: #4E342E!important;
+        }
+
+        .selected-candidate > .card-title, .selected-candidate > .card-text {
+            color: #fff!important;
+        }
+    </style>
+@endsection
+
+@section('scripts')
+    <script>
+        var tbIndex = 0;
+
+        var fetchTieBreakers = function (tieBreaker) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('root.elections.ties.fetch', $election) }}"
+            }).done(function (tieBreakers) {
+                var candidates = tieBreakers[tieBreaker];
+
+                if (candidates) {
+                    // Clear our containment areas.
+                    $('#tb-header').html('');
+                    $('#tb-body').html('');
+
+                    $('#tb-header').append(' \
+                        <div class="mb-2"> \
+                            <h2 class="card-title text-center">'
+                                +candidates[tieBreaker].position.name+
+                            '</h2> \
+                            <h4 class="card-subtitle text-center"> \
+                                Tied with <code> \
+                                    '+candidates[tieBreaker].votes+' \
+                                </code> votes each \
+                            </h4> \
+                        </div> \
+                    ');
+                
+                    $.each(candidates, function (index, candidate) {
+                        var user = candidate.candidate;
+                        var fullName = user.lastname+', '+user.firstname+' '+user.middlename;
+                        var trimmedFullName = fullName.length > 15 
+                            ? fullName.substring(0, 15) + '...'
+                            : fullName;
+                        var hasWonIndicator = candidate.has_won ? 'selected-candidate' : '';
+
+                        $('#tb-body').append(' \
+                            <div class="col-4">\
+                                <div class="card candidate">\
+                                    <img \
+                                        class="card-img-top img-responsive candidate-image" \
+                                        src="'+ user.path +'" \
+                                        onerror=this.src="/app/images/avatar.png" \
+                                        alt="" \
+                                    >\
+                                    <div \
+                                        class="card-body candidate-content '+hasWonIndicator+'" \
+                                        data-key="'+user.uuid+'" \
+                                    >\
+                                        <h4 class="card-title candidate-name">\
+                                            '+trimmedFullName+' \
+                                        </h4> \
+                                        <p class="card-text candidate-detail">\
+                                            <span class="font-weight-normal">\
+                                            </span>\
+                                        </p>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        ');
+                    });
+
+                    // disable navigation buttons.
+                    $('#btn-tb-back').attr({disabled: tbIndex == 0});
+                    $('#btn-tb-next').attr({disabled: (tbIndex + 1) == candidates.length});
+
+                    // disable randomize button
+                    $('#btn-tb-randomize').attr({
+                        disabled: candidates.filter(function (candidate) {
+                            return candidate.has_won;
+                        }).length > 0
+                    });
+
+                    // disable declare button if there's still position without a winner.
+                    $('#btn-modal-declare').attr({
+                        disabled: tieBreakers.filter(function (candidates) {
+                            return candidates.filter(function (candidate) {
+                                return candidate.has_won;
+                            }).length > 0;
+                        }).length != tieBreakers.length
+                    }); 
+                }                 
+           });
+        };
+
+        var randomizeTies = function () {
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('root.elections.ties.randomize', $election) }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    index: tbIndex
+                }
+            }).done(function(user) {
+                // remove the loading animation.
+                $('#btn-tb-randomize.btn-loading > i').remove();
+
+                // disable the button.
+                $('#btn-tb-randomize').attr({disabled: true});
+                
+                // indicator for the winner.
+                $('.candidate-content').removeClass('selected-candidate');
+                $('.candidate-content[data-key='+user.uuid+']').addClass('selected-candidate');
+            
+                // refetch tieBreakers.
+                fetchTieBreakers(tbIndex);
+            });
+        }
+
+        $('#btn-tb-back').on('click', function(event) {
+            tbIndex -= 1;
+        });
+
+        $('#btn-tb-next').on('click', function(event) {
+            tbIndex += 1;
+        });
+
+        $('#btn-tb-back, #btn-tb-next').on('click', function (event) {
+            fetchTieBreakers(tbIndex);
+        });
+
+        $('#btn-tb-randomize').on('click', function (event) {
+            randomizeTies();
+        });
+
+        $(document).ready(function(event) {
+            fetchTieBreakers(tbIndex);
+        });
+    </script>
 @endsection

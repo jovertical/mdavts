@@ -66,7 +66,7 @@ class ElectionRepository
     }
 
     /**
-     * @return Illuminate\Support\Collection
+     * @return array
      */
     public function getWinners()
     {
@@ -89,6 +89,50 @@ class ElectionRepository
                 return $value;
             })
             ->sortBy('position.level')
-            ->values();
+            ->values()
+            ->toArray();
+    }
+
+    /**
+     * @param array
+     * @return array
+     */
+    public function getTieBreakers($tally)
+    {
+        $filtered = array_filter($tally, function ($stats) {
+            $votes = collect($stats['votes'])
+                ->sortByDesc('votes')
+                ->pluck('votes');
+
+            $count = collect($votes)->filter(function ($vote) use ($votes) {
+                return $vote == $votes[0];
+            })->count();
+
+            return $count > 1;
+        });
+
+        $tieBreakers = collect([]);
+
+        collect(array_column($filtered, 'votes'))->each(
+            function($votes) use ($tieBreakers) {
+                collect($votes)->map(function($vote) use ($votes) {
+                    $vote->has_won = DB::table('election_winners')
+                        ->where('election_uuid', $this->election->uuid)
+                        ->where('candidate_uuid', $vote->candidate->uuid)
+                        ->count() > 0;
+                });
+
+                $votes = collect($votes)
+                    ->sortByDesc('votes')
+                    ->values();
+
+                $tieBreaker = $votes->filter(function ($vote) use ($votes) {
+                        return $vote->votes == $votes[0]->votes;
+                    })->values();
+
+                $tieBreakers->push($tieBreaker);
+        })->toArray();
+
+        return $tieBreakers;
     }
 }

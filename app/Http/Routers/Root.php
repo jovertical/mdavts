@@ -69,6 +69,16 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
                 Route::post('export', 'ElectionTallyController@export')->name('export');
             });
 
+            Route::prefix('ties')->name('ties.')->group(function() {
+                Route::get('/fetch', 'ElectionTiesController@fetch')->name('fetch');
+                Route::post('/randomize', 'ElectionTiesController@randomize')->name('randomize');
+            });
+
+            Route::prefix('winners')->name('winners.')->group(function() {
+                Route::get('/fetch', 'ElectionWinnersController@fetch')->name('fetch');
+                Route::post('/declare', 'ElectionWinnersController@declare')->name('declare');
+            });
+
             Route::prefix('results')->name('results.')->group(function() {
                 Route::post('export', 'ElectionResultsController@export')->name('export');
             });

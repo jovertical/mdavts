@@ -38,7 +38,7 @@ class ElectionTallyController extends Controller
         );
 
         return view('root.elections.election.tally', compact(
-            ['election', 'archives', 'tie_breakers']
+            ['election', 'archives']
         ));
     }
 }
