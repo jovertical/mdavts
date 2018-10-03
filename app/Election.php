@@ -28,8 +28,12 @@ class Election extends Model
                 return 'success';
             break;
 
-            case 'closed':
+            case 'ended':
                 return 'danger';
+            break;
+
+            case 'closed':
+                return 'info';
             break;
         }
     }

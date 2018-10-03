@@ -6,21 +6,21 @@ use App\Election;
 use Illuminate\Support\Collection;
 use Illuminate\Console\Command;
 
-class ElectionCloser extends Command
+class ElectionEnder extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'election:closer {--force}';
+    protected $signature = 'election:ender {--force}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Close Election';
+    protected $description = 'End Election';
 
     /**
      * Create a new command instance.
@@ -59,13 +59,13 @@ class ElectionCloser extends Command
     protected function updateElectionStatus(Collection $elections) : void
     {
         foreach ($elections as $election) {
-            $election->status = 'closed';
+            $election->status = 'ended';
 
-            $this->info("Closing: {$election->name}");
+            $this->info("Ending: {$election->name}");
 
             $election->update();
 
-            $this->comment("Closed: {$election->name}");
+            $this->comment("Ended: {$election->name}");
         }
     }
 }

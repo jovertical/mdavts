@@ -37,6 +37,8 @@ class ElectionTallyController extends Controller
             $request->get('position')
         );
 
-        return view('root.elections.election.tally', compact(['election', 'archives']));
+        return view('root.elections.election.tally', compact(
+            ['election', 'archives']
+        ));
     }
 }

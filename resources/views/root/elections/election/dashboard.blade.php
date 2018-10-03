@@ -80,7 +80,7 @@
     <!-- Row -->
     <div class="row">
         <div class="col-lg-8">
-            <div class="card">
+            <div class="card" style="min-height: 320px;">
                 <div class="card-body">
                     <div class="d-flex no-block">
                         <h4 class="card-title">Standings</h4>
@@ -145,14 +145,14 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card" style="min-height: 320px;">
                 <div class="card-body">
                     <h4 class="card-title">Tracking</h4>
-                    <table class="table browser m-t-30 no-border">
+                    <table class="table browser m-t-20 no-border">
                         <tbody>
                             <tr>
                                 <td>
-                                    Set at least one position ({{ $election->positions->count() }})
+                                    Set at least a position ({{ $election->positions->count() }})
                                 </td>
                                 <td class="text-right">
                                     @unless($election->positions->count() > 0)
@@ -165,7 +165,7 @@
 
                             <tr>
                                 <td>
-                                    Set at least one candidate ({{ $election->candidates->count() }})
+                                    Set at least a candidate ({{ $election->candidates->count() }})
                                 </td>
                                 <td class="text-right">
                                     @unless($election->candidates->count() > 0)
@@ -188,6 +188,16 @@
                                     @else
                                         <i class="fas fa-check text-success"></i>
                                     @endif
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Declare winners
+                                </td>
+
+                                <td class="text-right">
+                                    <i class="fas fa-exclamation-triangle text-warning"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -298,7 +308,7 @@
                 // If the count down is finished, write some text
                 clearInterval(x);
                 document.getElementById("time").innerHTML =
-                    '<h4 class="text-danger">CLOSED</h4>';
+                    '<h4 class="text-danger">{{ strtoupper($election->status) }}</h4>';
             }
         }, 1000);
     </script>
