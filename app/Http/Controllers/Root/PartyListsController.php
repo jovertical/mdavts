@@ -60,10 +60,10 @@ class PartyListsController extends Controller
     public function update(Request $request, PartyList $partylists)
     {
         $request->validate([
-            'party' => 'required',
+            'name' => 'required',
         ]);
 
-        $partylists->party = $request->input('party');
+        $partylists->name = $request->input('name');
         $partylists->description = $request->input('description');
 
         if ($partylists->save()) {
