@@ -53,7 +53,7 @@
                                                     <i class="fas fa-window-close text-danger"></i>
                                                 </a>
                                             </td>
-                                            <td>{{ $partylist->party }}</td>
+                                            <td>{{ $partylist->name }}</td>
                                             <td>{{ $partylist->description }}</td>
                                         </tr>
                                     @endforeach

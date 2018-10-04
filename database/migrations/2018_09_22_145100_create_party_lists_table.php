@@ -15,7 +15,7 @@ class CreatePartyListsTable extends Migration
     {
         Schema::create('party_lists', function (Blueprint $table) {
             $table->uuid('uuid')->nullable();
-            $table->string('party');
+            $table->string('name');
             $table->text('description')->nullable();
 
             $table->uuid('created_by')->nullable();

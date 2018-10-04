@@ -38,11 +38,11 @@ class PartyListsController extends Controller
 
         
 
-        $partylist = new PartyList;
-        $partylist->party = $request->input('party');
-        $partylist->description = $request->input('description');
+        $partylists = new PartyList;
+        $partylists->party = $request->input('party');
+        $partylists->description = $request->input('description');
 
-        if ($partylist->save()) {
+        if ($partylists->save()) {
             Notify::success('Party List created.', 'Success!');
 
             return redirect()->route('root.partylists.index');
@@ -53,21 +53,21 @@ class PartyListsController extends Controller
         return redirect()->route('root.partylists.index');
     }
 
-    public function edit(Request $request, PartyList $partylist)
+    public function edit(Request $request, PartyList $partylists)
     {
-        return view('root.partylists.edit', compact('partylist'));
+        return view('root.partylists.edit', compact('partylists'));
     }
 
-    public function update(Request $request, PartyList $partylist)
+    public function update(Request $request, PartyList $partylists)
     {
         $request->validate([
             'party' => 'required',
         ]);
 
-        $partylist->party = $request->input('party');
-        $partylist->description = $request->input('description');
+        $partylists->party = $request->input('party');
+        $partylists->description = $request->input('description');
 
-        if ($partylist->save()) {
+        if ($partylists->save()) {
             Notify::success('Party List created.', 'Success!');
 
             return redirect()->route('root.partylists.index');
@@ -78,9 +78,9 @@ class PartyListsController extends Controller
         return redirect()->route('root.partylists.index');
     }
 
-    public function destroy(Request $request, PartyList $partylist)
+    public function destroy(Request $request, PartyList $partylists)
     {
-        if ($partylist->delete()) {
+        if ($partylists->delete()) {
             Notify::success('Party list deleted.', 'Success!');
 
             return redirect()->route('root.partylists.index');

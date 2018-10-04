@@ -30,20 +30,20 @@
 
                         <!-- Party List -->
                         <div class="form-group">
-                            <label for="party">Party</label>
+                            <label for="name">Party</label>
 
                             <input
                                 type="text"
-                                name="party"
-                                id="party"
+                                name="name"
+                                id="name"
                                 class="form-control form-control-line"
-                                value="{{ old('party') }}"
+                                value="{{ old('name') }}"
                                 placeholder="Enter name of the party list"
                             >
 
-                            @if ($errors->has('party'))
+                            @if ($errors->has('name'))
                                 <span class="text-danger">
-                                    {{ $errors->first('party') }}
+                                    {{ $errors->first('name') }}
                                 </span>
                             @endif
                         </div>

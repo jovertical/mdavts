@@ -87,8 +87,7 @@
                                     {{ $errors->first('position') }}
                                 </span>
                             @endif
-                        </div>
-                        <!--/. Position -->
+                        <!--/ Position /-->                           
 
                         <!-- Submit -->
                         <div class="form-group">
