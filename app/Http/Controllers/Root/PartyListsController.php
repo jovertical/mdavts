@@ -32,13 +32,9 @@ class PartyListsController extends Controller
     public function store(Request $request)
     {
 
-        dd($partylists);
-
         $request->validate([
-            'party' => 'required',
+            'name' => 'required',
         ]);
-
-        
 
         $partylists = new PartyList;
         $partylists->party = $request->input('name');
