@@ -37,7 +37,7 @@ class PartyListsController extends Controller
         ]);
 
         $partylists = new PartyList;
-        $partylists->party = $request->input('name');
+        $partylists->name = $request->input('name');
         $partylists->description = $request->input('description');
 
         if ($partylists->save()) {
