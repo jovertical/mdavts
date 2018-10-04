@@ -32,6 +32,8 @@ class PartyListsController extends Controller
     public function store(Request $request)
     {
 
+        dd($partylists);
+
         $request->validate([
             'party' => 'required',
         ]);
@@ -39,10 +41,11 @@ class PartyListsController extends Controller
         
 
         $partylists = new PartyList;
-        $partylists->party = $request->input('party');
+        $partylists->party = $request->input('name');
         $partylists->description = $request->input('description');
 
         if ($partylists->save()) {
+
             Notify::success('Party List created.', 'Success!');
 
             return redirect()->route('root.partylists.index');
