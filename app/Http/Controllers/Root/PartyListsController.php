@@ -9,6 +9,7 @@ use App\Services\Notify;
 use App\{PartyList};
 
 
+
 /*
 Laravel
 */
@@ -31,6 +32,7 @@ class PartyListsController extends Controller
 
     public function store(Request $request)
     {
+
 
         $request->validate([
             'name' => 'required',
@@ -79,6 +81,7 @@ class PartyListsController extends Controller
 
     public function destroy(Request $request, PartyList $partylists)
     {
+
         if ($partylists->delete()) {
             Notify::success('Party list deleted.', 'Success!');
 

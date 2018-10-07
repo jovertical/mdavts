@@ -215,7 +215,7 @@
                             <select name="name" id="name" class="form-control">
                                 <option selected disabled>Please select a party list</option>
                         
-                                    @foreach ($partylists->name as $partylist)
+                                    @foreach ($partylists as $partylist)
                                         <option value="{{ $partylist->uuid_text }}">
                                             {{ $partylist->name }}
                                         </option>

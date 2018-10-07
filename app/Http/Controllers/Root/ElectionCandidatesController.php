@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Root;
  * Application
  */
 use App\Services\{Notify};
-use App\{User, Election, Candidate};
+use App\{User, Election, Candidate, PartyList};
 
 /**
  * Package Services
@@ -73,6 +73,8 @@ class ElectionCandidatesController extends Controller
                 ->count() == 0;
         });
 
+        $partylists = PartyList::all();
+
         $allUserCount = $users->count();
 
         if ($request->has('c')) {
@@ -80,7 +82,7 @@ class ElectionCandidatesController extends Controller
         }
 
         return view('root.elections.election.candidates.create', compact(
-            ['election', 'users', 'allUserCount']
+            ['election', 'users', 'partylists', 'allUserCount']
         ));
     }
 
