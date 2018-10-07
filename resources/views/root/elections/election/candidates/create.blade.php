@@ -210,9 +210,9 @@
 
                         <!-- Party List -->
                         <div class="form-group">
-                            <label for="name">Party List</label>
+                            <label for="partylist">Party List</label>
                         
-                            <select name="name" id="name" class="form-control">
+                            <select name="partylist" id="partylist" class="form-control">
                                 <option selected disabled>Please select a party list</option>
                         
                                     @foreach ($partylists as $partylist)

@@ -19,8 +19,4 @@ class Candidate extends Model
         return $this->belongsTo(Position::class, 'position_uuid');
     }
 
-    public function partylist()
-    {
-        return $this->hasOne(PartyList::class, 'partylist_uuid');
-    }
 }

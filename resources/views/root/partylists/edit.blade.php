@@ -19,8 +19,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">---</h4>
-                    <h6 class="card-subtitle"></h6>
 
                     <form
                         method="POST"
@@ -31,16 +29,16 @@
                         @method('PATCH')
                         @csrf
 
-                        <!-- Name -->
+                        <!-- Party List -->
                         <div class="form-group">
-                            <label for="name">Party</label>
+                            <label for="partylist">Party</label>
 
                             <input
                                 type="text"
-                                name="name"
-                                id="name"
+                                name="partylist"
+                                id="partylist"
                                 class="form-control form-control-line"
-                                value="{{ old('name') ?? $partylist->name }}"
+                                value="{{ old('partylist') ?? $partylists->name }}"
                                 placeholder="Enter name"
                             >
 
@@ -50,8 +48,8 @@
                                 </span>
                             @endif
                         </div>
-                        <!--/. Name -->
-
+                        <!--/. Party List -->
+                        
                         <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
@@ -62,7 +60,7 @@
                                 class="form-control form-control-line summernote"
                                 row="3"
                             >
-                                {{ old('description') ?? $partylist->description }}
+                                {{ old('description') ?? $partylists->description }}
                             </textarea>
 
                             @if ($errors->has('description'))

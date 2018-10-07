@@ -105,6 +105,10 @@ class ElectionCandidatesController extends Controller
             $request->input('position')
         );
 
+        $candidate->partylist_uuid = PartyList::encodeUuid(
+            $request->input('partylist')
+        );
+
         if ($candidate->save()) {
             Notify::success('Candidate nominated.', 'Success!');
 
