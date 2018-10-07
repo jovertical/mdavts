@@ -19,4 +19,8 @@ class Candidate extends Model
         return $this->belongsTo(Position::class, 'position_uuid');
     }
 
+    public function party_list()
+    {
+        return $this->belongsTo(PartyList::class, 'partylist_uuid');
+    }
 }

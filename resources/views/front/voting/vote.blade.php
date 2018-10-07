@@ -26,7 +26,7 @@
 
                                     <p class="card-text candidate-detail">
                                         <span class="font-weight-normal">
-                                            {{ str_limit(optional($candidate->user->grade)->level.' - '.optional($candidate->user->section)->name, 15) }}
+                                            {{ str_limit(optional($candidate->party_list)->name, 10) }}
                                         </span>
                                     </p>
 

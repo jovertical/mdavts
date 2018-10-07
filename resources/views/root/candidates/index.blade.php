@@ -36,8 +36,7 @@
                                         <th>Candidate</th>
                                         <th>Election</th>
                                         <th>Position</th>
-                                        <th>Grade</th>
-                                        <th>Section</th>
+                                        <th>Party List</th>
                                     </tr>
                                 </thead>
 
@@ -46,21 +45,24 @@
                                         <tr>
                                             <td>
                                                 <a href="{{ route('root.users.edit', $candidate->user) }}">
-                                                    {{ $candidate->user->full_name_formal }}
+                                                    {{ optional($candidate->user)->full_name_formal }}
                                                 </a>
                                             </td>
                                             <td>
                                                 <a href="{{ route('root.elections.edit', $candidate->election) }}">
-                                                    {{ $candidate->election->name }}
+                                                    {{ optional($candidate->election)->name }}
                                                 </a>
                                             </td>
                                             <td>
                                                 <a href="{{ route('root.positions.edit', $candidate->position) }}">
-                                                    {{ $candidate->position->name }}
+                                                    {{ optional($candidate->position)->name }}
                                                 </a>
                                             </td>
-                                            <td>{!! optional($candidate->user->grade)->level ?? '<i>No Data</i>' !!}</td>
-                                            <td>{!! optional($candidate->user->section)->name ?? '<i>No Data</i>'  !!}</td>
+                                            <td>
+                                                <a href="{{ route('root.partylists.edit', $candidate->party_list) }}">
+                                                    {{ optional($candidate->party_list)->name }}
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
