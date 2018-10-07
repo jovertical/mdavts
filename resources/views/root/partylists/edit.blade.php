@@ -22,7 +22,7 @@
 
                     <form
                         method="POST"
-                        action="{{ route('root.partylists.update', $partylists) }}"
+                        action="{{ route('root.partylists.update', $partylist) }}"
                         class="form-material m-t-40"
                         submit-once
                     >
@@ -31,14 +31,14 @@
 
                         <!-- Party List -->
                         <div class="form-group">
-                            <label for="partylist">Party</label>
+                            <label for="name">Party</label>
 
                             <input
                                 type="text"
-                                name="partylist"
-                                id="partylist"
+                                name="name"
+                                id="name"
                                 class="form-control form-control-line"
-                                value="{{ old('partylist') ?? $partylists->name }}"
+                                value="{{ old('name') ?? $partylist->name }}"
                                 placeholder="Enter name"
                             >
 
@@ -60,7 +60,7 @@
                                 class="form-control form-control-line summernote"
                                 row="3"
                             >
-                                {{ old('description') ?? $partylists->description }}
+                                {{ old('description') ?? $partylist->description }}
                             </textarea>
 
                             @if ($errors->has('description'))
