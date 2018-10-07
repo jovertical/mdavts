@@ -30,7 +30,7 @@ class ElectionCandidatesController extends Controller
      */
     public function index(Election $election)
     {
-        $candidates = Candidate::where('election_uuid', $election->uuid)->get();
+        $candidates = Candidate::where('election_id', $election->id)->get();
 
         return view('root.elections.election.candidates.index', compact(
             ['election', 'candidates']
@@ -68,8 +68,8 @@ class ElectionCandidatesController extends Controller
 
         // filter user to prevent being nominated again!!!
         $users = $users->get()->filter(function($user) use ($election) {
-            return Candidate::where('election_uuid', $election->uuid)
-                ->where('user_uuid', $user->uuid)
+            return Candidate::where('election_id', $election->id)
+                ->where('user_id', $user->id)
                 ->count() == 0;
         });
 
@@ -99,15 +99,11 @@ class ElectionCandidatesController extends Controller
         ]);
 
         $candidate = new Candidate;
-        $candidate->user_uuid = User::encodeUuid($request->input('user'));
-        $candidate->election_uuid = $election->uuid;
-        $candidate->position_uuid = Candidate::encodeUuid(
-            $request->input('position')
-        );
+        $candidate->user_id = $request->input('user');
+        $candidate->election_id = $election->id;
+        $candidate->position_id = $request->input('position');
 
-        $candidate->partylist_uuid = PartyList::encodeUuid(
-            $request->input('partylist')
-        );
+        $candidate->partylist_id = $request->input('partylist');
 
         if ($candidate->save()) {
             Notify::success('Candidate nominated.', 'Success!');

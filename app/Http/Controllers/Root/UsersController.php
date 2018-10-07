@@ -66,16 +66,14 @@ class UsersController extends Controller
 
         $user->lrn = $request->input('lrn');
 
-        $user->grade_uuid = ! empty($grade = $request->get('grade'))
-            ? Grade::encodeUuid($grade)
-            : null;
-        $user->section_uuid = ! empty($section = $request->get('section'))
-            ? Section::encodeUuid($section)
-            : null;
+        $user->grade_id = ! empty($grade = $request->get('grade'))
+            ? $grade : null;
+        $user->section_id = ! empty($section = $request->get('section'))
+            ? $section : null;
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
-                $request->file('image'), 'users/'.$user->uuid_text
+                $request->file('image'), 'users/'.$user->id
             );
 
             if (count($upload)) {
@@ -136,16 +134,14 @@ class UsersController extends Controller
 
         $user->lrn = $request->input('lrn');
 
-        $user->grade_uuid = ! empty($grade = $request->get('grade'))
-            ? Grade::encodeUuid($grade)
-            : null;
-        $user->section_uuid = ! empty($section = $request->get('section'))
-            ? Section::encodeUuid($section)
-            : null;
+        $user->grade_id = ! empty($grade = $request->get('grade')) 
+            ? $grade : null;
+        $user->section_id = ! empty($section = $request->get('section')) 
+            ? $section : null;
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
-                $request->file('image'), 'users/'.$user->uuid_text
+                $request->file('image'), 'users/'.$user->id
             );
 
             if (count($upload)) {
@@ -193,11 +189,11 @@ class UsersController extends Controller
     public function showControlNumbers(User $user)
     {
         $control_numbers = DB::table('election_control_numbers as ecn')
-            ->where('voter_uuid', $user->uuid)
+            ->where('voter_id', $user->id)
             ->get();
 
         $control_numbers->each(function($number) use ($control_numbers) {
-            $number->election = Election::find($number->election_uuid);
+            $number->election = Election::find($number->election_id);
         });
 
         return view('root.users.control_numbers', compact(

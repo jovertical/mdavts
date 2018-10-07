@@ -14,8 +14,8 @@ class CreateElectionWinnersTable extends Migration
     public function up()
     {
         Schema::create('election_winners', function (Blueprint $table) {
-            $table->uuid('election_uuid')->index();
-            $table->uuid('candidate_uuid');
+            $table->integer('election_id')->index();
+            $table->integer('candidate_id');
         });
     }
 

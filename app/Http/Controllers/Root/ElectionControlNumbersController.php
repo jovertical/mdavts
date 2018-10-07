@@ -32,11 +32,11 @@ class ElectionControlNumbersController extends Controller
     public function index(Request $request, Election $election)
     {
         $control_numbers = DB::table('election_control_numbers as ecn')
-            ->where('ecn.election_uuid', $election->uuid)
+            ->where('ecn.election_id', $election->id)
             ->get();
 
         $control_numbers->each(function($cn) {
-            $cn->user = User::find($cn->voter_uuid);
+            $cn->user = User::find($cn->voter_id);
         });
 
         return view('root.elections.election.control_numbers.index', compact(
@@ -64,8 +64,8 @@ class ElectionControlNumbersController extends Controller
         $data->all_users = User::where('type', 'user')->count();
 
         $data->with = DB::table('election_control_numbers as ecn')
-            ->leftJoin('users as u', 'u.uuid', '=', 'ecn.voter_uuid')
-            ->where('election_uuid', $election->uuid)
+            ->leftJoin('users as u', 'u.id', '=', 'ecn.voter_id')
+            ->where('election_id', $election->id)
             ->where('u.deleted_at', null)
             ->count();
 
@@ -85,17 +85,17 @@ class ElectionControlNumbersController extends Controller
     public function store(Request $request, Election $election)
     {
         $users = User::where('type', 'user')->get();
-        $voter_uuids = DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
-            ->pluck('voter_uuid')
+        $voter_ids = DB::table('election_control_numbers')
+            ->where('election_id', $election->id)
+            ->pluck('voter_id')
             ->all();
 
         // Store control numbers for each user with this election as reference.
-        $users->each(function($user) use ($election, $voter_uuids) {
-            if (! in_array($user->uuid, $voter_uuids)) {
+        $users->each(function($user) use ($election, $voter_ids) {
+            if (! in_array($user->id, $voter_ids)) {
                 DB::table('election_control_numbers')->insert([
-                    'election_uuid' => $election->uuid,
-                    'voter_uuid' => $user->uuid,
+                    'election_id' => $election->id,
+                    'voter_id' => $user->id,
                     'number' => mt_rand(100000, 999999)
                 ]);
             }

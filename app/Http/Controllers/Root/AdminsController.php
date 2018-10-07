@@ -49,7 +49,7 @@ class AdminsController extends Controller
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
-                $request->file('image'), 'admins/'.$admin->uuid_text
+                $request->file('image'), 'admins/'.$admin->id
             );
 
             if (count($upload)) {
@@ -108,7 +108,7 @@ class AdminsController extends Controller
 
         if ($request->hasFile('image')) {
             $upload = ImageUploader::upload(
-                $request->file('image'), 'admins/'.$admin->uuid_text
+                $request->file('image'), 'admins/'.$admin->id
             );
 
             if (count($upload)) {

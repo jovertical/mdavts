@@ -14,15 +14,15 @@ class CreateCandidatesTable extends Migration
     public function up()
     {
         Schema::create('candidates', function (Blueprint $table) {
-            $table->uuid('uuid');
-            $table->uuid('user_uuid');
-            $table->uuid('election_uuid');
-            $table->uuid('position_uuid');
-            $table->uuid('partylist_uuid');
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('election_id');
+            $table->integer('position_id');
+            $table->integer('partylist_id');
 
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
-            $table->uuid('deleted_by')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

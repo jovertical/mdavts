@@ -18,10 +18,10 @@ class CandidatesController extends Controller
 
     public function create()
     {
-        $elections = Election::get(['uuid', 'name'])->toJson();
+        $elections = Election::get(['id', 'name'])->toJson();
 
-        $positions = Election::get()->keyBy('uuid_text')->map(function ($election) {
-            return $election->positions->pluck('name', 'uuid_text');
+        $positions = Election::get()->keyBy('id')->map(function ($election) {
+            return $election->positions->pluck('name', 'id');
         });
 
         $users = User::where('type', 'user')->get()->map(function ($user) {
@@ -29,7 +29,7 @@ class CandidatesController extends Controller
                 {$user->lastname}, {$user->firstname} {$user->middlename}
             ";
 
-            return $user->only(['uuid_text', 'full_name']);
+            return $user->only(['id', 'full_name']);
         })->toJson();
 
         return view('root.candidates.create', compact(
@@ -45,12 +45,12 @@ class CandidatesController extends Controller
             'position' => 'string|required',
         ]);
 
-        $election = Election::withUuid($request->input('election'))->first();
-        $user = User::withUuid($request->input('user'))->first();
+        $election = Election::find($request->input('election'));
+        $user = User::find($request->input('user'));
         $users = User::where('type', 'user')->get();
 
-        $elected = Candidate::where('election_uuid', $election->uuid)
-            ->where('user_uuid', $user->uuid)
+        $elected = Candidate::where('election_id', $election->id)
+            ->where('user_id', $user->id)
             ->count() > 0;
 
         if ($elected) {
@@ -64,9 +64,9 @@ class CandidatesController extends Controller
         }
 
         $candidate = new Candidate;
-        $candidate->user_uuid = User::encodeUuid($request->input('user'));
-        $candidate->election_uuid = Election::encodeUuid($request->input('election'));
-        $candidate->position_uuid = Position::encodeUuid($request->input('position'));
+        $candidate->user_id = $request->input('user');
+        $candidate->election_id = $request->input('election');
+        $candidate->position_id = $request->input('position');
 
         if ($candidate->save()) {
             Notify::success('Candidate nominated.', 'Success!');

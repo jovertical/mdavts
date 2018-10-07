@@ -14,8 +14,8 @@ class CreateElectionPositionTable extends Migration
     public function up()
     {
         Schema::create('election_position', function (Blueprint $table) {
-            $table->uuid('election_uuid')->index();
-            $table->uuid('position_uuid')->index();
+            $table->integer('election_id')->index();
+            $table->integer('position_id')->index();
         });
     }
 

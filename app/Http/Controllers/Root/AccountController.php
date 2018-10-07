@@ -27,7 +27,7 @@ class AccountController extends Controller
             'lastname' => 'required',
             'birthdate' => 'required|date',
             'gender' => 'required',
-            'email' => "required|email|unique:users,email,{$admin->uuid},uuid",
+            'email' => "required|email|unique:users,email,{$admin->id},id",
         ]);
 
         $admin->fill($request->all());

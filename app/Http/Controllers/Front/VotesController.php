@@ -38,7 +38,7 @@ class VotesController extends Controller
             ->where('number', $request->input('control_number'))
             ->first();
 
-        $election = Election::find($control_number->election_uuid);
+        $election = Election::find($control_number->election_id);
 
         if ($election->status == 'upcoming') {
             $errors[] = 'Election is not yet started.';
@@ -70,8 +70,8 @@ class VotesController extends Controller
             return back();
         }
 
-        $election = Election::find($control_number->election_uuid ?? null);
-        $user = User::find($control_number->voter_uuid ?? null);
+        $election = Election::find($control_number->election_id ?? null);
+        $user = User::find($control_number->voter_id ?? null);
 
         return redirect()->route('front.voting.vote', compact(
             ['election', 'user']
@@ -91,8 +91,8 @@ class VotesController extends Controller
 
         // hanapin ang may ari.
         $control_number = DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
-            ->where('voter_uuid', $user->uuid)
+            ->where('election_id', $election->id)
+            ->where('voter_id', $user->id)
             ->first();
 
         if ($election->positions->count() < 1) {
@@ -137,16 +137,16 @@ class VotesController extends Controller
 
         // filter to skip voting for positions without candidate.
         $positions = $election->positions->filter(function($p) use ($election) {
-            $p_uuids = $election->candidates->pluck('position_uuid')->all();
+            $p_ids = $election->candidates->pluck('position_id')->all();
 
-            return in_array($p->uuid, $p_uuids);
+            return in_array($p->id, $p_ids);
         })->values();
 
         $position = $positions[$pi];
 
         $candidates = $election->candidates->filter(
             function($candidate) use ($position) {
-                return $candidate->position_uuid == $position->uuid;
+                return $candidate->position_id == $position->id;
             });
 
         return view('front.voting.vote', compact(
@@ -164,10 +164,10 @@ class VotesController extends Controller
     public function vote(
         Request $request, Election $election, User $user
     ) {
-        $puuid = $request->input('position_uuid');
-        $u_uuid = $request->input('user_uuid');
+        $pid = $request->input('position_id');
+        $u_id = $request->input('user_id');
 
-        session(["voting.selected.{$puuid}" => $u_uuid]);
+        session(["voting.selected.{$pid}" => $u_id]);
 
         return back();
     }
@@ -186,17 +186,17 @@ class VotesController extends Controller
         // Store vote (of course).
         foreach ($candidates as $position => $candidate) {
             DB::table('election_votes')->insert([
-                'election_uuid' => $election->uuid,
-                'position_uuid' => Position::encodeUuid($position),
-                'candidate_uuid' => Candidate::encodeUuid($candidate),
-                'voter_uuid' => $user->uuid
+                'election_id' => $election->id,
+                'position_id' => $position,
+                'candidate_id' => $candidate,
+                'voter_id' => $user->id
             ]);
         }
 
         // Set control number of user as used, for this election.
         DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
-            ->where('voter_uuid', $user->uuid)
+            ->where('election_id', $election->id)
+            ->where('voter_id', $user->id)
             ->update([
                 'used' => 1, 'used_at' => now()
             ]);
@@ -217,14 +217,17 @@ class VotesController extends Controller
     public function showReviewPage(
         Request $request, Election $election, User $user
     ) {
-        $uuids = DB::table('election_votes')
-            ->where('voter_uuid', $user->uuid)
-            ->pluck('candidate_uuid');
+        $ids = DB::table('election_votes')
+            ->where('election_id', $election->id)
+            ->where('voter_id', $user->id)
+            ->pluck('candidate_id');
 
-        $candidates = Candidate::whereIn('user_uuid', $uuids)
-            ->leftJoin('positions as p', 'p.uuid', '=', 'candidates.position_uuid')
+        $candidates = Candidate::whereIn('user_id', $ids)
+            ->where('election_id', $election->id)
+            ->leftJoin('positions as p', 'p.id', '=', 'candidates.position_id')
             ->orderBy('level')
-            ->select(['user_uuid', 'election_uuid', 'position_uuid'])
+            ->select(['user_id', 'election_id', 'position_id'])
+            ->with('user')
             ->get();
 
         return view('front.voting.review', compact(

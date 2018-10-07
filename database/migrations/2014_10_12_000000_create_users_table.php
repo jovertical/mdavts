@@ -14,9 +14,9 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('uuid');
-            $table->uuid('grade_uuid')->nullable();
-            $table->uuid('section_uuid')->nullable();
+            $table->increments('id');
+            $table->integer('grade_id')->nullable();
+            $table->integer('section_id')->nullable();
 
             $table->enum('type', ['user', 'admin', '']);
             $table->string('role')->nullable();
@@ -41,9 +41,9 @@ class CreateUsersTable extends Migration
             $table->text('directory')->nullable();
             $table->string('filename')->nullable();
 
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
-            $table->uuid('deleted_by')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

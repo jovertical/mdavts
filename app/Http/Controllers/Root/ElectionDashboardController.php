@@ -33,7 +33,7 @@ class ElectionDashboardController extends Controller
         ];
 
         $votesTodayCount = DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
+            ->where('election_id', $election->id)
             ->where('used', 1)
             ->whereBetween('used_at', [
                 now()->format('Y-m-d'), now()->addDays(1)->format('Y-m-d')
@@ -41,15 +41,15 @@ class ElectionDashboardController extends Controller
             ->count();
 
         $allVotesCount = DB::table('election_control_numbers')
-            ->where('election_uuid', $election->uuid)
+            ->where('election_id', $election->id)
             ->where('used', 1)
             ->count();
 
         $allVotersCount = User::where('type', 'user')->count();
 
         $eligibleVotersCount = DB::table('election_control_numbers as ecn')
-            ->leftJoin('users as u', 'u.uuid', '=', 'ecn.voter_uuid')
-            ->where('election_uuid', $election->uuid)
+            ->leftJoin('users as u', 'u.id', '=', 'ecn.voter_id')
+            ->where('election_id', $election->id)
             ->where('u.deleted_at', null)
             ->count();
 

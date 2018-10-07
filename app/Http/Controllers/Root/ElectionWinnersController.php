@@ -47,10 +47,9 @@ class ElectionWinnersController extends Controller
          * @var array
          */
         $tbWinners = DB::table('election_winners as w')
-            ->where('w.election_uuid', $election->uuid)
-            ->leftJoin('candidates as c', 'c.user_uuid', '=', 'w.candidate_uuid')
-            ->select(['c.uuid as candidate_uuid', 'c.position_uuid'])
-        
+            ->where('w.election_id', $election->id)
+            ->leftJoin('candidates as c', 'c.user_id', '=', 'w.candidate_id')
+            ->select(['c.id as candidate_id', 'c.position_id'])
             ->get();
 
         /**
@@ -59,11 +58,11 @@ class ElectionWinnersController extends Controller
         $winners = collect([]);
 
         collect($leaders)->each(function($leader, $loop) use ($tbWinners, $winners) {
-            $positions = $tbWinners->pluck('position_uuid');
-            $users = $tbWinners->pluck('candidate_uuid');
+            $positions = $tbWinners->pluck('position_id');
+            $users = $tbWinners->pluck('candidate_id');
 
-            if (($posIndex = $positions->search($leader->position_uuid)) === false) {
-                $winners->push($leader->candidate_uuid);
+            if (($posIndex = $positions->search($leader->position_id)) === false) {
+                $winners->push($leader->candidate_id);
             } else {
                 $winners->push($users[$posIndex]);
             }
@@ -71,14 +70,14 @@ class ElectionWinnersController extends Controller
 
         // Delete randomized winners.
         DB::table('election_winners')
-            ->where('election_uuid', $election->uuid)
+            ->where('election_id', $election->id)
             ->delete();
 
         // store winners in db.
         foreach ($winners as $winner) {
             DB::table('election_winners')->insert([
-                'election_uuid' => $election->uuid,
-                'candidate_uuid' => $winner
+                'election_id' => $election->id,
+                'candidate_id' => $winner
             ]);
         }
 

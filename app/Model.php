@@ -2,19 +2,13 @@
 
 namespace App;
 
-use Spatie\BinaryUuid\HasBinaryUuid;
-use Spatie\BinaryUuid\HasUuidPrimaryKey;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent
 {
-    use HasBinaryUuid, HasUuidPrimaryKey;
-
     use SoftDeletes;
-
-    protected $primaryKey = 'uuid';
 
     protected $guarded = [];
 
@@ -24,19 +18,19 @@ class Model extends Eloquent
 
         static::creating(function ($model) {
             if (Schema::hasColumn($model->getTable(), 'created_by')) {
-                $model->created_by = optional(auth()->user())->uuid;
+                $model->created_by = optional(auth()->user())->id;
             }
         });
 
         static::updating(function ($model) {
             if (Schema::hasColumn($model->getTable(), 'updated_by')) {
-                $model->updated_by = optional(auth()->user())->uuid;
+                $model->updated_by = optional(auth()->user())->id;
             }
         });
 
         static::deleting(function ($model) {
             if (Schema::hasColumn($model->getTable(), 'deleted_by')) {
-                $model->deleted_by = optional(auth()->user())->uuid;
+                $model->deleted_by = optional(auth()->user())->id;
             }
         });
     }

@@ -53,8 +53,8 @@
 
                                         @foreach ($election->positions as $position)
                                             <option
-                                                value="{{ $position->uuid_text }}"
-                                                {{ Request::input('position') == $position->uuid_text ? 'selected disabled' : '' }}
+                                                value="{{ $position->id }}"
+                                                {{ Request::input('position') == $position->id ? 'selected disabled' : '' }}
                                             >
                                                 {{ $position->name }}
                                             </option>
@@ -108,7 +108,17 @@
                                     <tbody>
                                         @foreach(collect($stats['votes'])->sortByDesc('votes') as $vote)
                                             <tr>
-                                                <td>{{ str_limit($vote->candidate->full_name_formal, 25) }}</td>
+                                                <td>
+                                                    @if (optional($vote->candidate->candidate)->winner)
+                                                        <span class="text-warning">
+                                                            <i class="fas fa-trophy"></i>
+                                                        </span>
+                                                    @endif
+                                                    
+                                                    <span class="ml-2">
+                                                        {{ str_limit($vote->candidate->full_name_formal, 25) }}
+                                                    </span>
+                                                </td>
                                                 <td>{{ $vote->votes }}</td>
                                             </tr>
                                         @endforeach
@@ -247,7 +257,7 @@
                                     >\
                                     <div \
                                         class="card-body candidate-content '+hasWonIndicator+'" \
-                                        data-key="'+user.uuid+'" \
+                                        data-key="'+user.id+'" \
                                     >\
                                         <h4 class="card-title candidate-name">\
                                             '+trimmedFullName+' \
@@ -304,7 +314,7 @@
                 
                 // indicator for the winner.
                 $('.candidate-content').removeClass('selected-candidate');
-                $('.candidate-content[data-key='+user.uuid+']').addClass('selected-candidate');
+                $('.candidate-content[data-key='+user.id+']').addClass('selected-candidate');
             
                 // refetch tieBreakers.
                 fetchTieBreakers(tbIndex);

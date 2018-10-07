@@ -72,7 +72,7 @@ class ResetPasswordController extends Controller
         DB::table('password_resets')->where('token', $token)->delete();
 
         // Authenticate.
-        Auth::loginUsingId($admin->uuid);
+        Auth::loginUsingId($admin->id);
 
         Notify::success(greet(), '');
 

@@ -2,16 +2,12 @@
 
 namespace App;
 
-use Spatie\BinaryUuid\HasBinaryUuid;
-use Spatie\BinaryUuid\HasUuidPrimaryKey;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasBinaryUuid, HasUuidPrimaryKey;
-
     use SoftDeletes;
 
     use Notifiable;
@@ -44,11 +40,11 @@ class User extends Authenticatable
 
     public function grade()
     {
-        return $this->belongsTo(Grade::class, 'grade_uuid');
+        return $this->belongsTo(Grade::class, 'grade_id');
     }
 
     public function section()
     {
-        return $this->belongsTo(Section::class, 'section_uuid');
+        return $this->belongsTo(Section::class, 'section_id');
     }
 }

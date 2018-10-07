@@ -19,7 +19,7 @@
                                     <img class="card-img-top img-responsive magnifiable candidate-image" src="{{ avatar_thumbnail_path($candidate->user) }}">
                                 </a>
 
-                                <div class="card-body candidate-content {{ session()->get("voting.selected.{$position->uuid_text}") == $candidate->user->uuid_text ? 'selected-candidate' : '' }}">
+                                <div class="card-body candidate-content {{ session()->get("voting.selected.{$position->id}") == $candidate->user->id ? 'selected-candidate' : '' }}">
                                     <h4 class="card-title candidate-name">
                                         {{ str_limit($candidate->user->full_name_formal, 25) }}
                                     </h4>
@@ -38,8 +38,8 @@
                                         >
                                             @csrf
 
-                                            <input type="hidden" name="user_uuid" value="{{ $candidate->user->uuid_text }}">
-                                            <input type="hidden" name="position_uuid" value="{{ $position->uuid_text }}">
+                                            <input type="hidden" name="user_id" value="{{ $candidate->user->id }}">
+                                            <input type="hidden" name="position_id" value="{{ $position->id }}">
 
                                             <button type="submit" class="btn btn-brand btn-loading">
                                                 <i class="fas fa-thumbs-up"></i> Vote
@@ -68,7 +68,7 @@
                         @if (Request::input('pi') < ($positions->count() - 1))
                             <a
                                 href="?pi={{ Request::input('pi') }}&next"
-                                class="btn btn-success btn-loading {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
+                                class="btn btn-success btn-loading {{ ! in_array($position->id, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}"
                             >
                                 Next
                             </a>
@@ -80,7 +80,7 @@
                             >
                                 @csrf
 
-                                <button type="submit" class="btn btn-success btn-loading {{ ! in_array($position->uuid_text, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
+                                <button type="submit" class="btn btn-success btn-loading {{ ! in_array($position->id, array_keys(session()->get('voting.selected') ?? [])) ? 'disabled' : '' }}">
                                     Submit
                                 </button>
                             </form>
@@ -96,6 +96,11 @@
 
 @section('styles')
     <style>
+        .zoom-gallery {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+
         .candidate-content {
             text-align: center;
             min-height: 200px;

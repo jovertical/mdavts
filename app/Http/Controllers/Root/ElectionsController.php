@@ -44,7 +44,7 @@ class ElectionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:elections,name,NULL,uuid,deleted_at,NULL',
+            'name' => 'required|unique:elections,name,NULL,id,deleted_at,NULL',
             'start_date' => 'required|date|after_or_equal:today|before_or_equal:end_date',
             'end_date' => 'required|date|after_or_equal:start_date'
         ]);
@@ -83,7 +83,7 @@ class ElectionsController extends Controller
     public function update(Request $request, Election $election)
     {
         $request->validate([
-            'name' => "required|unique:elections,name,{$election->uuid},uuid,deleted_at,NULL",
+            'name' => "required|unique:elections,name,{$election->id},id,deleted_at,NULL",
             'start_date' => 'required|date|after_or_equal:today|before_or_equal:end_date',
             'end_date' => 'required|date|after_or_equal:start_date'
         ]);

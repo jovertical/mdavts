@@ -71,7 +71,7 @@ class SetPasswordController extends Controller
         }
 
         // authenticate.
-        Auth::loginUsingId($admin->uuid);
+        Auth::loginUsingId($admin->id);
 
         Notify::success('Password created.', 'Success!');
 

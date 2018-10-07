@@ -133,7 +133,7 @@
                                                     class="btn btn-success link-nominate"
                                                     data-toggle="modal"
                                                     data-target="#modal-nominate"
-                                                    data-user-uuid={{ $user->uuid_text }}
+                                                    data-user-id={{ $user->id }}
                                                     data-user-name="{{ $user->full_name_formal }}"
                                                     data-user-grade="{{ optional($user->grade)->level }}"
                                                     data-user-section="{{ optional($user->section)->name }}"
@@ -200,7 +200,7 @@
                                 <option selected disabled>Please select a position</option>
 
                                 @foreach ($election->positions as $position)
-                                    <option value="{{ $position->uuid_text }}">
+                                    <option value="{{ $position->id }}">
                                         {{ $position->name }}
                                     </option>
                                 @endforeach
@@ -216,7 +216,7 @@
                                 <option selected disabled>Please select a party list</option>
                         
                                     @foreach ($partylists as $partylist)
-                                        <option value="{{ $partylist->uuid_text }}">
+                                        <option value="{{ $partylist->id }}">
                                             {{ $partylist->name }}
                                         </option>
                                     @endforeach
@@ -271,7 +271,7 @@
         });
 
         $('.link-nominate').on('click', function(event) {
-            var user = $(this).data('user-uuid');
+            var user = $(this).data('user-id');
             var name = $(this).data('user-name');
             var name_text = '<span class="font-weight-bold">'+name+'</span>';
             var grade = $(this).data('user-grade');

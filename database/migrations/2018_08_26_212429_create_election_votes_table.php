@@ -14,10 +14,10 @@ class CreateElectionVotesTable extends Migration
     public function up()
     {
         Schema::create('election_votes', function (Blueprint $table) {
-            $table->uuid('election_uuid');
-            $table->uuid('position_uuid');
-            $table->uuid('candidate_uuid');
-            $table->uuid('voter_uuid');
+            $table->integer('election_id');
+            $table->integer('position_id');
+            $table->integer('candidate_id');
+            $table->integer('voter_id');
         });
     }
 

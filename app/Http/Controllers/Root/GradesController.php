@@ -45,7 +45,7 @@ class GradesController extends Controller
     public function store(Request $request)
     {
          $request->validate([
-            'level' => 'required|integer|unique:grades,level,NULL,uuid,deleted_at,NULL'
+            'level' => 'required|integer|unique:grades,level,NULL,id,deleted_at,NULL'
          ]);
 
          $grade = new Grade;
@@ -83,7 +83,7 @@ class GradesController extends Controller
     public function update(Request $request, Grade $grade)
     {
         $request->validate([
-            'level' => "required|integer|unique:grades,level,{$grade->uuid},uuid,deleted_at,NULL"
+            'level' => "required|integer|unique:grades,level,{$grade->id},id,deleted_at,NULL"
         ]);
 
         $grade->level = $request->input('level');

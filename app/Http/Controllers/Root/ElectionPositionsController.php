@@ -39,16 +39,16 @@ class ElectionPositionsController extends Controller
 
         $positions = Position::all();
 
-        $position_uuids = DB::table('election_position')
-            ->where('election_uuid', $election->uuid)
+        $position_ids = DB::table('election_position')
+            ->where('election_id', $election->id)
             ->get()
             ->map(function($e) {
-                return Election::decodeUuid($e->position_uuid);
+                return $e->position_id;
             })
             ->all();
 
         return view('root.elections.election.positions', compact(
-            ['position_uuids', 'positions', 'election']
+            ['position_ids', 'positions', 'election']
         ));
     }
 
@@ -60,16 +60,16 @@ class ElectionPositionsController extends Controller
      */
     public function store(Request $request, Election $election)
     {
-        $position_uuids = $request->input('positions') ?? [];
+        $position_ids = $request->input('positions') ?? [];
 
         DB::table('election_position')
-            ->where('election_uuid', $election->uuid)
+            ->where('election_id', $election->id)
             ->delete();
 
-        foreach ($position_uuids as $position_uuid) {
+        foreach ($position_ids as $position_id) {
             DB::table('election_position')->insert([
-                'election_uuid' => $election->uuid,
-                'position_uuid' => Position::encodeUuid($position_uuid)
+                'election_id' => $election->id,
+                'position_id' => $position_id
             ]);
         }
 

@@ -14,7 +14,7 @@ class CreateElectionsTable extends Migration
     public function up()
     {
         Schema::create('elections', function (Blueprint $table) {
-            $table->uuid('uuid');
+            $table->increments('id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('start_date');
@@ -22,9 +22,9 @@ class CreateElectionsTable extends Migration
             $table->enum('status', ['upcoming', 'active', 'ended', 'closed', ''])->default('upcoming');
             $table->boolean('active')->default(1);
 
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
-            $table->uuid('deleted_by')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -125,15 +125,15 @@
         var electionNames = elections.map(function(election) {
             return election.name;
         });
-        var electionUuids = elections.map(function(election) {
-            return election.uuid;
+        var electionIds = elections.map(function(election) {
+            return election.id;
         });
 
         var userFullNames = users.map(function(user) {
             return user.full_name;
         });
-        var userUuids = users.map(function(user) {
-            return user.uuid_text;
+        var userIds = users.map(function(user) {
+            return user.id;
         });
 
         var elections = new Bloodhound({
@@ -157,11 +157,11 @@
             source: elections
         }).on('typeahead:selected', function (event, selection) {
             var index = electionNames.indexOf(selection);
-            var electionUuid = electionUuids[index];
+            var electionId = electionIds[index];
             var electionInput = $('input[name=election]');
-            var electionPositions = positions[electionUuid];
+            var electionPositions = positions[electionId];
 
-            electionInput.val(electionUuid);
+            electionInput.val(electionId);
 
             $('#position').html('<option selected disabled>Please select a position</option>');
 
@@ -183,7 +183,7 @@
         }).on('typeahead:selected', function (event, selection) {
             var index = userFullNames.indexOf(selection);
 
-            $('input[name=user]').val(userUuids[index]);
+            $('input[name=user]').val(userIds[index]);
         });
     </script>
 @endsection

@@ -39,9 +39,9 @@
                                             <input
                                                 type="checkbox"
                                                 name="positions[]"
-                                                value="{{ $position->uuid_text }}"
+                                                value="{{ $position->id }}"
                                                 class="custom-control-input"
-                                                {{ in_array($position->uuid_text, $position_uuids) ? 'checked' : '' }}
+                                                {{ in_array($position->id, $position_ids) ? 'checked' : '' }}
                                             >
                                             <span class="custom-control-label">
                                                 {{ $position->name }}

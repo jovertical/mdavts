@@ -43,8 +43,8 @@
                             <select name="grade" id="grade" class="form-control">
                                 @foreach ($grades as $grade)
                                     <option
-                                        value="{{ $grade->uuid_text }}"
-                                        {{ (old('grade') ?? $section->grade->uuid_text) == $grade->uuid_text ? 'selected' : '' }}
+                                        value="{{ $grade->id }}"
+                                        {{ (old('grade') ?? $section->grade->id) == $grade->id ? 'selected' : '' }}
                                     >
                                         {{ $grade->level }}
                                     </option>

@@ -247,10 +247,10 @@
 
                                 @foreach ($grades as $grade)
                                     <option
-                                        value="{{ $grade->uuid_text }}"
-                                        data-sections="{{ $grade->sections->pluck('uuid_text')->toJson() }}"
+                                        value="{{ $grade->id }}"
+                                        data-sections="{{ $grade->sections->pluck('id')->toJson() }}"
                                         data-section-names="{{ $grade->sections->pluck('name')->toJson() }}"
-                                        {{ (old('grade') ?? optional($user->grade)->uuid_text)  == $grade->uuid_text ? 'selected' : '' }}
+                                        {{ (old('grade') ?? optional($user->grade)->id)  == $grade->id ? 'selected' : '' }}
                                     >
                                         {{ $grade->level }}
                                     </option>
@@ -339,7 +339,7 @@
             maxDate: moment().subtract(10, 'years')
         });
 
-        var currentSection = "{{ ! empty($section = $user->section_uuid) ? App\Section::decodeUuid($section) : null }}"
+        var currentSection = "{{ ! empty($section = $user->section_id) ? $section : null }}"
 
         var appendSections = function (sections, sectionNames) {
             $('#section').html('<option selected disabled>Please select a section</option>');

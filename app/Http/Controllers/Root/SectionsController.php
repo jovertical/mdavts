@@ -52,7 +52,7 @@ class SectionsController extends Controller
         ]);
 
         $section = new Section;
-        $section->grade_uuid = Grade::encodeUuid($request->input('grade'));
+        $section->grade_id = $request->input('grade');
         $section->name = $request->input('name');
         $section->description = $request->input('description');
 
@@ -93,7 +93,7 @@ class SectionsController extends Controller
             'name' => 'required'
         ]);
 
-        $section->grade_uuid = Grade::encodeUuid($request->input('grade'));
+        $section->grade_id = $request->input('grade');
         $section->name = $request->input('name');
         $section->description = $request->input('description');
 

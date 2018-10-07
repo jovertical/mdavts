@@ -51,8 +51,8 @@ class ElectionTiesController extends Controller
 
         // insert the winner.
         DB::table('election_winners')->insert([
-            'election_uuid' => $election->uuid,
-            'candidate_uuid' => Candidate::encodeUuid($candidate->uuid)
+            'election_id' => $election->id,
+            'candidate_id' => $candidate->id
         ]);
 
         // we will just return the candidate

@@ -246,10 +246,10 @@
 
                                 @foreach ($grades as $grade)
                                     <option
-                                        value="{{ $grade->uuid_text }}"
-                                        data-sections="{{ $grade->sections->pluck('uuid_text')->toJson() }}"
+                                        value="{{ $grade->id }}"
+                                        data-sections="{{ $grade->sections->pluck('id')->toJson() }}"
                                         data-section-names="{{ $grade->sections->pluck('name')->toJson() }}"
-                                        {{ old('grade') == $grade->uuid_text ? 'selected' : '' }}
+                                        {{ old('grade') == $grade->id ? 'selected' : '' }}
                                     >
                                         {{ $grade->level }}
                                     </option>

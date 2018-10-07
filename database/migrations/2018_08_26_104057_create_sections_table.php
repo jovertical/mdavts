@@ -14,14 +14,14 @@ class CreateSectionsTable extends Migration
     public function up()
     {
         Schema::create('sections', function (Blueprint $table) {
-            $table->uuid('uuid');
-            $table->uuid('grade_uuid');
+            $table->increments('id');
+            $table->integer('grade_id');
             $table->text('name')->nullable();
             $table->string('description')->nullable();
 
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
-            $table->uuid('deleted_by')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
