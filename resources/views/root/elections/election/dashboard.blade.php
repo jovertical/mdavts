@@ -246,8 +246,6 @@
                             <select name="file_type" id="file_type" class="form-control">
                                 <option selected disabled>Please select a file type</option>
                                 <option value="pdf">PDF</option>
-                                <option value="excel">Excel</option>
-                                <option value="csv">CSV</option>
                             </select>
                         </div>
                         <!--/. File Type -->
