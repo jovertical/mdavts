@@ -59,9 +59,6 @@
                         <li>
                             <a href="{{ route('root.positions.index') }}">Positions</a>
                         </li>
-                        <li>
-                            <a href="{{ route('root.candidates.index') }}">Candidates</a>
-                        </li>
                     </ul>
                 </li>
                 <!--/. Election System -->
