@@ -3,14 +3,6 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <!-- Dashboard -->
-                <li>
-                    <a href="{{ route('root.dashboard') }}" class="waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-gauge"></i>
-                        <span class="hide-menu">Dashboard </span>
-                    </a>
-                </li>
-                <!--/. Dashboard -->
 
                 <!-- Users -->
                 <li>
@@ -73,21 +65,6 @@
                     </ul>
                 </li>
                 <!--/. Election System -->
-
-                <!-- Reports -->
-                <li>
-                    <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <i class="mdi mdi-chart-pie"></i>
-                        <span class="hide-menu">Reports</span>
-                    </a>
-
-                    <ul aria-expanded="false" class="collapse">
-                        <li>
-                            <a href="#">-</a>
-                        </li>
-                    </ul>
-                </li>
-                <!--/. Reports -->
 
                 <!-- System -->
                 <li>
