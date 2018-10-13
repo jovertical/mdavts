@@ -3,6 +3,14 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+                <!-- Dashboard -->
+                <li>
+                    <a href="{{ route('root.dashboard') }}" class="waves-effect waves-dark" aria-expanded="false">
+                                        <i class="mdi mdi-gauge"></i>
+                                        <span class="hide-menu">Dashboard </span>
+                                    </a>
+                </li>
+                <!--/. Dashboard -->
 
                 <!-- Users -->
                 <li>
