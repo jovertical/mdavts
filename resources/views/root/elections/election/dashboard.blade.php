@@ -83,7 +83,7 @@
             <div class="card" style="min-height: 320px;">
                 <div class="card-body">
                     <div class="d-flex no-block">
-                        <h4 class="card-title">Standings</h4>
+                        <h4 class="card-title">Leaderboard</h4>
 
                         <div class="ml-auto">
                             <button
@@ -92,7 +92,7 @@
                                 class="btn btn-info float-right"
                                 data-toggle="modal"
                                 data-target="#modal-export"
-                                {{ now()->format('Y-m-d') < $election->end_date ? 'disabled' : '' }}
+                                {{ $election->status != 'closed'  ? 'disabled' : '' }}
                             >
                                 <i class="fas fa-copy"></i> Export
                             </button>

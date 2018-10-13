@@ -343,9 +343,7 @@
                 $('.candidate-content[data-key='+user.id+']').addClass('selected-candidate');
             
                 // refetch tieBreakers.
-                setTimeout(function() {
-                    fetchTieBreakers(tbIndex);
-                }, 2000);
+                fetchTieBreakers(tbIndex);
             });
         }
 

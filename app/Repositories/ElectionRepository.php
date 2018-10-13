@@ -77,6 +77,29 @@ class ElectionRepository
      */
     public function getWinners()
     {
+        if ($this->election->status == 'closed') {
+            return DB::table('election_winners as ew')
+                ->leftJoin('election_votes as ev', 'ev.candidate_id', '=', 'ew.candidate_id')
+                ->select(
+                    'ev.position_id',
+                    'ev.candidate_id',
+                    DB::raw('COUNT(*) as votes')
+                )
+                ->where('ew.election_id', $this->election->id)
+                ->groupBy('ev.candidate_id')
+                ->whereRaw('ew.candidate_id == ev.candidate_id')
+                ->get()
+                ->map(function ($value, $key) {
+                    $value->position = Position::find($value->position_id);
+                    $value->user = User::find($value->candidate_id);
+    
+                    return $value;
+                })
+                ->sortBy('position.level')
+                ->values()
+                ->toArray();
+        }
+
         // position, candidate, votes.
         return DB::table('election_votes')
             ->select(
@@ -98,6 +121,7 @@ class ElectionRepository
             ->sortBy('position.level')
             ->values()
             ->toArray();
+
     }
 
     /**
