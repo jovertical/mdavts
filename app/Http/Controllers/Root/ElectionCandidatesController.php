@@ -94,9 +94,29 @@ class ElectionCandidatesController extends Controller
      */
     public function store(Request $request, Election $election)
     {
-        $request->validate([
-            'position' => 'required'
-        ]);
+        if (empty($request->input('position'))) {
+            $errors[] = 'Please select a Position';
+        }
+
+        if (empty($request->input('partylist'))) {
+            $errors[] = 'Please select a Partylist';
+        }
+
+        $reElectionist = DB::table('candidates')
+            ->where('election_id', $election->id)
+            ->where('position_id', $request->input('position'))
+            ->where('partylist_id', $request->input('partylist'))
+            ->count() > 0;
+
+        if ($reElectionist) {
+            $errors[] = 'There is already a candidate for that partylist.';
+        }
+
+        if (count($errors ?? [])) {
+            Notify::warning($errors[0]);
+
+            return back();
+        }
 
         $candidate = new Candidate;
         $candidate->user_id = $request->input('user');
