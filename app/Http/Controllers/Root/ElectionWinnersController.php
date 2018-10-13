@@ -59,21 +59,13 @@ class ElectionWinnersController extends Controller
 
         collect($leaders)->each(function($leader, $loop) use ($tbWinners, $winners) {
             $positions = $tbWinners->pluck('position_id');
-            $users = $tbWinners->pluck('candidate_id');
 
             if (($posIndex = $positions->search($leader->position_id)) === false) {
                 $winners->push($leader->candidate_id);
-            } else {
-                $winners->push($users[$posIndex]);
             }
         });
 
-        // Delete randomized winners.
-        DB::table('election_winners')
-            ->where('election_id', $election->id)
-            ->delete();
-
-        // store winners in db.
+        // store winners all at once in db.
         foreach ($winners as $winner) {
             DB::table('election_winners')->insert([
                 'election_id' => $election->id,

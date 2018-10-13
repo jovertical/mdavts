@@ -101,6 +101,7 @@
                                     <thead>
                                         <tr>
                                             <th>Candidate</th>
+                                            <th>Party List</th>
                                             <th>Vote Count</th>
                                         </tr>
                                     </thead>
@@ -116,9 +117,14 @@
                                                     @endif
                                                     
                                                     <span class="ml-2">
-                                                        {{ str_limit($vote->candidate->full_name_formal, 25) }}
+                                                        {{ str_limit(optional($vote->candidate)->full_name_formal, 25) }}
                                                     </span>
                                                 </td>
+
+                                                <td>
+                                                    {{ str_limit(optional($vote->candidate->candidate->party_list)->name ?? 'Independent', 15) }}
+                                                </td>
+
                                                 <td>{{ $vote->votes }}</td>
                                             </tr>
                                         @endforeach
@@ -154,20 +160,20 @@
                             <div id="tb-footer">
                                 <!-- Links -->
                                 <div class="form-group row">
-                                    <div class="col text-left">
-                                        <button type="button" id="btn-tb-back" class="btn btn-secondary">
+                                    <div class="col">
+                                        <button type="button" id="btn-tb-back" class="btn btn-secondary mr-auto">
                                             Back
                                         </a>
                                     </div>
 
-                                    <div class="col text-center">
-                                        <button type="button" id="btn-tb-randomize" class="btn btn-warning btn-loading">
+                                    <div class="col">
+                                        <button type="button" id="btn-tb-randomize" class="btn btn-warning btn-loading ml-auto mr-auto">
                                             Randomize
                                         </button>
                                     </div>
                 
-                                    <div class="col text-right">
-                                        <button type="button" id="btn-tb-next" class="btn btn-secondary">
+                                    <div class="col">
+                                        <button type="button" id="btn-tb-next" class="btn btn-secondary ml-auto">
                                             Next
                                         </button>
                                     </div>
@@ -216,16 +222,21 @@
         var fetchTieBreakers = function (tieBreaker) {
             $.ajax({
                 type: 'GET',
-                url: "{{ route('root.elections.ties.fetch', $election) }}"
+                url: '{{ route('root.elections.ties.fetch', $election) }}'
             }).done(function (tieBreakers) {
                 var candidates = tieBreakers[tieBreaker];
-
+                
                 if (candidates) {
                     // Clear our containment areas.
                     $('#tb-header').html('');
                     $('#tb-body').html('');
-
+                    
                     $('#tb-header').append(' \
+                        <div class="mb-2 p-4"> \
+                            <p class="text-center text-warning"> \
+                                There are vote ties present. Please break all the ties. \
+                            </p> \
+                        </div> \
                         <div class="mb-2"> \
                             <h2 class="card-title text-center">'
                                 +candidates[tieBreaker].position.name+
@@ -272,26 +283,41 @@
                         ');
                     });
 
-                    // disable navigation buttons.
-                    $('#btn-tb-back').attr({disabled: tbIndex == 0});
-                    $('#btn-tb-next').attr({disabled: (tbIndex + 1) == candidates.length});
-
-                    // disable randomize button
-                    $('#btn-tb-randomize').attr({
-                        disabled: candidates.filter(function (candidate) {
-                            return candidate.has_won;
-                        }).length > 0
+                    // hide back button.
+                    $('#btn-tb-back').css({ 
+                        display: tbIndex == 0 ? 'none' : 'block' 
                     });
 
-                    // disable declare button if there's still position without a winner.
-                    $('#btn-modal-declare').attr({
-                        disabled: tieBreakers.filter(function (candidates) {
-                            return candidates.filter(function (candidate) {
-                                return candidate.has_won;
-                            }).length > 0;
-                        }).length != tieBreakers.length
-                    }); 
-                }                 
+                    // hide next button.
+                    $('#btn-tb-next').css({ 
+                        display: (tbIndex + 1) == tieBreakers.length ? 'none' : 'block' 
+                    });
+
+                    // disable randomize button
+                    $('#btn-tb-randomize').css({
+                        display: candidates.filter(function (candidate) {
+                            return candidate.has_won;
+                        }).length > 0 ? 'none' : 'block'
+                    });
+                } else {
+                    // Ties Broken.
+
+                    // Clear our containment areas.
+                    $('#tb-header').html('');
+                    $('#tb-body').html('');
+                    $('#tb-footer').html('');
+
+                    $('#tb-body').append(' \
+                        <div class="mb-2 p-4"> \
+                            <p class="text-center text-white"> \
+                                You can now declare the winners for this election. \
+                                Proceeding will make the winners official and this election will be closed. \
+                            </p> \
+                        </div> \
+                    ');
+
+                    $('#btn-modal-declare').attr({disabled: false});
+                }          
            });
         };
 
@@ -310,14 +336,16 @@
                 $('#btn-tb-randomize.btn-loading > i').remove();
 
                 // disable the button.
-                $('#btn-tb-randomize').attr({disabled: true});
+                $('#btn-tb-randomize').css({display: 'none'});
                 
                 // indicator for the winner.
                 $('.candidate-content').removeClass('selected-candidate');
                 $('.candidate-content[data-key='+user.id+']').addClass('selected-candidate');
             
                 // refetch tieBreakers.
-                fetchTieBreakers(tbIndex);
+                setTimeout(function() {
+                    fetchTieBreakers(tbIndex);
+                }, 2000);
             });
         }
 

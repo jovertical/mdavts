@@ -121,7 +121,7 @@ class ElectionRepository
         $tieBreakers = collect([]);
 
         collect(array_column($filtered, 'votes'))->each(
-            function($votes) use ($tieBreakers) {
+            function($votes, $index) use ($tieBreakers) {
                 collect($votes)->map(function($vote) use ($votes) {
                     $vote->has_won = DB::table('election_winners')
                         ->where('election_id', $this->election->id)
@@ -136,7 +136,7 @@ class ElectionRepository
                 $tieBreaker = $votes->filter(function ($vote) use ($votes) {
                         return $vote->votes == $votes[0]->votes;
                     })->values();
-
+                
                 $tieBreakers->push($tieBreaker);
         })->toArray();
 

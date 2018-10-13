@@ -30,7 +30,7 @@ class Candidate extends Model
     {
         return DB::table('election_winners')
             ->where('election_id', $this->election->id)
-            ->where('candidate_id', $this->id)
+            ->where('candidate_id', $this->user->id)
             ->count() > 0;
     }
 }
