@@ -17,14 +17,16 @@
                                 <tr>
                                     <th>Position</th>
                                     <th>Candidate</th>
+                                    <th>Party List</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @foreach($candidates as $candidate)
                                     <tr>
-                                        <td>{{ $candidate->position->name }}</td>
-                                        <td>{{ str_limit($candidate->user->full_name_formal, 25) }}</td>
+                                        <td>{{ str_limit(optional($candidate->position)->name, 15) }}</td>
+                                        <td>{{ str_limit(optional($candidate->user)->full_name_formal, 25) }}</td>
+                                        <td>{{ str_limit(optional($candidate->party_list)->name ?? 'Independent', 15) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

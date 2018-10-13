@@ -226,8 +226,8 @@ class VotesController extends Controller
             ->where('election_id', $election->id)
             ->leftJoin('positions as p', 'p.id', '=', 'candidates.position_id')
             ->orderBy('level')
-            ->select(['user_id', 'election_id', 'position_id'])
-            ->with('user')
+            ->select(['user_id', 'election_id', 'position_id', 'partylist_id'])
+            ->with(['user', 'party_list'])
             ->get();
 
         return view('front.voting.review', compact(
