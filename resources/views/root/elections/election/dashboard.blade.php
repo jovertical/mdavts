@@ -197,7 +197,11 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    @if($election->status != 'closed')
+                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    @else
+                                        <i class="fas fa-check text-success"></i>
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>
