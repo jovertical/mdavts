@@ -36,6 +36,20 @@ class ElectionResultsController extends Controller
         $file_name = $request->input('file_name');
         $file_type = $request->input('file_type');
 
+        if (empty($file_name)) {
+            $errors[] = 'Please enter a file name';
+        }
+
+        if (empty($file_type)) {
+            $errors[] = 'Please select a file type';
+        }
+
+        if (count($errors ?? [])) {
+            Notify::warning($errors[0]);
+
+            return back();
+        }
+        
         try {
             switch (strtolower($file_type)) {
                 case 'pdf':
