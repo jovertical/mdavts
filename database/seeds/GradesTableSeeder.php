@@ -13,7 +13,7 @@ class GradesTableSeeder extends Seeder
     {
         foreach (range(1, 12) as $id => $level) {
             \App\Grade::create([
-                'id' => ($id + 1),
+                'id' => $id,
                 'level' => $level,
                 'description' => "Grade Level {$level}"
             ]);
