@@ -56,6 +56,19 @@ class VotesController extends Controller
             $errors[] = 'The provided control number is already used.';
         }
 
+        $user =  User::find($control_number->voter_id);
+
+        if (! empty($user->grade_id)) {
+            $allowedGrades = DB::table('election_grades')
+                ->where('election_id', $election->id)
+                ->pluck('grade_id')
+                ->toArray();
+
+            if (! in_array($user->grade_id, $allowedGrades)) {
+                $errors[] = 'Candidate is not eligible to run in the election.';
+            }
+        }
+
         if (count($errors ?? [])) {
             session()->flash('message', [
                 'type' => 'danger',

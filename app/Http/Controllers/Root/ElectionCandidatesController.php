@@ -112,6 +112,19 @@ class ElectionCandidatesController extends Controller
             $errors[] = 'There is already a candidate for that partylist.';
         }
 
+        $user =  User::find($request->input('user'));
+
+        if (! empty($user->grade_id)) {
+            $allowedGrades = DB::table('election_grades')
+                ->where('election_id', $election->id)
+                ->pluck('grade_id')
+                ->toArray();
+
+            if (! in_array($user->grade_id, $allowedGrades)) {
+                $errors[] = 'Candidate is not eligible to run in the election.';
+            }
+        }
+
         if (count($errors ?? [])) {
             Notify::warning($errors[0]);
 

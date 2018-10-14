@@ -33,6 +33,15 @@
                 </li>
                 <!--/. Dashboard -->
 
+                <!-- Grades -->
+                <li>
+                    <a href="{{ route('root.elections.grades', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
+                        <i class="mdi mdi-format-list-numbers"></i>
+                        <span class="hide-menu">Grades</span>
+                    </a>
+                </li>
+                <!--/. Grades -->
+
                 <!-- Positions -->
                 <li>
                     <a href="{{ route('root.elections.positions', $election) }}" class="waves-effect waves-dark" aria-expanded="false">
