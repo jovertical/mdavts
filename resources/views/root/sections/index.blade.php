@@ -55,7 +55,7 @@
                                                 </a>
                                             </td>
 
-                                            <td>{{ $section->grade->level }}</td>
+                                            <td>{{ optional($section->grade)->level }}</td>
                                             <td>{{ $section->name }}</td>
                                             <td>{{ str_limit($section->description, 25) }}</td>
                                         </tr>
