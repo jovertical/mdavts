@@ -46,8 +46,9 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
 
         Route::get('imports/users', 'UsersController@showImportsPage')->name('users.import');
         Route::post('imports/users', 'UsersController@import');
-        Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
+        Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
+        
         Route::prefix('elections/{election}')->name('elections.')->group(function() {
             Route::get('dashboard', 'ElectionDashboardController@showDashboardPage')->name('dashboard');
 
@@ -67,6 +68,7 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
                 Route::get('/', 'ElectionControlNumbersController@index')->name('index');
                 Route::get('/create', 'ElectionControlNumbersController@create')->name('create');
                 Route::post('/', 'ElectionControlNumbersController@store')->name('store');
+                Route::post('export', 'ElectionControlNumbersController@export')->name('export');
             });
 
             Route::prefix('tally')->name('tally.')->group(function() {
