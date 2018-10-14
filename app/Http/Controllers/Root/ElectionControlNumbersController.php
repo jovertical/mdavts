@@ -96,7 +96,7 @@ class ElectionControlNumbersController extends Controller
                 DB::table('election_control_numbers')->insert([
                     'election_id' => $election->id,
                     'voter_id' => $user->id,
-                    'number' => mt_rand(100000, 999999)
+                    'number' => str_random(6)
                 ]);
             }
         });
