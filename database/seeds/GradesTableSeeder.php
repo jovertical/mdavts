@@ -11,8 +11,9 @@ class GradesTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (range(1, 12) as $level) {
+        foreach (range(1, 12) as $id => $level) {
             \App\Grade::create([
+                'id' => ($id + 1),
                 'level' => $level,
                 'description' => "Grade Level {$level}"
             ]);
