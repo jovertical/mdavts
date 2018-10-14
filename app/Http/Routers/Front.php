@@ -1,7 +1,7 @@
 <?php
 
 Route::namespace('Front')->name('front.')->group(function () {
-    Route::middleware('guest')->group(function() {
+    // Route::middleware('guest')->group(function() {
         Route::get('/', 'PagesController@welcome');
 
         Route::prefix('voting')->name('voting.')->group(function() {
@@ -12,5 +12,5 @@ Route::namespace('Front')->name('front.')->group(function () {
             Route::post('{election}/{user}', 'VotesController@store')->name('store');
             Route::get('{election}/{user}/review', 'VotesController@showReviewPage')->name('review');
         });
-    });
+    // });
 });

@@ -219,12 +219,12 @@
     <script>
         var tbIndex = 0;
 
-        var fetchTieBreakers = function (tieBreaker) {
+        var fetchTieBreakers = function () {
             $.ajax({
                 type: 'GET',
                 url: '{{ route('root.elections.ties.fetch', $election) }}'
             }).done(function (tieBreakers) {
-                var candidates = tieBreakers[tieBreaker];
+                var candidates = tieBreakers[tbIndex];
                 
                 if (candidates) {
                     // Clear our containment areas.
@@ -239,11 +239,11 @@
                         </div> \
                         <div class="mb-2"> \
                             <h2 class="card-title text-center">'
-                                +candidates[tieBreaker].position.name+
+                                +candidates[0].position.name+
                             '</h2> \
                             <h4 class="card-subtitle text-center"> \
                                 Tied with <code> \
-                                    '+candidates[tieBreaker].votes+' \
+                                    '+candidates[0].votes+' \
                                 </code> votes each \
                             </h4> \
                         </div> \
@@ -343,7 +343,7 @@
                 $('.candidate-content[data-key='+user.id+']').addClass('selected-candidate');
             
                 // refetch tieBreakers.
-                fetchTieBreakers(tbIndex);
+                fetchTieBreakers();
             });
         }
 
@@ -356,7 +356,7 @@
         });
 
         $('#btn-tb-back, #btn-tb-next').on('click', function (event) {
-            fetchTieBreakers(tbIndex);
+            fetchTieBreakers();
         });
 
         $('#btn-tb-randomize').on('click', function (event) {
@@ -364,7 +364,7 @@
         });
 
         $(document).ready(function(event) {
-            fetchTieBreakers(tbIndex);
+            fetchTieBreakers();
         });
     </script>
 @endsection
