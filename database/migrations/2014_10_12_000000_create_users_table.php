@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('middlename')->nullable();
             $table->string('lastname')->nullable();
             $table->date('birthdate')->nullable();
-            $table->enum('gender', ['male', 'female', ''])->nullable();
+            $table->enum('gender', ['male', 'female', 'Male', 'Female'])->nullable();
             $table->text('address')->nullable();
 
             $table->string('lrn')->nullable();

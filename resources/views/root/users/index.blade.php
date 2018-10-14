@@ -11,11 +11,27 @@
         </li>
 
         @slot('action')
-            <form method="GET" action="{{ route('root.users.create') }}">
-                <button type="submit" class="btn btn-info float-right">
-                    <i class="fa fa-plus"></i> Create
-                </button>
-            </form>
+            <div class="row float-right">
+                <div class="btn-group mr-2">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-cog mr-1"></i> Actions
+                    </button>
+                    <div class="dropdown-menu" x-placement="bottom-start">
+                        <a href="{{ route('root.users.import') }}" class="dropdown-item">
+                            <i class="fas fa-upload mr-1"></i>Import
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-download mr-1"></i>Export
+                        </a>
+                    </div>
+                </div>
+
+                <form method="GET" action="{{ route('root.users.create') }}">
+                    <button type="submit" class="btn btn-info">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                </form>
+            </div>
         @endslot
     @endcomponent
 
@@ -40,7 +56,6 @@
                                         <th>Address</th>
                                         <th>Grade</th>
                                         <th>Section</th>
-                                        <th>LRN</th>
                                     </tr>
                                 </thead>
 
@@ -79,7 +94,6 @@
                                             <td>{!! str_limit($user->address, 15) ?? '<i>No Data</i>' !!}</td>
                                             <td>{!! optional($user->grade)->level ?? '<i>No Data</i>' !!}</td>
                                             <td>{!! optional($user->section)->name ?? '<i>No Data</i>' !!}</td>
-                                            <td>{!! $user->lrn ?? '<i>No Data</i>' !!}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

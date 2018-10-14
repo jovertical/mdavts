@@ -25,15 +25,5 @@ class PositionsTableSeeder extends Seeder
             'name' => 'Secretary',
             'level' => 3,
         ]);
-
-        \App\Position::create([
-            'name' => 'PRO',
-            'level' => 4,
-        ]);
-
-        \App\Position::create([
-            'name' => 'Auditor',
-            'level' => 5,
-        ]);
     }
 }

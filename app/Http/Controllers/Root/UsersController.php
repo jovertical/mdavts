@@ -5,8 +5,15 @@ namespace App\Http\Controllers\Root;
 /**
  * Application
  */
+use App\Imports\UsersImport;
 use App\Services\{ImageUploader, Notify};
 use App\{User, Grade, Section, Election};
+
+
+/**
+ * Package Services
+ */
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Laravel
@@ -199,5 +206,33 @@ class UsersController extends Controller
         return view('root.users.control_numbers', compact(
             ['user', 'control_numbers']
         ));
+    }
+
+    /**
+     * Show Imports Page.
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\View\View
+     */
+    public function showImportsPage(Request $request)
+    {
+        return view('root.users.import');
+    }
+
+    /**
+     * Import resources.
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function import(Request $request)
+    {
+        if (Excel::import(new UsersImport, $request->file('file'))) {
+            Notify::success('Data Imported Successfully!');
+
+            return redirect()->route('root.users.index');
+        }
+
+        Notify::warning('Cannot Import Data!');
+
+        return back();
     }
 }

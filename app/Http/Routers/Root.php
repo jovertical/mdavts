@@ -44,6 +44,8 @@ Route::namespace('Root')->prefix('admin')->name('root.')->group(function () {
             'partylists' => 'PartyListsController',
         ]);
 
+        Route::get('imports/users', 'UsersController@showImportsPage')->name('users.import');
+        Route::post('imports/users', 'UsersController@import');
         Route::get('users/{user}/control-numbers', 'UsersController@showControlNumbers')->name('users.control-numbers');
 
         Route::prefix('elections/{election}')->name('elections.')->group(function() {

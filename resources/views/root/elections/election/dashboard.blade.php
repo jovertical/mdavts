@@ -310,7 +310,7 @@
                 // If the count down is finished, write some text
                 clearInterval(x);
                 document.getElementById("time").innerHTML =
-                    '<h4 class="text-danger">{{ strtoupper($election->status) }}</h4>';
+                    '<h4 class="text-{{ $election->status_class }}">{{ strtoupper($election->status) }}</h4>';
             }
         }, 1000);
     </script>
