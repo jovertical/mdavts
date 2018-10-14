@@ -88,7 +88,6 @@ class ElectionRepository
                 )
                 ->where('ew.election_id', $this->election->id)
                 ->groupBy('ev.candidate_id')
-                ->whereRaw('ew.candidate_id == ev.candidate_id')
                 ->get()
                 ->map(function ($value, $key) {
                     $value->position = Position::find($value->position_id);
