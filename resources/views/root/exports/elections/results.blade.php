@@ -5,8 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="heading">
-        <h1 class="heading-text">{{ $heading }}</h1>
+    <div class="heading-wrapper">
+        <h1 class="heading">{{ $heading }}</h1>
+        <p class="sub-heading">{{ $subHeading }}</p>
+    </div>
+
+    <div class="title-wrapper">
+        <h1 class="title">{{ $title }}</h1>
     </div>
 
     <table class="table">

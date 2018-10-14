@@ -14,12 +14,15 @@
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
             }
 
-            body {
-                margin: 0;
-                padding: 0;
+            .heading-wrapper {
+                text-align: left;
             }
 
             .heading {
+                padding-bottom: -30px;
+            }
+
+            .title-wrapper {
                 text-align: center;
             }
 

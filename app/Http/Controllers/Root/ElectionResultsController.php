@@ -53,11 +53,16 @@ class ElectionResultsController extends Controller
         try {
             switch (strtolower($file_type)) {
                 case 'pdf':
-                    $heading = "{$election->name} Results";
+                    $heading = "Mater Dei Academy";
+                    $subHeading = "
+                        KM 38 Norzagaray - Santa Maria Rd, Pulong - Buhangin, Santa Maria, 3022 Bulacan
+                    ";
+
+                    $title = "{$election->name} Results";
                     $archives = (new ElectionRepository($election))->getWinners();
 
                     return PDF::loadView('root.exports.elections.results', compact(
-                        ['archives', 'heading']
+                        ['archives', 'heading', 'subHeading', 'title']
                     ))
                     ->setPaper('a4', 'landscape')
                     ->setOptions(['dpi' => 150])
