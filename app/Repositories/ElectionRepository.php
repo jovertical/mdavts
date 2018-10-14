@@ -40,6 +40,7 @@ class ElectionRepository
                 'election_id as election',
                 DB::raw('COUNT(*) as votes')
             )
+            ->where('election_id', $this->election->id)
             ->groupBy('candidate')
             ->get()
             ->map(function($vote) {

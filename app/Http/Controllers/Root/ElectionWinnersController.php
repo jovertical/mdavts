@@ -49,21 +49,30 @@ class ElectionWinnersController extends Controller
         $tbWinners = DB::table('election_winners as w')
             ->where('w.election_id', $election->id)
             ->leftJoin('candidates as c', 'c.user_id', '=', 'w.candidate_id')
-            ->select(['c.id as candidate_id', 'c.position_id'])
-            ->get();
-
+            ->where('c.election_id', $election->id)
+            ->select(['c.user_id as candidate_id', 'c.position_id'])
+            ->get()
+            ->toArray();
+        
         /**
          * @var array
          */
         $winners = collect([]);
 
-        collect($leaders)->each(function($leader, $loop) use ($tbWinners, $winners) {
-            $positions = $tbWinners->pluck('position_id');
+        collect($leaders)->each(function($leader) use ($winners, $tbWinners) {
+            $positions = array_column($tbWinners, 'position_id');
 
-            if (($posIndex = $positions->search($leader->position_id)) === false) {
+            if (($index = array_search($leader->position_id, $positions)) === false) {
                 $winners->push($leader->candidate_id);
+            } else {
+                $winners->push($tbWinners[$index]->candidate_id);
             }
         });
+
+        // delete tie break winners.
+        DB::table('election_winners')
+            ->where('election_id', $election->id)
+            ->delete();
 
         // store winners all at once in db.
         foreach ($winners as $winner) {
